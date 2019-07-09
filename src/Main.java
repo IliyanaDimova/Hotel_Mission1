@@ -1,12 +1,22 @@
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String args[]) {
-        Manager manager1 = new Manager();
-        System.out.println(manager1.name+ " " + manager1.resp_hotel.name + " " + manager1.resp_hotel.rooms.get(1).number);
-        if(manager1.check_for_free_rooms()==false)
+        Manager manager = new Manager("Pesho Peshov");
+
+        Room room1 = new Room(1);
+        Room room2 = new Room(2);
+
+        ArrayList<Room> hotelRooms = new ArrayList<>(2);
+        hotelRooms.add(room1);
+        hotelRooms.add(room2);
+        Hotel hotel = new Hotel("Trivago", hotelRooms);
+
+        if(manager.checkForFreeRooms())
         {
-            manager1.check_the_first_available_room();
+            manager.bookTheFirstAvailableRoom();
         }
-        manager1.clear_all_bookings();
+        manager.clearAllBookings(hotel);
     }
 }
