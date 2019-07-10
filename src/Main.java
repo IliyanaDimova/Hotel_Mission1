@@ -8,13 +8,13 @@ public class Main {
         Room room1 = new Room(1);
         Room room2 = new Room(2);
 
-        ArrayList<Room> hotelRooms = new ArrayList<>(2);
+        ArrayList<Room> hotelRooms = new ArrayList<Room>(2);
         hotelRooms.add(room1);
         hotelRooms.add(room2);
         Hotel hotel = new Hotel("Trivago", hotelRooms);
+        manager.Manager(hotel);
 
-        if(manager.checkForFreeRooms())
-        {
+        if(manager.checkForFreeRooms()) {
             manager.bookTheFirstAvailableRoom();
         }
         manager.clearAllBookings(hotel);

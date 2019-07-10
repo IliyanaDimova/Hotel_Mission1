@@ -11,8 +11,7 @@ public class Hotel {
 
     ArrayList<Room> numberOfAvailableRooms(Hotel this) {
         ArrayList<Room> avaliableRooms = new ArrayList<Room>();
-        for (int i = 0; i < this.rooms.size(); i++)
-        {
+        for (int i = 0; i < this.rooms.size(); i++) {
             if(!this.rooms.get(i).checkIfBooked()) {
                 avaliableRooms.add(this.rooms.get(i));
             }
@@ -20,8 +19,8 @@ public class Hotel {
         return avaliableRooms;
     }
 
-    int hotelNumberOfRooms(Hotel hotel){
-        return hotel.rooms.size();
+    int hotelNumberOfRooms(){
+        return this.rooms.size();
     }
 
     void clearEachRoom(int currentRoomInList){

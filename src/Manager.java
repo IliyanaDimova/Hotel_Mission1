@@ -3,7 +3,7 @@ public class Manager {
     private String name;
     private Hotel hotel;
 
-    Manager(String name, Hotel hotel) {
+    void Manager(String name, Hotel hotel) {
         this.name = name;
         this.hotel = hotel;
     }
@@ -12,15 +12,13 @@ public class Manager {
         this.name = name;
     }
 
-    Manager(Hotel hotel) {
+    void Manager(Hotel hotel) {
         this.hotel = hotel;
     }
 
     boolean checkForFreeRooms() {
-        for (int i = 0; i < this.hotel.hotelNumberOfRooms(this.hotel); i++)
-        {
-            if(!this.hotel.CheckEachRoomIfBooked(i))
-            {
+        for (int i = 0; i < this.hotel.hotelNumberOfRooms(); i++) {
+            if(!this.hotel.CheckEachRoomIfBooked(i)) {
                 return true;
             }
         }
@@ -28,18 +26,15 @@ public class Manager {
     }
 
     void bookTheFirstAvailableRoom() {
-        for (int i = 0; i < this.hotel.hotelNumberOfRooms(this.hotel); i++)
-        {
-            if(!this.hotel.CheckEachRoomIfBooked(i))
-            {
+        for (int i = 0; i < this.hotel.hotelNumberOfRooms(); i++) {
+            if(!this.hotel.CheckEachRoomIfBooked(i)) {
                 this.hotel.bookTheFirstUnbookedRoom(i);
             }
         }
     }
 
     void clearAllBookings(Hotel hotel){
-        for (int i = 0; i < this.hotel.hotelNumberOfRooms(this.hotel); i++)
-        {
+        for (int i = 0; i < this.hotel.hotelNumberOfRooms(); i++) {
             hotel.clearEachRoom(i);
         }
     }
