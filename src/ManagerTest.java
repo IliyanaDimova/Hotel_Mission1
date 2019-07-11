@@ -1,13 +1,12 @@
-import org.junit.BeforeClass;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ManagerTest {
     Manager manager = new Manager("Pesho");
 
-    @Before
+    @BeforeEach
     void printSomething(){
         System.out.println("Thie is BeforeClass!");
     }
