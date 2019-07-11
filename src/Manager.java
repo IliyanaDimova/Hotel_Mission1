@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Manager {
 
     private String name;
@@ -20,6 +22,14 @@ public class Manager {
         return this.name;
     }
 
+    String getHotel(){
+        return this.hotel.getName();
+    }
+
+    ArrayList<Room> getHotelRooms(){
+        return this.hotel.getRooms();
+    }
+
     boolean checkForFreeRooms() {
         for (int i = 0; i < this.hotel.hotelNumberOfRooms(); i++) {
             if(!this.hotel.CheckEachRoomIfBooked(i)) {
@@ -32,7 +42,9 @@ public class Manager {
     void bookTheFirstAvailableRoom() {
         for (int i = 0; i < this.hotel.hotelNumberOfRooms(); i++) {
             if(!this.hotel.CheckEachRoomIfBooked(i)) {
-                this.hotel.bookTheFirstUnbookedRoom(i);
+                if(this.hotel.bookTheFirstUnbookedRoom(i)){
+                    return;
+                }
             }
         }
     }

@@ -9,6 +9,14 @@ public class Hotel {
         this.rooms = rooms;
     }
 
+    String getName(){
+        return this.name;
+    }
+
+    ArrayList<Room> getRooms(){
+        return this.rooms;
+    }
+
     ArrayList<Room> numberOfAvailableRooms(Hotel this) {
         ArrayList<Room> avaliableRooms = new ArrayList<Room>();
         for (int i = 0; i < this.rooms.size(); i++) {
@@ -31,10 +39,12 @@ public class Hotel {
         return this.rooms.get(currentRoomInList).checkIfBooked();
     }
 
-    void bookTheFirstUnbookedRoom(int currentRoomInList){
+    boolean bookTheFirstUnbookedRoom(int currentRoomInList){
         if(!this.rooms.get(currentRoomInList).checkIfBooked()){
             this.rooms.get(currentRoomInList).bookTheRoom();
+            return true;
         }
+        return false;
     }
 
 }
