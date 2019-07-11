@@ -16,6 +16,10 @@ public class Manager {
         this.hotel = hotel;
     }
 
+    String getName(){
+        return this.name;
+    }
+
     boolean checkForFreeRooms() {
         for (int i = 0; i < this.hotel.hotelNumberOfRooms(); i++) {
             if(!this.hotel.CheckEachRoomIfBooked(i)) {
