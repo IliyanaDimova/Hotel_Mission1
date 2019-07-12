@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Main {
 
@@ -20,3 +21,13 @@ public class Main {
         manager.clearAllBookings(hotel);
     }
 }
+
+//tested if prepare() works;
+        /*
+        Room room =new Room(103);
+        HashSet<AbstractCommodity> givenCommoditySet = new HashSet<>();
+        Toilet r=new Toilet();
+        givenCommoditySet.add(r);
+        room.setCommoditySet(givenCommoditySet);
+        room.prepareCommodities();
+        */

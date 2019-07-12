@@ -1,17 +1,18 @@
+//package date_time;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Date;
 
 public class Room {
 
     private int number;
-    private boolean booked;
     private HashSet<AbstractCommodity> commoditySet = new HashSet<>();
-    private int maintenanceDates;
+    private Date maintenanceDates;
     //private ArrayList<Bookings> bookings;
 
     Room(int number) {
         this.number = number;
-        this.booked = false;
+        //this.booked = false;
     }
 
     void setCommoditySet(HashSet<AbstractCommodity> givenCommoditySet){
@@ -35,10 +36,10 @@ public class Room {
 
     void prepareCommodities(){
         Iterator<AbstractCommodity> itr = this.commoditySet.iterator();
-        while(itr.hasNext())
-        {
-            this.commoditySet.itr.next().prepare();
+        for (AbstractCommodity s : this.commoditySet) {
+            s.prepare();
         }
+        //this.maintenanceDates =
     }
 
 }

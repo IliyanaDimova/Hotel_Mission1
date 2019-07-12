@@ -1,4 +1,4 @@
-public class AbstractCommodity {
+public abstract class AbstractCommodity {
     private int inventaryNumber;
     private Enum  name;
 
