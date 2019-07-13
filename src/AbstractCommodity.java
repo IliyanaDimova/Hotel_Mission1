@@ -1,9 +1,10 @@
 public abstract class AbstractCommodity {
-    private int inventaryNumber;
-    private Enum  name;
+    protected int inventaryNumber;
 
-        void prepare(){
-            //Prints preparing message
-        }
+    //returns 0 if this is Toilet or Shower, numberOfPersonas if Bed
+    abstract int getNumberOfPersonasPerBed();
+
+    //Prints message that commodity is being prepared
+     abstract void prepare();
 
 }

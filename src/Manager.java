@@ -30,7 +30,7 @@ public class Manager {
         return this.hotel.getRooms();
     }
 
-    boolean checkForFreeRooms() {
+    /*boolean checkForFreeRooms() {
         for (int i = 0; i < this.hotel.hotelNumberOfRooms(); i++) {
             if(!this.hotel.CheckEachRoomIfBooked(i)) {
                 return true;
@@ -53,6 +53,6 @@ public class Manager {
         for (int i = 0; i < this.hotel.hotelNumberOfRooms(); i++) {
             hotel.clearEachRoom(i);
         }
-    }
+    }*/
 
 }
