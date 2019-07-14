@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class Manager {
 
@@ -30,29 +33,10 @@ public class Manager {
         return this.hotel.getRooms();
     }
 
-    /*boolean checkForFreeRooms() {
-        for (int i = 0; i < this.hotel.hotelNumberOfRooms(); i++) {
-            if(!this.hotel.CheckEachRoomIfBooked(i)) {
-                return true;
-            }
-        }
-        return false;
+    Room findPerfectFitRoomOrReturnNull(String from, String to, int numberOfCouples, int numberOfPeopleSleepingAlone) throws ParseException {
+        Date dateFrom = new SimpleDateFormat("yyyy/mm/dd").parse(from);
+        Date dateTo = new SimpleDateFormat("yyyy/mm/dd").parse(to);
+        return this.hotel.findPerfectFitRoomOrReturnNull( dateFrom, dateTo, numberOfCouples, numberOfPeopleSleepingAlone);
     }
-
-    void bookTheFirstAvailableRoom() {
-        for (int i = 0; i < this.hotel.hotelNumberOfRooms(); i++) {
-            if(!this.hotel.CheckEachRoomIfBooked(i)) {
-                if(this.hotel.bookTheFirstUnbookedRoom(i)){
-                    return;
-                }
-            }
-        }
-    }
-
-    void clearAllBookings(Hotel hotel){
-        for (int i = 0; i < this.hotel.hotelNumberOfRooms(); i++) {
-            hotel.clearEachRoom(i);
-        }
-    }*/
 
 }

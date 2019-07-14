@@ -1,9 +1,10 @@
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Main {
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws ParseException {
         Manager manager = new Manager("Pesho Peshov");
 
         Room room1 = new Room(1);
@@ -57,5 +58,30 @@ public class Main {
         hotelRooms.add(room3);
         Hotel hotel = new Hotel("Trivago", hotelRooms);
         manager.Manager(hotel);
+
+        Room perfectRoomForGuest1 = new Room();
+        perfectRoomForGuest1 = manager.findPerfectFitRoomOrReturnNull("2019/07/20", "2019/07/25", 1, 0);
+        if(perfectRoomForGuest1!=null){
+            if(perfectRoomForGuest1.bookRoomForInterval("2019/07/20", "2019/07/25", "Viktor Petrovich", "6506035522")){
+                System.out.println("Room #" + perfectRoomForGuest1.getNumber() + " is booked");
+            }
+        }
+
+        Room perfectRoomForGuest2 = new Room();
+        perfectRoomForGuest2 = manager.findPerfectFitRoomOrReturnNull("2019/07/22", "2019/07/22", 0, 1);
+        if(perfectRoomForGuest2!=null){
+            if(perfectRoomForGuest2.bookRoomForInterval("2019/07/22", "2019/07/22", "Eliza Stanford", "8604024411")){
+                System.out.println("Room #" + perfectRoomForGuest2.getNumber() + " is booked");
+            }
+        }
+
+        Room perfectRoomForGuest3 = new Room();
+        perfectRoomForGuest3 = manager.findPerfectFitRoomOrReturnNull("2019/07/19", "2019/07/21", 0, 2);
+        if(perfectRoomForGuest3!=null){
+            if(perfectRoomForGuest3.bookRoomForInterval("2019/07/19", "2019/07/21", "Todor Georgiev", "8511053318")){
+                System.out.println("Room #" + perfectRoomForGuest3.getNumber() + " is booked");
+            }
+        }
+
     }
 }

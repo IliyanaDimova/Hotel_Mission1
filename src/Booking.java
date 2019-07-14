@@ -2,11 +2,11 @@ import java.util.Date;
 
 public class Booking {
     private String guestName;
-    private int guestId;
+    private String guestId;
     private Date from;
     private Date to;
 
-    void Booking(String guestName, int guestId, Date from, Date to){
+    void Booking(String guestName, String guestId, Date from, Date to){
         this.guestName = guestName;
         this.guestId = guestId;
         this.from = from;

@@ -1,12 +1,8 @@
 import java.text.ParseException;
 import java.util.HashSet;
-//import java.util.Iterator;
 import java.util.Date;
 import java.util.Calendar;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Room {
 
@@ -15,9 +11,11 @@ public class Room {
     private HashSet<Date> maintenanceDates;
     private HashSet<Booking> bookings;
 
+    Room() {
+    }
+
     Room(int number) {
         this.number = number;
-        //this.booked = false;
     }
 
     int getNumber(){
@@ -46,13 +44,13 @@ public class Room {
         this.maintenanceDates.add(Calendar.getInstance().getTime());
     }
 
-    void createBooking(String guestName, int guestId, Date from, Date to){
+    void createBooking(String guestName, String guestId, Date from, Date to){
         Booking booking = new Booking();
         booking.Booking(guestName, guestId, from, to);
         this.bookings.add(booking);
     }
 
-    void removeBooking(String guestName, int guestId, Date from, Date to){
+    void removeBooking(String guestName, String guestId, Date from, Date to){
         Booking booking = new Booking();
         booking.Booking(guestName, guestId, from, to);
         this.bookings.remove(booking);
@@ -116,5 +114,20 @@ public class Room {
         }
         else return false;
     }
+
+    boolean bookRoomForInterval(String from, String to, String guestName, String guestId) throws ParseException {
+        int sizeBookings = this.bookings.size();
+        Date dateFrom = new SimpleDateFormat("yyyy/mm/dd").parse(from);
+        Date dateTo = new SimpleDateFormat("yyyy/mm/dd").parse(to);
+        Booking booking = new Booking();
+        booking.Booking(guestName, guestId, dateFrom, dateTo);
+        this.bookings.add(booking);
+        if(sizeBookings==this.bookings.size()){
+            return false;
+        }
+        else return true;
+    }
+
+    //ArrayList<> findAvailableDatesForIntervalAndSize(){}
 
 }
