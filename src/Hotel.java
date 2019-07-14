@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Hotel {
     private String name;
@@ -17,34 +18,53 @@ public class Hotel {
         return this.rooms;
     }
 
-    ArrayList<Room> numberOfAvailableRooms(Hotel this) {
-        ArrayList<Room> avaliableRooms = new ArrayList<Room>();
-        for (int i = 0; i < this.rooms.size(); i++) {
-            if(!this.rooms.get(i).checkIfBooked()) {
-                avaliableRooms.add(this.rooms.get(i));
-            }
-        }
-        return avaliableRooms;
-    }
-
     int hotelNumberOfRooms(){
         return this.rooms.size();
     }
 
-    void clearEachRoom(int currentRoomInList){
-        this.rooms.get(currentRoomInList).clearBooking();
-    }
-
-    boolean CheckEachRoomIfBooked(int currentRoomInList){
-        return this.rooms.get(currentRoomInList).checkIfBooked();
-    }
-
-    boolean bookTheFirstUnbookedRoom(int currentRoomInList){
-        if(!this.rooms.get(currentRoomInList).checkIfBooked()){
-            this.rooms.get(currentRoomInList).bookTheRoom();
-            return true;
+    ArrayList<Room> findAllAvailableRoomsForIntervalAndSize(Date from, Date to, int numberOfPeople) {
+        ArrayList<Room> availableRooms = new ArrayList<>();
+        for (int i = 0; i < this.rooms.size(); i++) {
+            if (this.rooms.get(i).findIfAvailableForIntervalAndSize(from, to, numberOfPeople)){
+                availableRooms.add(this.rooms.get(i));
+            }
         }
-        return false;
+        return availableRooms;
+    }
+
+    /*we can't know the perfect available room for the guests
+    sometimes all "perfect" rooms are booked but the quests don't mind sleeping together in two personas bed
+    or the opposite
+     */
+    Room findPerfectFitRoomOrReturnNull(Date from, Date to, int numberOfCouples, int numberOfPeopleSleepingAlone){
+        int numberOfPeople = numberOfCouples*2 + numberOfPeopleSleepingAlone;
+        int thereIsPerfectRoom = 0;
+
+        ArrayList<Room> availableRooms = new ArrayList<>();
+        availableRooms = findAllAvailableRoomsForIntervalAndSize(from, to, numberOfPeople);
+
+        if (availableRooms.size() == 0) {
+            System.out.println("There are no acceptable rooms in this hotel!");
+            return null;
+        }
+
+        for (int i = 0; i < availableRooms.size(); i++) {
+            if (availableRooms.get(i).IsAPerfectMatchRoom(numberOfCouples, numberOfPeopleSleepingAlone)) {
+                thereIsPerfectRoom++;
+            }
+            if(thereIsPerfectRoom>0) {
+                return availableRooms.get(i);
+            }
+        }
+
+        for (int i = 0; i < availableRooms.size(); i++) {
+            int numberOfTwoPersonaBeds = availableRooms.get(i).getNumberOfTwoPersonaBeds();
+            int numberOfOnePersonaBeds = availableRooms.get(i).getNumberOfOnePersonaBeds();
+            System.out.println("Room #" + availableRooms.get(i).getNumber() + " has ");
+            System.out.println(numberOfTwoPersonaBeds + "two personas beds and" + numberOfOnePersonaBeds + "one persona beds");
+        }
+        System.out.println("Please book the room with the acceptable number of beds by choosing it's commodities!");
+        return null;
     }
 
 }

@@ -35,7 +35,7 @@ class ManagerTest {
         System.out.println("Manager's hotel's rooms are correct!");
     }
 
-    @Test
+    /*@Test
     void checkForFreeRoomsTest2() throws Exception {
         assertTrue(manager.checkForFreeRooms());
         System.out.println("All rooms are unbooked!");
@@ -45,6 +45,6 @@ class ManagerTest {
         manager.bookTheFirstAvailableRoom();
         assertFalse(manager.checkForFreeRooms());
         System.out.println("All rooms are booked!");
-    }
+    }*/
 
 }
