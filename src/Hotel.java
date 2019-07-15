@@ -1,6 +1,11 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Class Hotel is assigned to a manager. It's fields are:
+ * Hotel's name
+ * List of rooms of Class Room
+ */
 public class Hotel {
     private String name;
     private ArrayList<Room> rooms;
@@ -11,62 +16,53 @@ public class Hotel {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public ArrayList<Room> getRooms() {
-        return this.rooms;
+        return rooms;
     }
 
-    public int hotelNumberOfRooms() {
-        return this.rooms.size();
+    public int getNumberOfRooms() {
+        return rooms.size();
     }
 
     /**
-     * @param from
-     * @param to
-     * @param numberOfPeople
-     * @return
+     * Loops through all rooms in the hotel and adds the ones meeting the criteria to a List
+     *
+     * @param from   LocalDate from which the guests want to book a room in the hotel
+     * @param to     LocalDate to which the guests want to book a room in the hotel
+     * @param guests number of people that want to book a room together
+     * @return List of all rooms that have the exact capacity to hold the numberOfPeople
      */
-    public ArrayList<Room> findAllAvailableRoomsForIntervalAndSize(LocalDate from, LocalDate to, int numberOfPeople) {
+    public ArrayList<Room> findAllAvailableRoomsForIntervalAndSize(LocalDate from, LocalDate to, int guests) {
         ArrayList<Room> availableRooms = new ArrayList<>();
-        for (int i = 0; i < this.rooms.size(); i++) {
-            if (this.rooms.get(i).findIfAvailableForIntervalAndSize(from, to, numberOfPeople)) {
-                availableRooms.add(this.rooms.get(i));
+        for (int i = 0; i < rooms.size(); i++) {
+            if (rooms.get(i).availableForIntervalAndSize(from, to, guests)) {
+                availableRooms.add(rooms.get(i));
             }
         }
         return availableRooms;
     }
 
-    public Room findPerfectFitRoomOrReturnNull(LocalDate from, LocalDate to, int personas) {
-        int thereIsPerfectRoom = 0;
-
-        ArrayList<Room> availableRooms = new ArrayList<>();
-        System.out.println("First available room is # ");
-        availableRooms = this.findAllAvailableRoomsForIntervalAndSize(from, to, personas);
+    /**
+     * availableRooms is a List of rooms matching the criteria (people = sleeping places)
+     *
+     * @param from   LocalDate from which the guests want to book a room in the hotel
+     * @param to     LocalDate to which the guests want to book a room in the hotel
+     * @param guests guests wanting to book a room together
+     * @return the first room meeting the criteria
+     */
+    public Room findPerfectFitRoom(LocalDate from, LocalDate to, int guests) {
+        ArrayList<Room> availableRooms = findAllAvailableRoomsForIntervalAndSize(from, to, guests);
 
         if (availableRooms.size() == 0) {
-            System.out.println("There are no acceptable rooms in this hotel!");
+            System.out.println("There are no rooms matching the criteria!");
             return null;
+        } else {
+            System.out.println("Perfect room is room# " + availableRooms.get(0).getNumber());
+            return availableRooms.get(0);
         }
-
-        for (int i = 0; i < availableRooms.size(); i++) {
-            if (availableRooms.get(i).IsAPerfectMatchRoom(personas)) {
-                thereIsPerfectRoom++;
-            }
-            if (thereIsPerfectRoom > 0) {
-                return availableRooms.get(i);
-            }
-        }
-
-        for (int i = 0; i < availableRooms.size(); i++) {
-            int numberOfTwoPersonaBeds = availableRooms.get(i).getNumberOfTwoPersonaBeds();
-            int numberOfOnePersonaBeds = availableRooms.get(i).getNumberOfOnePersonaBeds();
-            System.out.println("Room #" + availableRooms.get(i).getNumber() + " has ");
-            System.out.println(numberOfTwoPersonaBeds + "two personas beds and" + numberOfOnePersonaBeds + "one persona beds");
-        }
-        System.out.println("Please book the room with the acceptable number of beds by choosing it's commodities!");
-        return null;
     }
 
 }

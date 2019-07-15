@@ -1,7 +1,13 @@
 import java.util.HashSet;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
+/**
+ * Class Room with fields:
+ * room number
+ * Set of Commodities - toilets, showers, beds
+ * Set of dates that the room had been prepared
+ * Set of bookings (booked from guests for time intervals)
+ */
 public class Room {
 
     private int number;
@@ -9,103 +15,155 @@ public class Room {
     private HashSet<LocalDate> maintenanceDates;
     private HashSet<Booking> bookings;
 
-    Room(int number) {
+    Room(int number, HashSet<AbstractCommodity> commoditySet) {
         this.number = number;
+        this.commoditySet = commoditySet;
+        maintenanceDates = new HashSet<>();
+        bookings = new HashSet<>();
     }
 
     public int getNumber() {
-        return this.number;
+        return number;
     }
 
     public void setCommoditySet(HashSet<AbstractCommodity> givenCommoditySet) {
-        this.commoditySet = givenCommoditySet;
+        commoditySet = givenCommoditySet;
     }
 
+    /**
+     * converts String to LocalDate
+     *
+     * @param stringDate String to be converted
+     * @return the converted LocalDate
+     */
     public LocalDate stringToLocalDate(String stringDate) {
         LocalDate date = LocalDate.parse(stringDate);
         return date;
     }
 
-    //Prepares commodities in a room & adds a maintenance record through string
+    /**
+     * Prepares all the commodities in the room by accessing the commodities through AbstractCommodities prepare()
+     *
+     * @param date to be added to room's maintenanceDates Set
+     */
     public void prepareCommodities(LocalDate date) {
-        for (AbstractCommodity s : this.commoditySet) {
-            s.prepare();
+        for (AbstractCommodity commodity : commoditySet) {
+            commodity.prepare();
         }
-        this.maintenanceDates.add(date);
+        maintenanceDates.add(date);
     }
 
+    /**
+     * Adds a booking to room's bookings Set
+     *
+     * @param guestName one of the guests that are booking the room's name
+     * @param guestId   the EGN of the same person
+     * @param from      LocalDate from which the room will be occupied by the quests
+     * @param to        LocalDate from which the room will be occupied by the quests
+     */
     public void createBooking(String guestName, String guestId, LocalDate from, LocalDate to) {
-        Booking booking = new Booking();
-        booking.Booking(guestName, guestId, from, to);
-        this.bookings.add(booking);
+        Booking booking = new Booking(guestName, guestId, from, to);
+        bookings.add(booking);
     }
 
+    /**
+     * Removes a booking from room's bookings Set
+     *
+     * @param guestName one of the guests that are booking the room's name
+     * @param guestId   the EGN of the same person
+     * @param from      LocalDate from which the room will be occupied by the quests
+     * @param to        LocalDate from which the room will be occupied by the quests
+     */
     public void removeBooking(String guestName, String guestId, LocalDate from, LocalDate to) {
-        Booking booking = new Booking();
-        booking.Booking(guestName, guestId, from, to);
-        this.bookings.remove(booking);
+        Booking booking = new Booking(guestName, guestId, from, to);
+        bookings.remove(booking);
     }
 
-    //Returns room that are unbooked for the time period & have at least the min number of beds
-    //this returned rooms will be added to arraylist and checked for the best match of beds
-    public boolean findIfAvailableForIntervalAndSize(LocalDate from, LocalDate to, int numberOfPeople) {
+    /**
+     * Finds if there are rooms matching the criteria
+     *
+     * @param from   LocalDate from which the room will be occupied by the quests
+     * @param to     LocalDate from which the room will be occupied by the quests
+     * @param guests People that wan to book the room together
+     * @return true if there are rooms matching the criteria, false if not
+     */
+    public boolean availableForIntervalAndSize(LocalDate from, LocalDate to, int guests) {
         int ovelapCount = 0;
-        int sleepingPlaces = 0;
-        this.bookings = new HashSet();
-        if (!this.bookings.isEmpty()) {
-            for (Booking s : this.bookings) {
-                if (s.checkIfDatesOverlap(from, to)) {
-                    ovelapCount++;
-                }
-            }
+        int sleepingPlaces;
+
+        if (!bookings.isEmpty()) {
+            ovelapCount = countDateOverlap(from, to);
         }
 
-        //looping through all beds and adding number of persona to sleepingPlaces
+        sleepingPlaces = countSleepingPlaces();
+
+        if ((sleepingPlaces == guests) && (ovelapCount == 0)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @return number of sleeping places in a room
+     */
+    public int countSleepingPlaces() {
+        int sleepingPlaces = 0;
         for (AbstractCommodity commodity : commoditySet) {
             if (commodity instanceof Bed) {
                 Bed bed = (Bed) commodity;
-                sleepingPlaces += bed.getNumberOfPersonaPerBed();
+                sleepingPlaces += bed.getNumberOfPersona();
             }
         }
+        return sleepingPlaces;
+    }
 
+    /**
+     * @param from LocalDate from which the room will be occupied by the quests
+     * @param to   LocalDate to which the room will be occupied by the quests
+     * @return number of times the interval from-to overlaps already booked intervals
+     */
+    public int countDateOverlap(LocalDate from, LocalDate to) {
+        int ovelapCount = 0;
+        for (Booking booking : bookings) {
+            if (booking.checkIfDatesOverlap(from, to)) {
+                ovelapCount++;
+            }
+        }
+        return ovelapCount;
+    }
 
-        if ((sleepingPlaces >= numberOfPeople) && (ovelapCount == 0)) {
+    /**
+     * Checks if guests == number of sleeping places
+     * loops through all beds in the room to get all the sleeping places
+     *
+     * @param guests number of people wanting to book the room together
+     * @return true if equal, false if not
+     */
+    public boolean IsAPerfectMatchRoom(int guests) {
+        int numberOfSleepingPlaces = 0;
+        for (AbstractCommodity commodity : commoditySet) {
+            if (commodity instanceof Bed) {
+                Bed bed = (Bed) commodity;
+                numberOfSleepingPlaces += bed.getNumberOfPersona();
+            }
+        }
+        if (numberOfSleepingPlaces == guests) {
             return true;
-        } else return false;
+        } else {
+            return false;
+        }
     }
 
-    /*public int getNumberOfTwoPersonaBeds() {
-        int number = 0;
-        for (AbstractCommodity s : this.commoditySet) {
-            if (s.getNumberOfPersonaPerBed() == 2) {
-                number++;
-            }
-        }
-        return number;
-    }
-
-    public int getNumberOfOnePersonaBeds() {
-        int number = 0;
-        for (AbstractCommodity s : this.commoditySet) {
-            if (s.getNumberOfPersonaPerBed() == 1) {
-                number++;
-            }
-        }
-        return number;
-    }*/
-
-    public boolean IsAPerfectMatchRoom(int personas) {
-        int numberOfPersonasCount = 0;
-        for (AbstractCommodity s : this.commoditySet) {
-            if (s.getNumberOfPersonasPerBed() > 0) {
-                numberOfPersonasCount++;
-            }
-        }
-        if (numberOfPersonasCount == personas) {
-            return true;
-        } else return false;
-    }
-
+    /**
+     * Converts Strings to LocalDates
+     *
+     * @param stringFrom String to be converted to LocalDate from which the quests want to book a room
+     * @param stringTo   String to be converted to LocalDate to which the quests want to book a room
+     * @param guestName  one of the guests that are booking the room's name
+     * @param guestId    the EGN of the same person
+     * @return false if Strings didn't convert to LocalDates properly, true if they did
+     */
     public boolean bookRoomForInterval(String stringFrom, String stringTo, String guestName, String guestId) {
         LocalDate from = stringToLocalDate(stringFrom);
         LocalDate to = stringToLocalDate(stringTo);
@@ -113,8 +171,8 @@ public class Room {
             System.out.println("String didn't convert to Date");
             return false;
         }
-        this.createBooking(guestName, guestId, from, to);
-        this.prepareCommodities(from);
+        createBooking(guestName, guestId, from, to);
+        prepareCommodities(from);
         return true;
     }
 

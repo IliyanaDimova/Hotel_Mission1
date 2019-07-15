@@ -5,8 +5,11 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for Class Manager
+ */
 class ManagerTest {
-    Manager manager = new Manager("Pesho");
+    /*Manager manager = new Manager("Pesho");
     ArrayList<Room> hotelRooms = new ArrayList<Room>(2);
 
     @BeforeEach
@@ -36,5 +39,5 @@ class ManagerTest {
         assertEquals(hotelRooms, manager.getHotelRooms());
         System.out.println("Manager's hotel's rooms are correct!");
     }
-
+*/
 }

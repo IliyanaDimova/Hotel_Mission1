@@ -1,16 +1,23 @@
+/**
+ * SuperClass to: Toilet Class, Shower Class, Bed Class (Commodities that are a Set field in a room)
+ * has inventory number by which commodities are recognized as hotel's property
+ */
 public abstract class AbstractCommodity {
     protected int inventoryNumber;
 
-    //Prints message that commodity is being prepared
+    /**
+     * Override method in subclasses - prints a message that the commodity is being prepared
+     */
     public abstract void prepare();
 
-    public boolean equals(AbstractCommodity obj) {
+    //underdeveloped code
+    /*public boolean equals(AbstractCommodity obj) {
         if (inventoryNumber == obj.inventoryNumber) {
             return true;
         } else return false;
     }
 
-    /*public int hashCode() {
+    public int hashCode() {
          return rank.hashCode();
      }*/
 
