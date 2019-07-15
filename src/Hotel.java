@@ -5,24 +5,29 @@ public class Hotel {
     private String name;
     private ArrayList<Room> rooms;
 
-    Hotel(String name, ArrayList<Room> rooms) {
+    Hotel(String name, ArrayList<Room> rooms)
+    {
         this.name = name;
         this.rooms = rooms;
     }
 
-    String getName(){
+    String getName()
+    {
         return this.name;
     }
 
-    ArrayList<Room> getRooms(){
+    ArrayList<Room> getRooms()
+    {
         return this.rooms;
     }
 
-    int hotelNumberOfRooms(){
+    int hotelNumberOfRooms()
+    {
         return this.rooms.size();
     }
 
-    ArrayList<Room> findAllAvailableRoomsForIntervalAndSize(Date from, Date to, int numberOfPeople) {
+    ArrayList<Room> findAllAvailableRoomsForIntervalAndSize(Date from, Date to, int numberOfPeople)
+    {
         ArrayList<Room> availableRooms = new ArrayList<>();
         for (int i = 0; i < this.rooms.size(); i++) {
             if (this.rooms.get(i).findIfAvailableForIntervalAndSize(from, to, numberOfPeople)){
@@ -32,16 +37,12 @@ public class Hotel {
         return availableRooms;
     }
 
-    /*we can't know the perfect available room for the guests
-    sometimes all "perfect" rooms are booked but the quests don't mind sleeping together in two personas bed
-    or the opposite
-     */
-    Room findPerfectFitRoomOrReturnNull(Date from, Date to, int numberOfCouples, int numberOfPeopleSleepingAlone){
-        int numberOfPeople = numberOfCouples*2 + numberOfPeopleSleepingAlone;
+    Room findPerfectFitRoomOrReturnNull(Date from, Date to, int personas)
+    {
         int thereIsPerfectRoom = 0;
 
         ArrayList<Room> availableRooms = new ArrayList<>();
-        availableRooms = findAllAvailableRoomsForIntervalAndSize(from, to, numberOfPeople);
+        availableRooms = findAllAvailableRoomsForIntervalAndSize(from, to, personas);
 
         if (availableRooms.size() == 0) {
             System.out.println("There are no acceptable rooms in this hotel!");
@@ -49,7 +50,7 @@ public class Hotel {
         }
 
         for (int i = 0; i < availableRooms.size(); i++) {
-            if (availableRooms.get(i).IsAPerfectMatchRoom(numberOfCouples, numberOfPeopleSleepingAlone)) {
+            if (availableRooms.get(i).IsAPerfectMatchRoom(personas)) {
                 thereIsPerfectRoom++;
             }
             if(thereIsPerfectRoom>0) {

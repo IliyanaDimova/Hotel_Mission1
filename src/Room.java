@@ -26,22 +26,26 @@ public class Room {
         this.commoditySet = givenCommoditySet;
     }
 
-    //Prepares commodities in a room & adds a maintenance record through string
-    void prepareCommodities(String date) throws ParseException {
-        //Iterator<AbstractCommodity> itr = this.commoditySet.iterator();
-        for (AbstractCommodity s : this.commoditySet) {
-            s.prepare();
+    Date stringToDate(String stringDate){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/mm/dd");
+        try {
+
+            Date date = formatter.parse(stringDate);
+            return date;
+
+        } catch (ParseException e) {
+            System.out.println("Parse throws exception");
+            return null;
         }
-        Date date1 = new SimpleDateFormat("yyyy/mm/dd").parse(date);
-        this.maintenanceDates.add(date1);
+
     }
 
-    //Prepares commodities in a room & adds a maintenance record with current date
-    void prepareCommoditiesWithCurrentTime(){
+    //Prepares commodities in a room & adds a maintenance record through string
+    void prepareCommodities(Date date) {
         for (AbstractCommodity s : this.commoditySet) {
             s.prepare();
         }
-        this.maintenanceDates.add(Calendar.getInstance().getTime());
+        this.maintenanceDates.add(date);
     }
 
     void createBooking(String guestName, String guestId, Date from, Date to){
@@ -98,36 +102,29 @@ public class Room {
         return number;
     }
 
-    boolean IsAPerfectMatchRoom(int numberOfCouples, int numberOfPeopleSleepingAlone){
-        int numberOfCouplesCount = 0;
-        int numberOfPeopleSleepingAloneCount = 0;
+    boolean IsAPerfectMatchRoom(int personas){
+        int numberOfPersonasCount = 0;
         for (AbstractCommodity s : this.commoditySet) {
-            if(s.getNumberOfPersonasPerBed()==2) {
-                numberOfCouplesCount++;
-            }
-            if(s.getNumberOfPersonasPerBed()==2) {
-                numberOfPeopleSleepingAloneCount++;
+            if(s.getNumberOfPersonasPerBed()>0) {
+                numberOfPersonasCount++;
             }
         }
-        if(numberOfCouplesCount==numberOfCouples && numberOfPeopleSleepingAloneCount==numberOfPeopleSleepingAlone){
+        if(numberOfPersonasCount==personas){
             return true;
         }
         else return false;
     }
 
-    boolean bookRoomForInterval(String from, String to, String guestName, String guestId) throws ParseException {
-        int sizeBookings = this.bookings.size();
-        Date dateFrom = new SimpleDateFormat("yyyy/mm/dd").parse(from);
-        Date dateTo = new SimpleDateFormat("yyyy/mm/dd").parse(to);
-        Booking booking = new Booking();
-        booking.Booking(guestName, guestId, dateFrom, dateTo);
-        this.bookings.add(booking);
-        if(sizeBookings==this.bookings.size()){
+    boolean bookRoomForInterval(String stringFrom, String stringTo, String guestName, String guestId) {
+        Date from = stringToDate(stringFrom);
+        Date to = stringToDate(stringTo);
+        if(from==null || to==null){
+            System.out.println("String didn't convert to Date");
             return false;
         }
-        else return true;
+        this.createBooking(guestName, guestId, from, to);
+        this.prepareCommodities(from);
+        return true;
     }
-
-    //ArrayList<> findAvailableDatesForIntervalAndSize(){}
 
 }

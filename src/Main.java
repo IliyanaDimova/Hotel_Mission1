@@ -60,7 +60,7 @@ public class Main {
         manager.Manager(hotel);
 
         Room perfectRoomForGuest1 = new Room();
-        perfectRoomForGuest1 = manager.findPerfectFitRoomOrReturnNull("2019/07/20", "2019/07/25", 1, 0);
+        perfectRoomForGuest1 = manager.findPerfectFitRoomOrReturnNull("2019/07/20", "2019/07/25", 2);
         if(perfectRoomForGuest1!=null){
             if(perfectRoomForGuest1.bookRoomForInterval("2019/07/20", "2019/07/25", "Viktor Petrovich", "6506035522")){
                 System.out.println("Room #" + perfectRoomForGuest1.getNumber() + " is booked");
@@ -68,7 +68,7 @@ public class Main {
         }
 
         Room perfectRoomForGuest2 = new Room();
-        perfectRoomForGuest2 = manager.findPerfectFitRoomOrReturnNull("2019/07/22", "2019/07/22", 0, 1);
+        perfectRoomForGuest2 = manager.findPerfectFitRoomOrReturnNull("2019/07/22", "2019/07/22", 1);
         if(perfectRoomForGuest2!=null){
             if(perfectRoomForGuest2.bookRoomForInterval("2019/07/22", "2019/07/22", "Eliza Stanford", "8604024411")){
                 System.out.println("Room #" + perfectRoomForGuest2.getNumber() + " is booked");
@@ -76,7 +76,7 @@ public class Main {
         }
 
         Room perfectRoomForGuest3 = new Room();
-        perfectRoomForGuest3 = manager.findPerfectFitRoomOrReturnNull("2019/07/19", "2019/07/21", 0, 2);
+        perfectRoomForGuest3 = manager.findPerfectFitRoomOrReturnNull("2019/07/19", "2019/07/21", 2);
         if(perfectRoomForGuest3!=null){
             if(perfectRoomForGuest3.bookRoomForInterval("2019/07/19", "2019/07/21", "Todor Georgiev", "8511053318")){
                 System.out.println("Room #" + perfectRoomForGuest3.getNumber() + " is booked");

@@ -8,35 +8,57 @@ public class Manager {
     private String name;
     private Hotel hotel;
 
-    void Manager(String name, Hotel hotel) {
+    void Manager(String name, Hotel hotel)
+    {
         this.name = name;
         this.hotel = hotel;
     }
 
-    Manager(String name) {
+    Manager(String name)
+    {
         this.name = name;
     }
 
-    void Manager(Hotel hotel) {
+    void Manager(Hotel hotel)
+    {
         this.hotel = hotel;
     }
 
-    String getName(){
+    String getName()
+    {
         return this.name;
     }
 
-    String getHotel(){
+    String getHotel()
+    {
         return this.hotel.getName();
     }
 
-    ArrayList<Room> getHotelRooms(){
+    ArrayList<Room> getHotelRooms()
+    {
         return this.hotel.getRooms();
     }
 
-    Room findPerfectFitRoomOrReturnNull(String from, String to, int numberOfCouples, int numberOfPeopleSleepingAlone) throws ParseException {
-        Date dateFrom = new SimpleDateFormat("yyyy/mm/dd").parse(from);
-        Date dateTo = new SimpleDateFormat("yyyy/mm/dd").parse(to);
-        return this.hotel.findPerfectFitRoomOrReturnNull( dateFrom, dateTo, numberOfCouples, numberOfPeopleSleepingAlone);
+    Date stringToDate(String stringDate)
+    {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/mm/dd");
+        try {
+
+            Date date = formatter.parse(stringDate);
+            return date;
+
+        } catch (ParseException e) {
+            System.out.println("Parse throws exception");
+            return null;
+        }
+
+    }
+
+    Room findPerfectFitRoomOrReturnNull(String stringFrom, String stringTo, int personas)
+    {
+        Date from = stringToDate(stringFrom);
+        Date to = stringToDate(stringTo);
+        return this.hotel.findPerfectFitRoomOrReturnNull( from, to, personas);
     }
 
 }
