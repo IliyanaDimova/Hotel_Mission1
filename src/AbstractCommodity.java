@@ -1,10 +1,17 @@
 public abstract class AbstractCommodity {
-    protected int inventaryNumber;
-
-    //returns 0 if this is Toilet or Shower, numberOfPersonas if Bed
-    abstract int getNumberOfPersonasPerBed();
+    protected int inventoryNumber;
 
     //Prints message that commodity is being prepared
-     abstract void prepare();
+    public abstract void prepare();
+
+    public boolean equals(AbstractCommodity obj) {
+        if (inventoryNumber == obj.inventoryNumber) {
+            return true;
+        } else return false;
+    }
+
+    /*public int hashCode() {
+         return rank.hashCode();
+     }*/
 
 }

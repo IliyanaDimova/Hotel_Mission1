@@ -1,16 +1,11 @@
 public class Shower extends AbstractCommodity {
 
-    void Shower(int givenInventaryNumber){
-        this.inventaryNumber = givenInventaryNumber;
+    Shower(int givenInventoryNumber) {
+        this.inventoryNumber = givenInventoryNumber;
     }
 
     @Override
-    int getNumberOfPersonasPerBed(){
-        return 0;
-    }
-
-    @Override
-    void prepare() {
+    public void prepare() {
         System.out.println("The shower is being cleaned");
     }
 }

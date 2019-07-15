@@ -1,48 +1,49 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Hotel {
     private String name;
     private ArrayList<Room> rooms;
 
-    Hotel(String name, ArrayList<Room> rooms)
-    {
+    Hotel(String name, ArrayList<Room> rooms) {
         this.name = name;
         this.rooms = rooms;
     }
 
-    String getName()
-    {
+    public String getName() {
         return this.name;
     }
 
-    ArrayList<Room> getRooms()
-    {
+    public ArrayList<Room> getRooms() {
         return this.rooms;
     }
 
-    int hotelNumberOfRooms()
-    {
+    public int hotelNumberOfRooms() {
         return this.rooms.size();
     }
 
-    ArrayList<Room> findAllAvailableRoomsForIntervalAndSize(Date from, Date to, int numberOfPeople)
-    {
+    /**
+     * @param from
+     * @param to
+     * @param numberOfPeople
+     * @return
+     */
+    public ArrayList<Room> findAllAvailableRoomsForIntervalAndSize(LocalDate from, LocalDate to, int numberOfPeople) {
         ArrayList<Room> availableRooms = new ArrayList<>();
         for (int i = 0; i < this.rooms.size(); i++) {
-            if (this.rooms.get(i).findIfAvailableForIntervalAndSize(from, to, numberOfPeople)){
+            if (this.rooms.get(i).findIfAvailableForIntervalAndSize(from, to, numberOfPeople)) {
                 availableRooms.add(this.rooms.get(i));
             }
         }
         return availableRooms;
     }
 
-    Room findPerfectFitRoomOrReturnNull(Date from, Date to, int personas)
-    {
+    public Room findPerfectFitRoomOrReturnNull(LocalDate from, LocalDate to, int personas) {
         int thereIsPerfectRoom = 0;
 
         ArrayList<Room> availableRooms = new ArrayList<>();
-        availableRooms = findAllAvailableRoomsForIntervalAndSize(from, to, personas);
+        System.out.println("First available room is # ");
+        availableRooms = this.findAllAvailableRoomsForIntervalAndSize(from, to, personas);
 
         if (availableRooms.size() == 0) {
             System.out.println("There are no acceptable rooms in this hotel!");
@@ -53,7 +54,7 @@ public class Hotel {
             if (availableRooms.get(i).IsAPerfectMatchRoom(personas)) {
                 thereIsPerfectRoom++;
             }
-            if(thereIsPerfectRoom>0) {
+            if (thereIsPerfectRoom > 0) {
                 return availableRooms.get(i);
             }
         }

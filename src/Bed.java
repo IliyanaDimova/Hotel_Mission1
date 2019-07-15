@@ -1,26 +1,26 @@
 public class Bed extends AbstractCommodity {
-    int numberOfPersonas;
+    private int numberOfPersonas;
 
-    void Bed(int givenInventaryNumber, int givenNumberOfPersonas){
-        this.inventaryNumber = givenInventaryNumber;
+    Bed(int givenInventoryNumber, int givenNumberOfPersonas) {
+        this.inventoryNumber = givenInventoryNumber;
         this.numberOfPersonas = givenNumberOfPersonas;
     }
 
-    void Bed(int givenInventaryNumber){
-        this.inventaryNumber = givenInventaryNumber;
+    public void Bed(int givenInventaryNumber) {
+        this.inventoryNumber = givenInventaryNumber;
     }
 
-    @Override
-    int getNumberOfPersonasPerBed(){
+    public int getNumberOfPersonaPerBed() {
         return this.numberOfPersonas;
     }
 
-    void setNumberOfPersonas(int givenNumberOfPersonas){
+    public void setNumberOfPersonas(int givenNumberOfPersonas) {
         this.numberOfPersonas = givenNumberOfPersonas;
     }
 
     @Override
-    void prepare() {
+    public void prepare() {
         System.out.println("Bed sheets are being replaced");
     }
+
 }

@@ -1,16 +1,12 @@
 public class Toilet extends AbstractCommodity {
 
-    void Toilet(int givenInventaryNumber){
-        this.inventaryNumber = givenInventaryNumber;
+    Toilet(int givenInventoryNumber) {
+        this.inventoryNumber = givenInventoryNumber;
     }
 
     @Override
-    int getNumberOfPersonasPerBed(){
-        return 0;
-    }
-
-    @Override
-    void prepare() {
+    public void prepare() {
         System.out.println("The toilet is being cleaned");
     }
+
 }
