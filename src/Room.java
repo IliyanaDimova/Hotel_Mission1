@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.time.LocalDate;
 
@@ -15,15 +16,30 @@ public class Room {
     private HashSet<LocalDate> maintenanceDates;
     private HashSet<Booking> bookings;
 
-    Room(int number, HashSet<AbstractCommodity> commoditySet) {
+    Room(int number, ArrayList<AbstractCommodity> commoditySet) {
         this.number = number;
-        this.commoditySet = commoditySet;
+        for (int i = 0; i < commoditySet.size(); i++) {
+            commoditySet.get(i).setHashCode(number);
+        }
+        this.commoditySet = new HashSet<>(commoditySet);
         maintenanceDates = new HashSet<>();
         bookings = new HashSet<>();
     }
 
     public int getNumber() {
         return number;
+    }
+
+    public HashSet<AbstractCommodity> getCommoditySet() {
+        return commoditySet;
+    }
+
+    public HashSet<LocalDate> getMaintenanceDates() {
+        return maintenanceDates;
+    }
+
+    public HashSet<Booking> getBookings() {
+        return bookings;
     }
 
     public void setCommoditySet(HashSet<AbstractCommodity> givenCommoditySet) {
@@ -109,8 +125,8 @@ public class Room {
      */
     public int countSleepingPlaces() {
         int sleepingPlaces = 0;
-        for (AbstractCommodity commodity : commoditySet) {
-            if (commodity instanceof Bed) {
+        for (AbstractCommodity commodity : this.commoditySet) {
+            if (commodity instanceof Bed && commodity.hashCode() == this.getNumber()) {
                 Bed bed = (Bed) commodity;
                 sleepingPlaces += bed.getNumberOfPersona();
             }

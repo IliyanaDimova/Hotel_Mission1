@@ -3,8 +3,9 @@
  */
 public class Toilet extends AbstractCommodity {
 
-    Toilet(int givenInventoryNumber) {
+    Toilet(int givenInventoryNumber, int roomNumber) {
         this.inventoryNumber = givenInventoryNumber;
+        hashCode = roomNumber;
     }
 
     /**
@@ -14,6 +15,16 @@ public class Toilet extends AbstractCommodity {
     @Override
     public void prepare() {
         System.out.println("The toilet is being cleaned");
+    }
+
+    @Override
+    public void setHashCode(int roomNumber){
+        hashCode = roomNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        return hashCode;
     }
 
 }

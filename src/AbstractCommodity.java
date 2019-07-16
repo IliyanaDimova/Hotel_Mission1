@@ -4,6 +4,7 @@
  */
 public abstract class AbstractCommodity {
     protected int inventoryNumber;
+    protected int hashCode;
 
     /**
      * Override method in subclasses - prints a message that the commodity is being prepared
@@ -15,10 +16,10 @@ public abstract class AbstractCommodity {
         if (inventoryNumber == obj.inventoryNumber) {
             return true;
         } else return false;
-    }
+    }*/
 
-    public int hashCode() {
-         return rank.hashCode();
-     }*/
+    public abstract void setHashCode(int roomNumber);
+
+    public abstract int hashCode();
 
 }
