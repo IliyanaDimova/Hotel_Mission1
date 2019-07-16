@@ -1,10 +1,9 @@
-import org.junit.BeforeClass;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
+package eu.deltasource.internship.hotel;
 
-import java.time.LocalDate;
+import eu.deltasource.internship.hotel.domain.*;
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,54 +13,50 @@ import static org.junit.jupiter.api.Assertions.*;
 class ManagerTest {
     private static Manager manager = new Manager("Pesho Peshov");
 
-    /**
-     * Fills in data in manager class - hotel with 1 room
-     * Shows if manager's data is filled in correctly in the classes fields
-     */
-    /*@BeforeClass
-    public static void assureManagerHotelRoomsAreCorrect() {
-        System.out.println("@BeforeClass Assure Manager Hotel Rooms Are Correct");
-
-        //Creates room1 with 1 toilet, 1 shower and 1 bed (for 2 people)
-        HashSet<AbstractCommodity> commoditySetRoom1 = new HashSet<>();
-        Toilet toilet1 = new Toilet(1);
-        commoditySetRoom1.add(toilet1);
-        Shower shower1 = new Shower(2);
-        commoditySetRoom1.add(shower1);
-        Bed bed1 = new Bed(3, 2);
-        commoditySetRoom1.add(bed1);
-        Room room1 = new Room(1, commoditySetRoom1);
-
-        //Adds the rooms to the hotel and then the hotel to the manager
-        ArrayList<Room> hotelRooms = new ArrayList<>(2);
-        hotelRooms.add(room1);
-        Hotel hotel = new Hotel("Trivago", hotelRooms);
-        manager.setHotel(hotel);
-
-        assertEquals("Pesho Peshov", manager.getName());
-        System.out.println("Manager's name is correct!");
-        assertEquals("Trivago", manager.getHotel());
-        System.out.println("Manager's hotel is correct!");
-        assertEquals(hotelRooms, hotel.getRooms());
-        System.out.println("Hotel's rooms are correct!");
-        assertEquals(1, hotel.getRooms().get(0).getNumber());
-        System.out.println("Room's number is correct!");
-        assertEquals(commoditySetRoom1, hotel.getRooms().get(0).getCommoditySet());
-        System.out.println("Room's commodity set is correct!");
-        assertEquals(room1.getMaintenanceDates(), hotel.getRooms().get(0).getMaintenanceDates());
-        System.out.println("Room's MaintenanceDates are correct!");
-        assertEquals(room1.getBookings(), hotel.getRooms().get(0).getBookings());
-        System.out.println("Room's Bookings are correct!");
-    }*/
-
     @Test
     public void assureStringToLocalDateWorks() {
-
-        assertEquals("2019-07-20", manager.stringToLocalDate("2019-07-20").toString());
+        // given
+        String stringDate = "2019-07-20";
+        //when
+        assertEquals(stringDate, manager.stringToLocalDate("2019-07-20").toString());
+        //then
         System.out.println("LocalDate to String is working!");
+
     }
 
-    //I don't know why but I BeforeClass doesn't run D:
+    @Test
+    public void assureManagerNameIsCorrect() {
+        // given
+        String name = "Pesho Peshov";
+        //when
+        assertEquals(name, manager.getName());
+        //then
+        System.out.println("main.java.eu.deltasource.internship.hotel.domain.Manager's name is correct!");
+
+    }
+
+    @Test
+    public void assureManagerHotelIsCorrect() {
+        // given
+        Hotel hotel = new Hotel();
+        //when
+        manager.setHotel(hotel);
+        assertEquals(hotel, manager.getHotel());
+        //then
+        System.out.println("main.java.eu.deltasource.internship.hotel.domain.Manager's hotel is correct!");
+    }
+
+    @Test
+    public void assure() {
+        // given
+        Hotel hotel = new Hotel();
+        //when
+        manager.setHotel(hotel);
+        assertEquals(hotel, manager.getHotel());
+        //then
+        System.out.println("main.java.eu.deltasource.internship.hotel.domain.Manager's hotel is correct!");
+    }
+
     @Test
     public void assurePerfectRoomIsReturned() {
         //Creates room1 with 1 toilet, 1 shower and 1 bed (for 2 people)
@@ -121,7 +116,7 @@ class ManagerTest {
         Room perfectRoomForGuest1;
         perfectRoomForGuest1 = manager.findPerfectFitRoom(stringFrom1, stringTo1, 2);
         assertEquals(perfectRoomForGuest1, room1);
-        System.out.println("Perfect Fit Room Is Working!");
+        System.out.println("Perfect Fit main.java.eu.deltasource.internship.hotel.domain.Room Is Working!");
     }
 
 }

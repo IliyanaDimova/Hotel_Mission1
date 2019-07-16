@@ -1,18 +1,33 @@
+package eu.deltasource.internship.hotel.domain;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Class Hotel is assigned to a manager. It's fields are:
- * Hotel's name
- * List of rooms of Class Room
+ * Class main.java.eu.deltasource.internship.hotel.domain.Hotel is assigned to a manager. It's fields are:
+ * main.java.eu.deltasource.internship.hotel.domain.Hotel's name
+ * List of rooms of Class main.java.eu.deltasource.internship.hotel.domain.Room
  */
 public class Hotel {
     private String name;
     private ArrayList<Room> rooms;
 
-    Hotel(String name, ArrayList<Room> rooms) {
+    public Hotel() {
+        this.name = "Default name";
+        this.rooms = null;
+    }
+
+    public Hotel(String name, ArrayList<Room> rooms) {
         this.name = name;
         this.rooms = rooms;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void addRoom(Room room) {
+        rooms.add(room);
     }
 
     public String getName() {

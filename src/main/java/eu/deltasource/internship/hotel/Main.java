@@ -1,8 +1,11 @@
+package eu.deltasource.internship.hotel;
+
+import eu.deltasource.internship.hotel.domain.*;
+
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
- * Main method is here
+ * main.java.eu.deltasource.internship.hotel.Main method is here
  */
 public class Main {
 
@@ -69,7 +72,7 @@ public class Main {
         //Adds the hotel to the manager
         manager.setHotel(hotel);
 
-        //Manager finds perfect fit room that meets the criteria interval & size for 2 guests 20-25Jul
+        //main.java.eu.deltasource.internship.hotel.domain.Manager finds perfect fit room that meets the criteria interval & size for 2 guests 20-25Jul
         String stringFrom1 = "2019-07-20";
         String stringTo1 = "2019-07-25";
         Room perfectRoomForGuest1;
@@ -77,7 +80,7 @@ public class Main {
         //If there is such a room he creates a booking
         if (perfectRoomForGuest1 != null) {
             if (perfectRoomForGuest1.bookRoomForInterval(stringFrom1, stringTo1, "Viktor Petrovich", "6506035522")) {
-                System.out.println("Room #" + perfectRoomForGuest1.getNumber() + " is booked");
+                System.out.println("main.java.eu.deltasource.internship.hotel.domain.Room #" + perfectRoomForGuest1.getNumber() + " is booked");
             }
         }
 
@@ -88,7 +91,7 @@ public class Main {
         perfectRoomForGuest2 = manager.findPerfectFitRoom(stringFrom2, stringTo2, 1);
         if (perfectRoomForGuest2 != null) {
             if (perfectRoomForGuest2.bookRoomForInterval(stringFrom2, stringTo2, "Eliza Stanford", "8604024411")) {
-                System.out.println("Room #" + perfectRoomForGuest2.getNumber() + " is booked");
+                System.out.println("main.java.eu.deltasource.internship.hotel.domain.Room #" + perfectRoomForGuest2.getNumber() + " is booked");
             }
         }
 
@@ -99,7 +102,7 @@ public class Main {
         perfectRoomForGuest3 = manager.findPerfectFitRoom(stringFrom3, stringTo3, 2);
         if (perfectRoomForGuest3 != null) {
             if (perfectRoomForGuest3.bookRoomForInterval(stringFrom3, stringTo3, "Todor Georgiev", "8511053318")) {
-                System.out.println("Room #" + perfectRoomForGuest3.getNumber() + " is booked");
+                System.out.println("main.java.eu.deltasource.internship.hotel.domain.Room #" + perfectRoomForGuest3.getNumber() + " is booked");
             }
         }
 

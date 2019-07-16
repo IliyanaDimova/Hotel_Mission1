@@ -1,7 +1,9 @@
+package eu.deltasource.internship.hotel.domain;
+
 import java.time.LocalDate;
 
 /**
- * Class Booking is a Set of Booking in Room Class. it's fields are:
+ * Class main.java.eu.deltasource.internship.hotel.domain.Booking is a Set of main.java.eu.deltasource.internship.hotel.domain.Booking in main.java.eu.deltasource.internship.hotel.domain.Room Class. it's fields are:
  * guestName booker's name
  * guestId booker's ID
  * LocalDate from which booking starts

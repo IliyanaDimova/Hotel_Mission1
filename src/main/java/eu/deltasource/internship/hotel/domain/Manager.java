@@ -1,17 +1,19 @@
+package eu.deltasource.internship.hotel.domain;
+
 import java.util.ArrayList;
 import java.time.LocalDate;
 
 /**
- * Manager Class with fields:
+ * main.java.eu.deltasource.internship.hotel.domain.Manager Class with fields:
  * name of the manager
- * hotel of class Hotel assigned to the manager
+ * hotel of class main.java.eu.deltasource.internship.hotel.domain.Hotel assigned to the manager
  */
 public class Manager {
 
     private String name;
     private Hotel hotel;
 
-    Manager(String name) {
+    public Manager(String name) {
         this.name = name;
         hotel = null;
     }
@@ -24,7 +26,11 @@ public class Manager {
         return name;
     }
 
-    public String getHotel() {
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public String getHotelName() {
         return hotel.getName();
     }
 

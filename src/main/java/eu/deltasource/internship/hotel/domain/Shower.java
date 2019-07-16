@@ -1,9 +1,11 @@
+package eu.deltasource.internship.hotel.domain;
+
 /**
- * SubClass to AbstractCommodity
+ * SubClass to main.java.eu.deltasource.internship.hotel.domain.AbstractCommodity
  */
 public class Shower extends AbstractCommodity {
 
-    Shower(int inventoryNumber, int roomNumber) {
+    public Shower(int inventoryNumber, int roomNumber) {
         this.inventoryNumber = inventoryNumber;
         hashCode = roomNumber;
     }

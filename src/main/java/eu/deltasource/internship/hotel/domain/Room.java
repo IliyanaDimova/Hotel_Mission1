@@ -1,9 +1,11 @@
+package eu.deltasource.internship.hotel.domain;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.time.LocalDate;
 
 /**
- * Class Room with fields:
+ * Class main.java.eu.deltasource.internship.hotel.domain.Room with fields:
  * room number
  * Set of Commodities - toilets, showers, beds
  * Set of dates that the room had been prepared
@@ -16,7 +18,7 @@ public class Room {
     private HashSet<LocalDate> maintenanceDates;
     private HashSet<Booking> bookings;
 
-    Room(int number, ArrayList<AbstractCommodity> commoditySet) {
+    public Room(int number, ArrayList<AbstractCommodity> commoditySet) {
         this.number = number;
         for (int i = 0; i < commoditySet.size(); i++) {
             commoditySet.get(i).setHashCode(number);
@@ -100,7 +102,7 @@ public class Room {
     public void removeBooking(String guestName, String guestId, LocalDate from, LocalDate to) {
         Booking booking = new Booking(guestName, guestId, from, to);
         if(booking==null){
-            System.out.println("Booking failed!");
+            System.out.println("main.java.eu.deltasource.internship.hotel.domain.Booking failed!");
             return;
         }
         bookings.remove(booking);
