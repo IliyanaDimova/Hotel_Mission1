@@ -11,15 +11,30 @@ public abstract class AbstractCommodity {
      */
     public abstract void prepare();
 
-    //underdeveloped code
-    /*public boolean equals(AbstractCommodity obj) {
-        if (inventoryNumber == obj.inventoryNumber) {
+    /**
+     * Same for every commodity
+     *
+     * @param obj The comodity
+     * @return true if equal
+     */
+    public boolean equals(AbstractCommodity obj) {
+        if (inventoryNumber == obj.inventoryNumber && obj!=null) {
             return true;
         } else return false;
-    }*/
+    }
 
+    /**
+     * Sets HashCode
+     *
+     * @param roomNumber the room number becomes the hashcode of the commodity set of the room
+     */
     public abstract void setHashCode(int roomNumber);
 
+    /**
+     * Gets the hashcode of the commodity
+     *
+     * @return hashCode
+     */
     public abstract int hashCode();
 
 }

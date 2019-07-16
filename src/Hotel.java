@@ -23,7 +23,7 @@ public class Hotel {
         return rooms;
     }
 
-    public int getNumberOfRooms() {
+    public int getRoomCount() {
         return rooms.size();
     }
 

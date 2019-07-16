@@ -9,7 +9,10 @@ public class Main {
     public static void main(String args[]) {
         Manager manager = new Manager("Pesho Peshov");
 
-        //Creates room1 with 1 toilet, 1 shower and 1 bed (for 2 people)
+        //Creates room1 with:
+        // 1 toilet
+        // 1 shower
+        // 1 bed (for 2 people)
         int roomNumber = 001;
         ArrayList<AbstractCommodity> commoditySetRoom1 = new ArrayList<>();
         Toilet toilet1 = new Toilet(1, roomNumber);
@@ -20,7 +23,10 @@ public class Main {
         commoditySetRoom1.add(bed1);
         Room room1 = new Room(roomNumber, commoditySetRoom1);
 
-        //Creates room1 with 2 toilet, 1 shower and 3 beds(2*(for 1 person) & 1*(for 2 people))
+        //Creates room1 with:
+        // 2 toilet
+        // 1 shower
+        // 3 beds(2*(for 1 person) & 1*(for 2 people))
         roomNumber = 002;
         ArrayList<AbstractCommodity> commoditySetRoom2 = new ArrayList<>();
         Toilet toilet2 = new Toilet(4, roomNumber);
@@ -37,7 +43,10 @@ public class Main {
         commoditySetRoom1.add(bed4);
         Room room2 = new Room(roomNumber, commoditySetRoom2);
 
-        //Creates room1 with 1 toilet, 1 shower and 2 beds(1*(for 1 person) + 1*(for 2 people))
+        //Creates room1 with:
+        // 1 toilet
+        // 1 shower
+        // 2 beds(1*(for 1 person) + 1*(for 2 people))
         roomNumber = 003;
         ArrayList<AbstractCommodity> commoditySetRoom3 = new ArrayList<>();
         Toilet toilet4 = new Toilet(10, roomNumber);
@@ -50,21 +59,22 @@ public class Main {
         commoditySetRoom1.add(bed6);
         Room room3 = new Room(roomNumber, commoditySetRoom3);
 
-        //Adds the rooms to the hotel and then the hotel to the manager
+        //Adds the rooms to the hotel
         ArrayList<Room> hotelRooms = new ArrayList<>(2);
         hotelRooms.add(room1);
         hotelRooms.add(room2);
         hotelRooms.add(room3);
         Hotel hotel = new Hotel("Trivago", hotelRooms);
+
+        //Adds the hotel to the manager
         manager.setHotel(hotel);
 
         //Manager finds perfect fit room that meets the criteria interval & size for 2 guests 20-25Jul
-        //If there is such a room he creates a booking
-        //Otherwise the program displays all rooms that are bigger in size but still in the time interval
         String stringFrom1 = "2019-07-20";
         String stringTo1 = "2019-07-25";
         Room perfectRoomForGuest1;
         perfectRoomForGuest1 = manager.findPerfectFitRoom(stringFrom1, stringTo1, 2);
+        //If there is such a room he creates a booking
         if (perfectRoomForGuest1 != null) {
             if (perfectRoomForGuest1.bookRoomForInterval(stringFrom1, stringTo1, "Viktor Petrovich", "6506035522")) {
                 System.out.println("Room #" + perfectRoomForGuest1.getNumber() + " is booked");

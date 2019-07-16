@@ -54,11 +54,6 @@ class ManagerTest {
         System.out.println("Room's Bookings are correct!");
     }*/
 
-    /**
-     * Shows if stringToLocalDate() works
-     *
-     * @throws Exception if String != LocalDate
-     */
     @Test
     public void assureStringToLocalDateWorks() {
 
@@ -66,6 +61,7 @@ class ManagerTest {
         System.out.println("LocalDate to String is working!");
     }
 
+    //I don't know why but I BeforeClass doesn't run D:
     @Test
     public void assurePerfectRoomIsReturned() {
         //Creates room1 with 1 toilet, 1 shower and 1 bed (for 2 people)

@@ -54,6 +54,10 @@ public class Room {
      */
     public LocalDate stringToLocalDate(String stringDate) {
         LocalDate date = LocalDate.parse(stringDate);
+        if(date==null){
+            System.out.println("Date failed to parse!");
+            return null;
+        }
         return date;
     }
 
@@ -65,6 +69,9 @@ public class Room {
     public void prepareCommodities(LocalDate date) {
         for (AbstractCommodity commodity : commoditySet) {
             commodity.prepare();
+        }
+        if(date==null){
+            System.out.println("Maintanance date add failed");
         }
         maintenanceDates.add(date);
     }
@@ -92,6 +99,10 @@ public class Room {
      */
     public void removeBooking(String guestName, String guestId, LocalDate from, LocalDate to) {
         Booking booking = new Booking(guestName, guestId, from, to);
+        if(booking==null){
+            System.out.println("Booking failed!");
+            return;
+        }
         bookings.remove(booking);
     }
 

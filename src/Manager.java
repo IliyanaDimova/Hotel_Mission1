@@ -40,6 +40,10 @@ public class Manager {
      */
     public LocalDate stringToLocalDate(String stringDate) {
         LocalDate date = LocalDate.parse(stringDate);
+        if(date==null){
+            System.out.println("Date failed to parse!");
+            return null;
+        }
         return date;
     }
 
@@ -54,6 +58,10 @@ public class Manager {
     public Room findPerfectFitRoom(String stringFrom, String stringTo, int guests) {
         LocalDate from = stringToLocalDate(stringFrom);
         LocalDate to = stringToLocalDate(stringTo);
+        if (from == null || to == null) {
+            System.out.println("String didn't convert to Date");
+            return null;
+        }
         return hotel.findPerfectFitRoom(from, to, guests);
     }
 
