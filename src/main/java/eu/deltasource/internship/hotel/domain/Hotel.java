@@ -12,13 +12,23 @@ public class Hotel {
     private String name;
     private ArrayList<Room> rooms;
 
-    public Hotel() {
-        this.name = "Default name";
-        this.rooms = null;
+    /**
+     * Hotel constructor
+     *
+     * @param name the name that will be assigned to the hotel
+     */
+    public Hotel(String name) {
+        this.name = name;
     }
 
+    /**
+     * Hotel constructor
+     *
+     * @param name  the name that will be assigned to the hotel
+     * @param rooms set of rooms for the hotel
+     */
     public Hotel(String name, ArrayList<Room> rooms) {
-        this.name = name;
+        this(name);
         this.rooms = rooms;
     }
 
@@ -26,6 +36,10 @@ public class Hotel {
         this.name = name;
     }
 
+    /**
+     * Adds a new room to the hotel
+     * @param room the room to be added
+     */
     public void addRoom(Room room) {
         rooms.add(room);
     }
@@ -45,39 +59,19 @@ public class Hotel {
     /**
      * Loops through all rooms in the hotel and adds the ones meeting the criteria to a List
      *
-     * @param from   LocalDate from which the guests want to book a room in the hotel
-     * @param to     LocalDate to which the guests want to book a room in the hotel
-     * @param guests number of people that want to book a room together
+     * @param from     LocalDate from which the guests want to book a room in the hotel
+     * @param to       LocalDate to which the guests want to book a room in the hotel
+     * @param capacity number of people that want to book a room together
      * @return List of all rooms that have the exact capacity to hold the numberOfPeople
      */
-    public ArrayList<Room> findAllAvailableRoomsForIntervalAndSize(LocalDate from, LocalDate to, int guests) {
+    public ArrayList<Room> findAvailableRooms(LocalDate from, LocalDate to, int capacity) {
         ArrayList<Room> availableRooms = new ArrayList<>();
         for (int i = 0; i < rooms.size(); i++) {
-            if (rooms.get(i).availableForIntervalAndSize(from, to, guests)) {
+            if (rooms.get(i).findIfAvailable(from, to, capacity)) {
                 availableRooms.add(rooms.get(i));
             }
         }
         return availableRooms;
-    }
-
-    /**
-     * availableRooms is a List of rooms matching the criteria (people = sleeping places)
-     *
-     * @param from   LocalDate from which the guests want to book a room in the hotel
-     * @param to     LocalDate to which the guests want to book a room in the hotel
-     * @param guests guests wanting to book a room together
-     * @return the first room meeting the criteria
-     */
-    public Room findPerfectFitRoom(LocalDate from, LocalDate to, int guests) {
-        ArrayList<Room> availableRooms = findAllAvailableRoomsForIntervalAndSize(from, to, guests);
-
-        if (availableRooms.size() == 0) {
-            System.out.println("There are no rooms matching the criteria!");
-            return null;
-        } else {
-            System.out.println("Perfect room is room# " + availableRooms.get(0).getNumber());
-            return availableRooms.get(0);
-        }
     }
 
 }

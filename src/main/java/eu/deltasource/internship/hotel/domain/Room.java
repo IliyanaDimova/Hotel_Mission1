@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.time.LocalDate;
 
 /**
- * Class main.java.eu.deltasource.internship.hotel.domain.Room with fields:
+ * Class Room (Every Hotel has a set of rooms) with fields:
  * room number
  * Set of Commodities - toilets, showers, beds
  * Set of dates that the room had been prepared
@@ -18,10 +18,16 @@ public class Room {
     private HashSet<LocalDate> maintenanceDates;
     private HashSet<Booking> bookings;
 
+    /**
+     * Room constructor
+     *
+     * @param number       the number of the room
+     * @param commoditySet toilets, showers, beds belonging to the room
+     */
     public Room(int number, ArrayList<AbstractCommodity> commoditySet) {
         this.number = number;
         for (int i = 0; i < commoditySet.size(); i++) {
-            commoditySet.get(i).setHashCode(number);
+            commoditySet.get(i).setRoom(number);
         }
         this.commoditySet = new HashSet<>(commoditySet);
         maintenanceDates = new HashSet<>();
@@ -32,37 +38,6 @@ public class Room {
         return number;
     }
 
-    public HashSet<AbstractCommodity> getCommoditySet() {
-        return commoditySet;
-    }
-
-    public HashSet<LocalDate> getMaintenanceDates() {
-        return maintenanceDates;
-    }
-
-    public HashSet<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setCommoditySet(HashSet<AbstractCommodity> givenCommoditySet) {
-        commoditySet = givenCommoditySet;
-    }
-
-    /**
-     * converts String to LocalDate
-     *
-     * @param stringDate String to be converted
-     * @return the converted LocalDate
-     */
-    public LocalDate stringToLocalDate(String stringDate) {
-        LocalDate date = LocalDate.parse(stringDate);
-        if(date==null){
-            System.out.println("Date failed to parse!");
-            return null;
-        }
-        return date;
-    }
-
     /**
      * Prepares all the commodities in the room by accessing the commodities through AbstractCommodities prepare()
      *
@@ -70,10 +45,9 @@ public class Room {
      */
     public void prepareCommodities(LocalDate date) {
         for (AbstractCommodity commodity : commoditySet) {
-            commodity.prepare();
-        }
-        if(date==null){
-            System.out.println("Maintanance date add failed");
+            if (number == commodity.hashCode()) {
+                commodity.prepare();
+            }
         }
         maintenanceDates.add(date);
     }
@@ -81,14 +55,14 @@ public class Room {
     /**
      * Adds a booking to room's bookings Set
      *
-     * @param guestName one of the guests that are booking the room's name
-     * @param guestId   the EGN of the same person
-     * @param from      LocalDate from which the room will be occupied by the quests
-     * @param to        LocalDate from which the room will be occupied by the quests
+     * @param guestId the EGN of the same person
+     * @param from    LocalDate from which the room will be occupied by the quests
+     * @param to      LocalDate from which the room will be occupied by the quests
      */
-    public void createBooking(String guestName, String guestId, LocalDate from, LocalDate to) {
-        Booking booking = new Booking(guestName, guestId, from, to);
+    public void createBooking(String guestId, LocalDate from, LocalDate to) {
+        Booking booking = new Booking(guestId, from, to);
         bookings.add(booking);
+        prepareCommodities(from);
     }
 
     /**
@@ -100,11 +74,7 @@ public class Room {
      * @param to        LocalDate from which the room will be occupied by the quests
      */
     public void removeBooking(String guestName, String guestId, LocalDate from, LocalDate to) {
-        Booking booking = new Booking(guestName, guestId, from, to);
-        if(booking==null){
-            System.out.println("main.java.eu.deltasource.internship.hotel.domain.Booking failed!");
-            return;
-        }
+        Booking booking = new Booking(guestId, from, to);
         bookings.remove(booking);
     }
 
@@ -116,17 +86,17 @@ public class Room {
      * @param guests People that wan to book the room together
      * @return true if there are rooms matching the criteria, false if not
      */
-    public boolean availableForIntervalAndSize(LocalDate from, LocalDate to, int guests) {
+    public boolean findIfAvailable(LocalDate from, LocalDate to, int guests) {
         int ovelapCount = 0;
-        int sleepingPlaces;
+        int capacity;
 
         if (!bookings.isEmpty()) {
             ovelapCount = countDateOverlap(from, to);
         }
 
-        sleepingPlaces = countSleepingPlaces();
+        capacity = countSleepingPlaces();
 
-        if ((sleepingPlaces == guests) && (ovelapCount == 0)) {
+        if ((capacity == guests) && (ovelapCount == 0)) {
             return true;
         } else {
             return false;
@@ -160,49 +130,6 @@ public class Room {
             }
         }
         return ovelapCount;
-    }
-
-    /**
-     * Checks if guests == number of sleeping places
-     * loops through all beds in the room to get all the sleeping places
-     *
-     * @param guests number of people wanting to book the room together
-     * @return true if equal, false if not
-     */
-    public boolean IsAPerfectMatchRoom(int guests) {
-        int numberOfSleepingPlaces = 0;
-        for (AbstractCommodity commodity : commoditySet) {
-            if (commodity instanceof Bed) {
-                Bed bed = (Bed) commodity;
-                numberOfSleepingPlaces += bed.getNumberOfPersona();
-            }
-        }
-        if (numberOfSleepingPlaces == guests) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Converts Strings to LocalDates
-     *
-     * @param stringFrom String to be converted to LocalDate from which the quests want to book a room
-     * @param stringTo   String to be converted to LocalDate to which the quests want to book a room
-     * @param guestName  one of the guests that are booking the room's name
-     * @param guestId    the EGN of the same person
-     * @return false if Strings didn't convert to LocalDates properly, true if they did
-     */
-    public boolean bookRoomForInterval(String stringFrom, String stringTo, String guestName, String guestId) {
-        LocalDate from = stringToLocalDate(stringFrom);
-        LocalDate to = stringToLocalDate(stringTo);
-        if (from == null || to == null) {
-            System.out.println("String didn't convert to Date");
-            return false;
-        }
-        createBooking(guestName, guestId, from, to);
-        prepareCommodities(from);
-        return true;
     }
 
 }

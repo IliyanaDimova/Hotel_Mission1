@@ -10,13 +10,18 @@ import java.time.LocalDate;
  * LocalDate to which booking ends
  */
 public class Booking {
-    private String guestName;
     private String guestId;
     private LocalDate from;
     private LocalDate to;
 
-    Booking(String guestName, String guestId, LocalDate from, LocalDate to) {
-        this.guestName = guestName;
+    /**
+     * Booking constructor
+     *
+     * @param guestId the EGN of the guest
+     * @param from    date from which the guest want to book
+     * @param to      date to which the guest want to book
+     */
+    Booking(String guestId, LocalDate from, LocalDate to) {
         this.guestId = guestId;
         this.from = from;
         this.to = to;

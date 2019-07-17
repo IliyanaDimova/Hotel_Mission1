@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -38,23 +40,25 @@ class ManagerTest {
     @Test
     public void assureManagerHotelIsCorrect() {
         // given
-        Hotel hotel = new Hotel();
+        Hotel hotel = new Hotel("test");
+
         //when
         manager.setHotel(hotel);
-        assertEquals(hotel, manager.getHotel());
+
         //then
-        System.out.println("main.java.eu.deltasource.internship.hotel.domain.Manager's hotel is correct!");
+        assertThat("Manager's hotel is incorrect!" , hotel, equalTo(manager.getHotel()));
     }
 
     @Test
     public void assure() {
         // given
         Hotel hotel = new Hotel();
+
         //when
         manager.setHotel(hotel);
-        assertEquals(hotel, manager.getHotel());
+
         //then
-        System.out.println("main.java.eu.deltasource.internship.hotel.domain.Manager's hotel is correct!");
+        assertThat("Manager's hotel is incorrect!" , hotel, equalTo(manager.getHotel()));
     }
 
     @Test

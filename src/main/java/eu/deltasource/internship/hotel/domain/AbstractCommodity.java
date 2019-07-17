@@ -6,7 +6,7 @@ package eu.deltasource.internship.hotel.domain;
  */
 public abstract class AbstractCommodity {
     protected int inventoryNumber;
-    protected int hashCode;
+    protected int numberOfTheirRoom;
 
     /**
      * Override method in subclasses - prints a message that the commodity is being prepared
@@ -19,24 +19,22 @@ public abstract class AbstractCommodity {
      * @param obj The comodity
      * @return true if equal
      */
-    public boolean equals(AbstractCommodity obj) {
-        if (inventoryNumber == obj.inventoryNumber && obj!=null) {
-            return true;
-        } else return false;
-    }
+    @Override
+    public abstract boolean equals(Object obj);
 
     /**
-     * Sets HashCode
+     * Sets the number of the room that the commodity belongs to
      *
      * @param roomNumber the room number becomes the hashcode of the commodity set of the room
      */
-    public abstract void setHashCode(int roomNumber);
+    public abstract void setRoom(int roomNumber);
 
     /**
      * Gets the hashcode of the commodity
      *
      * @return hashCode
      */
+    @Override
     public abstract int hashCode();
 
 }

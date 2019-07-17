@@ -13,13 +13,35 @@ public class Manager {
     private String name;
     private Hotel hotel;
 
+    /**
+     * Manager constructor
+     *
+     * @param name the name of the manager (String)
+     */
     public Manager(String name) {
         this.name = name;
-        hotel = null;
     }
 
-    public void setHotel(Hotel hotel) {
+    /**
+     * Assigns hotel to the manager
+     *
+     * @param hotel the hotel to be assigned
+     */
+    public void assignHotel(Hotel hotel) {
         this.hotel = hotel;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Manager))
+            return false;
+        Manager manager = (Manager) obj;
+        return (manager.name == this.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.length() * 12;
     }
 
     public String getName() {
@@ -46,7 +68,7 @@ public class Manager {
      */
     public LocalDate stringToLocalDate(String stringDate) {
         LocalDate date = LocalDate.parse(stringDate);
-        if(date==null){
+        if (date == null) {
             System.out.println("Date failed to parse!");
             return null;
         }
@@ -61,7 +83,7 @@ public class Manager {
      * @param guests     number of people wanting to book a room together
      * @return the perfect fit room (if there isn't such room return null)
      */
-    public Room findPerfectFitRoom(String stringFrom, String stringTo, int guests) {
+    /*public Room findPerfectFitRoom(String stringFrom, String stringTo, int guests) {
         LocalDate from = stringToLocalDate(stringFrom);
         LocalDate to = stringToLocalDate(stringTo);
         if (from == null || to == null) {
@@ -69,6 +91,27 @@ public class Manager {
             return null;
         }
         return hotel.findPerfectFitRoom(from, to, guests);
+    }*/
+
+    /**
+     * Through this method the manager can book a room for the time interval and size
+     *
+     * @param guestId  The EGN of one of the guests that want to book the same room
+     * @param from     date from which the guests want to book the room
+     * @param to       date to which the guests want to book the room
+     * @param capacity how many guests want to book the room
+     * @return the number of the booked room
+     * @throws Exception if no room was booked
+     */
+    public int createBooking(String guestId, LocalDate from, LocalDate to, int capacity) throws Exception {
+        ArrayList<Room> availableRooms = new ArrayList<>();
+        availableRooms = hotel.findAvailableRooms(from, to, capacity);
+        if (availableRooms.size() > 0) {
+            availableRooms.get(0).createBooking(guestId, from, to);
+        } else {
+            throw new Exception("There are no available rooms for " + capacity + " people from: " + from.toString() + " to: " + to.toString());
+        }
+        return availableRooms.get(0).getNumber();
     }
 
 }

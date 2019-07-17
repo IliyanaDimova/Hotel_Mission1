@@ -2,6 +2,7 @@ package eu.deltasource.internship.hotel;
 
 import eu.deltasource.internship.hotel.domain.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -10,9 +11,10 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String args[]) {
+        //Creats a manager
         Manager manager = new Manager("Pesho Peshov");
 
-        //Creates room1 with:
+        //Creates room#001 with:
         // 1 toilet
         // 1 shower
         // 1 bed (for 2 people)
@@ -26,7 +28,7 @@ public class Main {
         commoditySetRoom1.add(bed1);
         Room room1 = new Room(roomNumber, commoditySetRoom1);
 
-        //Creates room1 with:
+        //Creates room#002 with:
         // 2 toilet
         // 1 shower
         // 3 beds(2*(for 1 person) & 1*(for 2 people))
@@ -46,7 +48,7 @@ public class Main {
         commoditySetRoom1.add(bed4);
         Room room2 = new Room(roomNumber, commoditySetRoom2);
 
-        //Creates room1 with:
+        //Creates room#003 with:
         // 1 toilet
         // 1 shower
         // 2 beds(1*(for 1 person) + 1*(for 2 people))
@@ -70,41 +72,25 @@ public class Main {
         Hotel hotel = new Hotel("Trivago", hotelRooms);
 
         //Adds the hotel to the manager
-        manager.setHotel(hotel);
+        manager.assignHotel(hotel);
 
-        //main.java.eu.deltasource.internship.hotel.domain.Manager finds perfect fit room that meets the criteria interval & size for 2 guests 20-25Jul
-        String stringFrom1 = "2019-07-20";
-        String stringTo1 = "2019-07-25";
-        Room perfectRoomForGuest1;
-        perfectRoomForGuest1 = manager.findPerfectFitRoom(stringFrom1, stringTo1, 2);
-        //If there is such a room he creates a booking
-        if (perfectRoomForGuest1 != null) {
-            if (perfectRoomForGuest1.bookRoomForInterval(stringFrom1, stringTo1, "Viktor Petrovich", "6506035522")) {
-                System.out.println("main.java.eu.deltasource.internship.hotel.domain.Room #" + perfectRoomForGuest1.getNumber() + " is booked");
-            }
-        }
+        //manager books room that meets the criteria for 2 guests 20-25Jul
+        LocalDate from = manager.stringToLocalDate("2019-07-20"); // Converts string to LocalDate
+        LocalDate to = manager.stringToLocalDate("2019-07-25");
+        int bookedRoomNum = manager.createBooking("9306236677", from, to, 2);
+        System.out.println("Room #" + bookedRoomNum + " was booked from: " + from.toString() + " to: " + to.toString());
 
-        //the same but for 1 guest 22Jul
-        String stringFrom2 = "2019-07-22";
-        String stringTo2 = "2019-07-22";
-        Room perfectRoomForGuest2;
-        perfectRoomForGuest2 = manager.findPerfectFitRoom(stringFrom2, stringTo2, 1);
-        if (perfectRoomForGuest2 != null) {
-            if (perfectRoomForGuest2.bookRoomForInterval(stringFrom2, stringTo2, "Eliza Stanford", "8604024411")) {
-                System.out.println("main.java.eu.deltasource.internship.hotel.domain.Room #" + perfectRoomForGuest2.getNumber() + " is booked");
-            }
-        }
+        //manager books room that meets the criteria for 1 guest 22Jul
+        from = manager.stringToLocalDate("2019-07-22");
+        to = manager.stringToLocalDate("2019-07-22");
+        bookedRoomNum = manager.createBooking("8901305687", from, to, 1);
+        System.out.println("Room #" + bookedRoomNum + " was booked from: " + from.toString() + " to: " + to.toString());
 
-        //the same but for 2 guests 19-21Jul
-        String stringFrom3 = "2019-07-19";
-        String stringTo3 = "2019-07-21";
-        Room perfectRoomForGuest3;
-        perfectRoomForGuest3 = manager.findPerfectFitRoom(stringFrom3, stringTo3, 2);
-        if (perfectRoomForGuest3 != null) {
-            if (perfectRoomForGuest3.bookRoomForInterval(stringFrom3, stringTo3, "Todor Georgiev", "8511053318")) {
-                System.out.println("main.java.eu.deltasource.internship.hotel.domain.Room #" + perfectRoomForGuest3.getNumber() + " is booked");
-            }
-        }
+        //manager books room that meets the criteria for 2 guests 19-21Jul
+        from = manager.stringToLocalDate("2019-07-19");
+        to = manager.stringToLocalDate("2019-07-21");
+        bookedRoomNum = manager.createBooking("9803225785", from, to, 2);
+        System.out.println("Room #" + bookedRoomNum + " was booked from: " + from.toString() + " to: " + to.toString());
 
     }
 }
