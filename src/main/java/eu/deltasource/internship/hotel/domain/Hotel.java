@@ -2,17 +2,29 @@ package eu.deltasource.internship.hotel.domain;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Class main.java.eu.deltasource.internship.hotel.domain.Hotel is assigned to a manager. It's fields are:
  * main.java.eu.deltasource.internship.hotel.domain.Hotel's name
  * List of rooms of Class main.java.eu.deltasource.internship.hotel.domain.Room
+ * roomNumCount is a static variable that saves the last assigned room number (in order to create unique room numbers)
  */
 public class Hotel {
     private String name;
-    private ArrayList<Room> rooms;
+    private Set<Room> rooms;
+    private static int roomNumCount;
 
-    public Hotel()
+    /**
+     * Empty Hotel constructor (initializes all fields)
+     */
+    public Hotel() {
+        name = new String();
+        rooms = new HashSet();
+        roomNumCount = 0;
+    }
 
     /**
      * Hotel constructor
@@ -21,6 +33,8 @@ public class Hotel {
      */
     public Hotel(String name) {
         this.name = name;
+        rooms = new HashSet();
+        roomNumCount = 0;
     }
 
     /**
@@ -29,9 +43,13 @@ public class Hotel {
      * @param name  the name that will be assigned to the hotel
      * @param rooms set of rooms for the hotel
      */
-    public Hotel(String name, ArrayList<Room> rooms) {
+    public Hotel(String name, Set<Room> rooms) {
         this(name);
         this.rooms = rooms;
+    }
+
+    public int getRoomNumCount(){
+        return roomNumCount;
     }
 
     public void setName(String name) {
@@ -43,12 +61,12 @@ public class Hotel {
     }
 
     public void setRooms(ArrayList<Room> givenRooms) {
-        for (int i=0; i<givenRooms.size(); i++){
+        for (int i = 0; i < givenRooms.size(); i++) {
             rooms.add(givenRooms.get(i));
         }
     }
 
-    public ArrayList<Room> getRooms() {
+    public Set<Room> getRooms() {
         return rooms;
     }
 
@@ -58,6 +76,7 @@ public class Hotel {
 
     /**
      * Adds a new room to the hotel
+     *
      * @param room the room to be added
      */
     public void addRoom(Room room) {
@@ -72,11 +91,11 @@ public class Hotel {
      * @param capacity number of people that want to book a room together
      * @return List of all rooms that have the exact capacity to hold the numberOfPeople
      */
-    public ArrayList<Room> findAvailableRooms(LocalDate from, LocalDate to, int capacity) {
-        ArrayList<Room> availableRooms = new ArrayList<>();
-        for (int i = 0; i < rooms.size(); i++) {
-            if (rooms.get(i).findIfAvailable(from, to, capacity)) {
-                availableRooms.add(rooms.get(i));
+    public Set<Room> findAvailableRooms(LocalDate from, LocalDate to, int capacity) {
+        Set<Room> availableRooms = new HashSet<>();
+        for (Room room : this.getRooms()) {
+            if (room.findIfAvailable(from, to, capacity)) {
+                availableRooms.add(room);
             }
         }
         return availableRooms;

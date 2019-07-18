@@ -26,13 +26,13 @@ public class Room {
      * @param number       the number of the room
      * @param commoditySet toilets, showers, beds belonging to the room
      */
-    public Room(Set<AbstractCommodity> commoditySet) {
+    /*public Room(Set<AbstractCommodity> commoditySet) {
         number = roomNumCount;
         roomNumCount++;
         this.commoditySet = commoditySet;
         maintenanceDates = new HashSet<>();
         bookings = new HashSet<>();
-    }
+    }*/
 
     public Room(int roomNumber) {
         number = roomNumber;

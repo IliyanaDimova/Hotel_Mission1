@@ -1,7 +1,8 @@
 package eu.deltasource.internship.hotel.domain;
 
-import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * main.java.eu.deltasource.internship.hotel.domain.Manager Class with fields:
@@ -61,7 +62,7 @@ public class Manager {
         return hotel.getName();
     }
 
-    public ArrayList<Room> getHotelRooms() {
+    public Set<Room> getHotelRooms() {
         return hotel.getRooms();
     }
 
@@ -91,14 +92,19 @@ public class Manager {
      * @throws Exception if no room was booked
      */
     public int createBooking(String guestId, LocalDate from, LocalDate to, int capacity) throws MyException {
-        ArrayList<Room> availableRooms = new ArrayList<>();
+        Set<Room> availableRooms = new HashSet<>();
         availableRooms = hotel.findAvailableRooms(from, to, capacity);
-        if (availableRooms.size() >= 1) {
-            availableRooms.get(0).createBooking(guestId, from, to);
+        int bookedRoomNum = 0;
+        if (!availableRooms.isEmpty()) {
+            for (Room room : availableRooms) {
+                bookedRoomNum = room.getNumber();
+                room.createBooking(guestId, from, to);
+                break;
+            }
         } else {
             throw new MyException("There are no available rooms for " + capacity + " people from: " + from.toString() + " to: " + to.toString());
         }
-        return availableRooms.get(0).getNumber();
+        return bookedRoomNum;
     }
 
 }
