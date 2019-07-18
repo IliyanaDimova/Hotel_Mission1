@@ -1,10 +1,17 @@
 package eu.deltasource.internship.hotel.domain;
 
+//todo constructor and implementation
 public enum BedType {
-    SINGLE,
     DOUBLE,
+    SINGLE,
     KINGSIZE;
+    /* SINGLE(1),
+     DOUBLE(2),
+     KINGSIZE(3)
+     ;*/
+    // private int size;
 
+    //todo won't need this then
     public int getNumOfPersona() {
         switch (this) {
             case SINGLE:
@@ -16,4 +23,10 @@ public enum BedType {
         }
         return 0;
     }
+
+    /*
+    BedType(int size) {
+        this.size = size;
+    }
+    */
 }

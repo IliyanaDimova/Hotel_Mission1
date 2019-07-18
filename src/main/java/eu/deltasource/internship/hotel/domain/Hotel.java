@@ -14,7 +14,6 @@ import java.util.Set;
  */
 public class Hotel {
     private String name;
-<<<<<<< HEAD
     private Set<Room> rooms;
     private static int roomNumCount;
 
@@ -26,10 +25,6 @@ public class Hotel {
         rooms = new HashSet();
         roomNumCount = 0;
     }
-=======
-    private ArrayList<Room> rooms;
-    //todo roomCount
->>>>>>> 9ba9273b8c11bfe1bc86c2222b718e8ec56dd317
 
     /**
      * Hotel constructor
@@ -38,12 +33,8 @@ public class Hotel {
      */
     public Hotel(String name) {
         this.name = name;
-<<<<<<< HEAD
         rooms = new HashSet();
         roomNumCount = 0;
-=======
-        //todo initialize roomCount
->>>>>>> 9ba9273b8c11bfe1bc86c2222b718e8ec56dd317
     }
 
     /**

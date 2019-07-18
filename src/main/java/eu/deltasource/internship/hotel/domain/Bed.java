@@ -2,7 +2,7 @@ package eu.deltasource.internship.hotel.domain;
 
 import java.util.HashSet;
 
-/**
+/** //todo clean up
  * SubClass to main.java.eu.deltasource.internship.hotel.domain.AbstractCommodity
  * HAS ADDITIONAL FIELD that contains how any people can sleep in the same bed
  */
@@ -56,7 +56,7 @@ public class Bed extends AbstractCommodity {
      * {@linkAbstractCommodity}
      */
     @Override
-    public void prepare() {
+    public void prepare() {//todo {main.java.eu.deltasource.internship.hotel.domain}
         System.out.println("main.java.eu.deltasource.internship.hotel.domain.Bed sheets are being replaced");
     }
 

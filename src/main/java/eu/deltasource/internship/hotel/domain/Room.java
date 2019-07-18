@@ -107,14 +107,16 @@ public class Room {
         if (!bookings.isEmpty()) {
             ovelapCount = countDateOverlap(from, to);
         }
-
+        //todo too many empty spaces
         capacity = countSleepingPlaces();
-
+        //todo if the capacity is bigger, can't guests stay?
         if ((capacity == guests) && (ovelapCount == 0)) {
             return true;
         } else {
             return false;
         }
+
+        //todo return ((capacity == guests) && (overlapCount==0)) ? true:false;
     }
 
     /**
@@ -132,7 +134,7 @@ public class Room {
         return sleepingPlaces;
     }
 
-    /**
+    /** //todo explanation, not only params
      * @param from LocalDate from which the room will be occupied by the quests
      * @param to   LocalDate to which the room will be occupied by the quests
      * @return number of times the interval from-to overlaps already booked intervals
@@ -144,7 +146,7 @@ public class Room {
                 ovelapCount++;
             }
         }
-        return ovelapCount;
+        return ovelapCount; //todo shouldn't this return a boolean?
     }
 
 }
