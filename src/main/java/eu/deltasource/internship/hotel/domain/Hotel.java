@@ -1,9 +1,7 @@
 package eu.deltasource.internship.hotel.domain;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,6 +16,15 @@ public class Hotel {
     private static int roomNumCount;
 
     /**
+     * Empty Hotel constructor (initializes all fields)
+     */
+    public Hotel() {
+        name = new String();
+        rooms = new HashSet();
+        roomNumCount = 1;
+    }
+
+    /**
      * Hotel constructor
      *
      * @param name the name that will be assigned to the hotel
@@ -27,17 +34,6 @@ public class Hotel {
         rooms = new HashSet();
         roomNumCount = 1;
     }
-
-    /**
-     * Hotel constructor
-     *
-     * @param name  the name that will be assigned to the hotel
-     */
-    /*public Hotel(String name, Set<Room> rooms) {
-        this(name);
-        this.rooms = rooms;
-        //todo roomcount = rooms.size()
-    }*/
 
     public void setName(String name) {
         this.name = name;

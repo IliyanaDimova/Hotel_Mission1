@@ -2,8 +2,8 @@ package eu.deltasource.internship.hotel.domain;
 
 import java.util.HashSet;
 
-/** //todo clean up
- * SubClass to main.java.eu.deltasource.internship.hotel.domain.AbstractCommodity
+/**
+ * SubClass to AbstractCommodity
  * HAS ADDITIONAL FIELD that contains how any people can sleep in the same bed
  */
 public class Bed extends AbstractCommodity {
@@ -14,41 +14,14 @@ public class Bed extends AbstractCommodity {
      *
      * @param inventoryNumber int number unique for any commodity
      * @param bedType         enum BedType
-     * @param roomNumber      number of the room the bed belongs
-     * @throws Exception if inventoryNumber is not unique
      */
-    public Bed(int inventoryNumber, BedType bedType, int roomNumber) throws NoRoomsAvailableException {
-        if (checkIfInventoryNumIsUnique(inventoryNumber)) {
-            this.inventoryNumber = inventoryNumber;
-            this.bedType = bedType;
-            numberOfTheirRoom = roomNumber;
-        } else {
-            throw new NoRoomsAvailableException("Commodity already exists!");
-        }
-    }
-
-    /**
-     * Checks if inventory number is already token by another commodity
-     *
-     * @param inventoryNumber
-     * @return false if taken, true if inventory number is unique
-     */
-    public boolean checkIfInventoryNumIsUnique(int inventoryNumber) {
-        HashSet<AbstractCommodity> allCommodities = new HashSet<>();
-        for (AbstractCommodity commodity : allCommodities) {
-            if (inventoryNumber == commodity.hashCode()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public void setRoom(int roomNumber) {
-        numberOfTheirRoom = roomNumber;
+    public Bed(int inventoryNumber, BedType bedType) throws NoRoomsAvailableException {
+        this.bedType = bedType;
+        throw new NoRoomsAvailableException("Commodity already exists!");
     }
 
     public int getNumberOfPersona() {
-        return bedType.getNumOfPersona();
+        return bedType.getSize();
     }
 
     /**
@@ -56,8 +29,8 @@ public class Bed extends AbstractCommodity {
      * {@linkAbstractCommodity}
      */
     @Override
-    public void prepare() {//todo {main.java.eu.deltasource.internship.hotel.domain}
-        System.out.println("main.java.eu.deltasource.internship.hotel.domain.Bed sheets are being replaced");
+    public void prepare() {
+        System.out.println("Bed sheets are being replaced");
     }
 
     @Override
@@ -70,7 +43,7 @@ public class Bed extends AbstractCommodity {
 
     @Override
     public int hashCode() {
-        return numberOfTheirRoom;
+        return inventoryNumber;
     }
 
 }

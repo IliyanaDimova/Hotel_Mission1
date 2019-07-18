@@ -1,33 +1,64 @@
 package eu.deltasource.internship.hotel;
 
 import eu.deltasource.internship.hotel.domain.*;
+import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
+import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RoomTest {
 
-    public void testCreatingARoom() {
+    @Test
+    public void testScenarioOne() {
         //given
-        Manager manager = new Manager("Pesho Peshov");
-
-        Toilet toilet1 = new Toilet(1, 1);
-
-
-        Room r = new Room(1);
-        r.addCommodity(toilet1);
-
-        int roomNumber = r.getRoomNumCount();
-        HashSet<AbstractCommodity> commoditySetRoom1 = new HashSet<>();
-        commoditySetRoom1.add(toilet1);
-        Shower shower1 = new Shower(2, roomNumber);
-        commoditySetRoom1.add(shower1);
-        Bed bed1 = new Bed(3, BedType.DOUBLE, roomNumber);
-        commoditySetRoom1.add(bed1);
-        Room room1 = new Room(commoditySetRoom1);
-
-
+        Manager manager = new Manager("Pesho");
+        Hotel hotel = new Hotel("Trivago");
+        Room room = new Room(hotel.getRoomNumCount());
+        hotel.addRoom(room);
+        manager.assignHotel(hotel);
+        Bed bed = new Bed(1, BedType.DOUBLE);
+        room.addCommodity(bed);
         //when
-
+        LocalDate from = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
+        LocalDate to = manager.stringToLocalDate("2019-01-02");
+        int bookedRoomNum = manager.createBooking("peter-id", from, to, 2);
         //then
+        assertEquals(bookedRoomNum, 1);
+    }
+
+    @Test
+    public void testScenarioTwo() {
+        //given
+        Manager manager = new Manager("Pesho");
+        Hotel hotel = new Hotel("Trivago");
+        manager.assignHotel(hotel);
+        //when
+        LocalDate from = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
+        LocalDate to = manager.stringToLocalDate("2019-01-02");
+        //then
+        assertThrows(NoRoomsAvailableException.class, () -> {
+            manager.createBooking("peter-id", from, to, 2);
+        });
+    }
+
+    @Test
+    public void testScenarioTree() {
+        //given
+        Manager manager = new Manager("Pesho");
+        Hotel hotel = new Hotel("Trivago");
+        Room room = new Room(hotel.getRoomNumCount());
+        hotel.addRoom(room);
+        manager.assignHotel(hotel);
+        Bed bed = new Bed(1, BedType.SINGLE);
+        room.addCommodity(bed);
+        //when
+        LocalDate from = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
+        LocalDate to = manager.stringToLocalDate("2019-01-02");
+        //then
+        assertThrows(NoRoomsAvailableException.class, () -> {
+            manager.createBooking("peter-id", from, to, 2);
+        });
     }
 }

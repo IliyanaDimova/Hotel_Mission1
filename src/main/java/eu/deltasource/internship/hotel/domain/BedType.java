@@ -1,32 +1,27 @@
 package eu.deltasource.internship.hotel.domain;
 
-//todo constructor and implementation
+/**
+ * Enum that indicates the type of the bed and how many people can sleep on it
+ * Every Bed has a BedType
+ */
 public enum BedType {
-    DOUBLE,
-    SINGLE,
-    KINGSIZE;
-    /* SINGLE(1),
-     DOUBLE(2),
-     KINGSIZE(3)
-     ;*/
-    // private int size;
+    SINGLE(1),
+    DOUBLE(2),
+    KINGSIZE(2);
 
-    //todo won't need this then
-    public int getNumOfPersona() {
-        switch (this) {
-            case SINGLE:
-                return 1;
-            case DOUBLE:
-                return 2;
-            case KINGSIZE:
-                return 2;
-        }
-        return 0;
-    }
+    private int size;
 
-    /*
+    /**
+     * Constructor
+     *
+     * @param size the persona of the bed
+     */
     BedType(int size) {
         this.size = size;
     }
-    */
+
+    public int getSize() {
+        return size;
+    }
+
 }

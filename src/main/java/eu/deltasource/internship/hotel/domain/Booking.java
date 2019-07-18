@@ -2,15 +2,15 @@ package eu.deltasource.internship.hotel.domain;
 
 import java.time.LocalDate;
 
-/** //todo clean up javadoc {main.java.eu.deltasource.internship.hotel.domain}
- * Class main.java.eu.deltasource.internship.hotel.domain.Booking is a Set of main.java.eu.deltasource.internship.hotel.domain.Booking in main.java.eu.deltasource.internship.hotel.domain.Room Class. it's fields are:
+/**
+ * Class Booking in Room Class. it's fields are:
  * guestName booker's name
  * guestId booker's ID
  * LocalDate from which booking starts
  * LocalDate to which booking ends
  */
 public class Booking {
-    private String guestId; //todo this is not being used
+    private String guestId;
     private LocalDate from;
     private LocalDate to;
 

@@ -5,14 +5,13 @@ import eu.deltasource.internship.hotel.domain.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * main.java.eu.deltasource.internship.hotel.Main method is here
  */
 public class Main {
 
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
         //Creats a manager
         Manager manager = new Manager("Pesho Peshov");
 
@@ -20,6 +19,7 @@ public class Main {
         Hotel hotel = new Hotel();
         hotel.setName("Trivago");
 
+        new Bed(1, BedType.KINGSIZE, 1);
         //Creates room#1 with:
         // 1 toilet
         // 1 shower
@@ -96,5 +96,5 @@ public class Main {
         bookedRoomNum = manager.createBooking("9803225785", from, to, 2);
         System.out.println("Room #" + bookedRoomNum + " was booked from: " + from.toString() + " to: " + to.toString());
 
-    }
+    }*/
 }

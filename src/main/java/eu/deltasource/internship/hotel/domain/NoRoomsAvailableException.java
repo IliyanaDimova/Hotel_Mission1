@@ -1,6 +1,8 @@
 package eu.deltasource.internship.hotel.domain;
 
-//todo add JavaDoc
+/**
+ * Custom RunTime Exception
+ */
 public class NoRoomsAvailableException extends RuntimeException {
 
     NoRoomsAvailableException(String message){

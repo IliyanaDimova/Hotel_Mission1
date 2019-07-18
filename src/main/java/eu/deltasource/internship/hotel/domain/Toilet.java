@@ -2,8 +2,8 @@ package eu.deltasource.internship.hotel.domain;
 
 import java.util.HashSet;
 
-/** //todo clean up
- * SubClass to main.java.eu.deltasource.internship.hotel.domain.AbstractCommodity
+/**
+ * SubClass to AbstractCommodity
  */
 public class Toilet extends AbstractCommodity {
 
@@ -11,41 +11,10 @@ public class Toilet extends AbstractCommodity {
      * Toilet constructor.  It checks if a toilet with the same invNum already exists.
      *
      * @param givenInventoryNumber int number unique for any commodity
-     * @param roomNumber           number of the room the bed belongs
-     * @throws Exception if inventoryNumber is not unique
      */
-    public Toilet(int givenInventoryNumber, int roomNumber) throws NoRoomsAvailableException {
-        if (checkIfInventoryNumIsUnique(inventoryNumber)) {
-            this.inventoryNumber = givenInventoryNumber;
-            numberOfTheirRoom = roomNumber;
-        } else {
-            throw new NoRoomsAvailableException("Commodity already exists!");
-        }
-    }
-
-    /**
-     * Checks if inventory number is already token by another commodity
-     *
-     * @param inventoryNumber
-     * @return false if taken, true if inventory number is unique
-     */
-    public boolean checkIfInventoryNumIsUnique(int inventoryNumber) {
-        HashSet<AbstractCommodity> allCommodities = new HashSet<>();
-        for (AbstractCommodity commodity : allCommodities) {
-            if (inventoryNumber == commodity.hashCode()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     * {@linkAbstractCommodity}
-     */
-    @Override
-    public void setRoom(int roomNumber) {
-        numberOfTheirRoom = roomNumber;
+    public Toilet(int givenInventoryNumber) {
+        this.inventoryNumber = givenInventoryNumber;
+        throw new NoRoomsAvailableException("Commodity already exists!");
     }
 
     /**
@@ -67,7 +36,7 @@ public class Toilet extends AbstractCommodity {
 
     @Override
     public int hashCode() {
-        return numberOfTheirRoom;
+        return inventoryNumber;
     }
 
 }

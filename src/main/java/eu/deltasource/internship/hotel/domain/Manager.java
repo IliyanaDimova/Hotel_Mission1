@@ -4,10 +4,10 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-/** //todo clean up
- * main.java.eu.deltasource.internship.hotel.domain.Manager Class with fields:
+/**
+ * Manager Class with fields:
  * name of the manager
- * hotel of class main.java.eu.deltasource.internship.hotel.domain.Hotel assigned to the manager
+ * hotel of Hotel assigned to the manager
  */
 public class Manager {
 
@@ -21,7 +21,6 @@ public class Manager {
      */
     public Manager(String name) {
         this.name = name;
-        hotel = new Hotel(); //todo A manager doesn't create a hotel. A manager assigns a hotel to himself
     }
 
     public void assignHotel(Hotel hotel) {
@@ -36,16 +35,16 @@ public class Manager {
         return hotel;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    } //todo don't need a setter for name, you initialize it once
-
-    //todo javadoc - this is not a getter
+    /**
+     * @return the assigned hotel's name
+     */
     public String getHotelName() {
         return hotel.getName();
     }
 
-    //todo javadoc - this is not a getter
+    /**
+     * @return the rooms that belong to manager's hotel
+     */
     public Set<Room> getHotelRooms() {
         return hotel.getRooms();
     }
@@ -76,21 +75,15 @@ public class Manager {
      * @throws Exception if no room was booked
      */
     public int createBooking(String guestId, LocalDate from, LocalDate to, int capacity) throws NoRoomsAvailableException {
-        Set<Room> availableRooms = new HashSet<>(); //todo don't need to create the hash set here, because it gets reassigned in next line
+        Set<Room> availableRooms;
         availableRooms = hotel.findAvailableRooms(from, to, capacity);
-        int bookedRoomNum = 0;
 
-        //todo if(!(boolean)) - cleaner
-        if (!availableRooms.isEmpty()) {
-            for (Room room : availableRooms) {  //todo you can just get first room and create booking instead of looping
-                bookedRoomNum = room.getNumber();
-                room.createBooking(guestId, from, to);
-                break;
-            }
+        if (!(availableRooms.isEmpty())) {
+            availableRooms.iterator().next().createBooking(guestId, from, to);
         } else {
             throw new NoRoomsAvailableException("There are no available rooms for " + capacity + " people from: " + from.toString() + " to: " + to.toString());
         }
-        return bookedRoomNum;
+        return availableRooms.iterator().next().getNumber();
     }
 
 }

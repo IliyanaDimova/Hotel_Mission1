@@ -45,7 +45,7 @@ public class Room {
         maintenanceDates.add(maintenanceDate);
     }
 
-    public Set getMaintenanceDates(){
+    public Set getMaintenanceDates() {
         return maintenanceDates;
     }
 
@@ -53,7 +53,7 @@ public class Room {
         bookings.add(booking);
     }
 
-    public Set getBookings(){
+    public Set getBookings() {
         return bookings;
     }
 
@@ -61,7 +61,7 @@ public class Room {
         commoditySet.add(commodity);
     }
 
-    public Set getCommodities(){
+    public Set getCommodities() {
         return commoditySet;
     }
 
@@ -114,22 +114,16 @@ public class Room {
      * @return true if there are rooms matching the criteria, false if not
      */
     public boolean findIfAvailable(LocalDate from, LocalDate to, int guests) {
-        int ovelapCount = 0;
-        int capacity;
-
-        if (!bookings.isEmpty()) {
-            ovelapCount = countDateOverlap(from, to);
-        }
-        //todo too many empty spaces
-        capacity = countSleepingPlaces();
-        //todo if the capacity is bigger, can't guests stay?
-        if ((capacity == guests) && (ovelapCount == 0)) {
-            return true;
+        int capacity = countSleepingPlaces();
+        //if there are no bookings for the room OR from-to doesn't overlap with any booking intervals =>
+        //return true if (the capacity of the room is == guests wanting to stay)
+        if (bookings.isEmpty()||(!doDateOverlap(from, to))) {
+            return (capacity == guests) ? true : false;
         } else {
+            //return false if dates overlap
             return false;
         }
-
-        //todo return ((capacity == guests) && (overlapCount==0)) ? true:false;
+        //todo if the capacity is bigger, can't guests stay?
     }
 
     /**
@@ -147,19 +141,25 @@ public class Room {
         return sleepingPlaces;
     }
 
-    /** //todo explanation, not only params
+    /**
+     * Goes through all bookings and checks if any of them overlaps with the time interval
+     *
      * @param from LocalDate from which the room will be occupied by the quests
      * @param to   LocalDate to which the room will be occupied by the quests
-     * @return number of times the interval from-to overlaps already booked intervals
+     * @return false if there are no overlaps, true if there are
      */
-    public int countDateOverlap(LocalDate from, LocalDate to) {
+    public boolean doDateOverlap(LocalDate from, LocalDate to) {
         int ovelapCount = 0;
         for (Booking booking : bookings) {
             if (booking.checkIfDatesOverlap(from, to)) {
                 ovelapCount++;
             }
         }
-        return ovelapCount; //todo shouldn't this return a boolean?
+        if (ovelapCount == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }
