@@ -12,6 +12,8 @@ public class Hotel {
     private String name;
     private ArrayList<Room> rooms;
 
+    public Hotel()
+
     /**
      * Hotel constructor
      *

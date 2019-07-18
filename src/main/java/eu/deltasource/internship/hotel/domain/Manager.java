@@ -20,6 +20,7 @@ public class Manager {
      */
     public Manager(String name) {
         this.name = name;
+        hotel = new Hotel();
     }
 
     /**
@@ -54,10 +55,6 @@ public class Manager {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
     }
 
     public String getHotelName() {
