@@ -3,11 +3,9 @@ package eu.deltasource.internship.hotel;
 import eu.deltasource.internship.hotel.domain.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
- * main.java.eu.deltasource.internship.hotel.Main method is here
+ * Main method is here
  */
 public class Main {
 
@@ -88,6 +86,5 @@ public class Main {
         to = manager.stringToLocalDate("2019-07-21");
         bookedRoomNum = manager.createBooking("9803225785", from, to, 2);
         System.out.println("Room #" + bookedRoomNum + " was booked from: " + from.toString() + " to: " + to.toString());
-
     }
 }

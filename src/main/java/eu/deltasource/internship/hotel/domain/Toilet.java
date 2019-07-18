@@ -1,7 +1,5 @@
 package eu.deltasource.internship.hotel.domain;
 
-import java.util.HashSet;
-
 /**
  * SubClass to AbstractCommodity
  */
