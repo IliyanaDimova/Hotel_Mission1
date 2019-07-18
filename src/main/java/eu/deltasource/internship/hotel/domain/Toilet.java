@@ -14,7 +14,6 @@ public class Toilet extends AbstractCommodity {
      */
     public Toilet(int givenInventoryNumber) {
         this.inventoryNumber = givenInventoryNumber;
-        throw new NoRoomsAvailableException("Commodity already exists!");
     }
 
     /**

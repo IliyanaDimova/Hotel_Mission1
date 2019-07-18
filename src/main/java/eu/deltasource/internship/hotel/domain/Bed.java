@@ -1,7 +1,5 @@
 package eu.deltasource.internship.hotel.domain;
 
-import java.util.HashSet;
-
 /**
  * SubClass to AbstractCommodity
  * HAS ADDITIONAL FIELD that contains how any people can sleep in the same bed
@@ -15,9 +13,8 @@ public class Bed extends AbstractCommodity {
      * @param inventoryNumber int number unique for any commodity
      * @param bedType         enum BedType
      */
-    public Bed(int inventoryNumber, BedType bedType) throws NoRoomsAvailableException {
+    public Bed(int inventoryNumber, BedType bedType) {
         this.bedType = bedType;
-        throw new NoRoomsAvailableException("Commodity already exists!");
     }
 
     public int getNumberOfPersona() {
