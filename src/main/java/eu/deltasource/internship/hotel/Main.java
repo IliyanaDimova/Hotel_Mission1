@@ -11,69 +11,62 @@ import java.util.HashSet;
  */
 public class Main {
 
-    /*public static void main(String args[]) {
+    public static void main(String args[]) {
         //Creats a manager
         Manager manager = new Manager("Pesho Peshov");
-
         //Creates new hotel named "Trivago"
-        Hotel hotel = new Hotel();
-        hotel.setName("Trivago");
+        Hotel hotel = new Hotel("Trivago");
 
-        new Bed(1, BedType.KINGSIZE, 1);
         //Creates room#1 with:
+        Room room1 = new Room(hotel.getRoomNumCount());
         // 1 toilet
+        Toilet toilet1 = new Toilet(1);
+        room1.addCommodity(toilet1);
         // 1 shower
+        Shower shower1 = new Shower(2);
+        room1.addCommodity(shower1);
         // 1 DOUBLE bed
-        Room room = new Room();
-        Toilet toilet1 = new Toilet(1, roomNumber);
-        commoditySetRoom1.add(toilet1);
-        Shower shower1 = new Shower(2, roomNumber);
-        commoditySetRoom1.add(shower1);
-        Bed bed1 = new Bed(3, BedType.DOUBLE, roomNumber);
-        commoditySetRoom1.add(bed1);
+        Bed bed1 = new Bed(3, BedType.DOUBLE);
+        room1.addCommodity(bed1);
+        //adds the room to the hotel
+        hotel.addRoom(room1);
 
-        //Creates room#002 with:
-        // 2 toilet
+        //Creates room#2 with:
+        Room room2 = new Room(hotel.getRoomNumCount());
+        // 2 toilets
+        Toilet toilet2 = new Toilet(1);
+        room2.addCommodity(toilet2);
+        Toilet toilet3 = new Toilet(5);
+        room2.addCommodity(toilet3);
         // 1 shower
-        // 3 beds(2*(for 1 person) & 1*(for 2 people))
-        roomNumber = room1.getRoomNumCount();
-        HashSet<AbstractCommodity> commoditySetRoom2 = new HashSet<>();
-        Toilet toilet2 = new Toilet(4, roomNumber);
-        commoditySetRoom1.add(toilet2);
-        Toilet toilet3 = new Toilet(5, roomNumber);
-        commoditySetRoom1.add(toilet3);
-        Shower shower2 = new Shower(6, roomNumber);
-        commoditySetRoom1.add(shower2);
-        Bed bed2 = new Bed(7, BedType.DOUBLE, roomNumber);
-        commoditySetRoom1.add(bed2);
-        Bed bed3 = new Bed(8, BedType.SINGLE, roomNumber);
-        commoditySetRoom1.add(bed3);
-        Bed bed4 = new Bed(9, BedType.SINGLE, roomNumber);
-        commoditySetRoom1.add(bed4);
-        Room room2 = new Room(commoditySetRoom2);
+        Shower shower2 = new Shower(2);
+        room2.addCommodity(shower2);
+        // 2 SINGLE beds & 1 DOUBLE
+        Bed bed2 = new Bed(3, BedType.DOUBLE);
+        room2.addCommodity(bed2);
+        Bed bed3 = new Bed(8, BedType.SINGLE);
+        room2.addCommodity(bed3);
+        Bed bed4 = new Bed(9, BedType.SINGLE);
+        room2.addCommodity(bed4);
+        //adds the room to the hotel
+        hotel.addRoom(room2);
 
-        //Creates room#003 with:
+
+        //Creates room#3 with:
+        Room room3 = new Room(hotel.getRoomNumCount());
         // 1 toilet
+        Toilet toilet4 = new Toilet(1);
+        room3.addCommodity(toilet4);
         // 1 shower
-        // 2 beds(1*(for 1 person) + 1*(for 2 people))
-        roomNumber = 003;
-        HashSet<AbstractCommodity> commoditySetRoom3 = new HashSet<>();
-        Toilet toilet4 = new Toilet(10, roomNumber);
-        commoditySetRoom1.add(toilet4);
-        Shower shower3 = new Shower(11, roomNumber);
-        commoditySetRoom1.add(shower3);
-        Bed bed5 = new Bed(12, BedType.DOUBLE, roomNumber);
-        commoditySetRoom1.add(bed5);
-        Bed bed6 = new Bed(13, BedType.SINGLE, roomNumber);
-        commoditySetRoom1.add(bed6);
-        Room room3 = new Room(commoditySetRoom3);
-
-        //Adds the rooms to the hotel
-        ArrayList<Room> hotelRooms = new ArrayList<>(2);
-        hotelRooms.add(room1);
-        hotelRooms.add(room2);
-        hotelRooms.add(room3);
-        Hotel hotel = new Hotel("Trivago", hotelRooms);
+        Shower shower3 = new Shower(2);
+        room3.addCommodity(shower3);
+        // 1 SINGLE bed & 1 DOUBLE
+        Bed bed5 = new Bed(3, BedType.DOUBLE);
+        room3.addCommodity(bed5);
+        Bed bed6 = new Bed(8, BedType.SINGLE);
+        room3.addCommodity(bed6);
+        //adds the room to the hotel
+        hotel.addRoom(room3);
 
         //Adds the hotel to the manager
         manager.assignHotel(hotel);
@@ -96,5 +89,5 @@ public class Main {
         bookedRoomNum = manager.createBooking("9803225785", from, to, 2);
         System.out.println("Room #" + bookedRoomNum + " was booked from: " + from.toString() + " to: " + to.toString());
 
-    }*/
+    }
 }
