@@ -52,6 +52,14 @@ public class Manager {
         return hotel;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
     public String getHotelName() {
         return hotel.getName();
     }
@@ -76,24 +84,6 @@ public class Manager {
     }
 
     /**
-     * Finds a room that can hold exact number of people
-     *
-     * @param stringFrom converts to LocalDate
-     * @param stringTo   converts to LocalDate
-     * @param guests     number of people wanting to book a room together
-     * @return the perfect fit room (if there isn't such room return null)
-     */
-    /*public Room findPerfectFitRoom(String stringFrom, String stringTo, int guests) {
-        LocalDate from = stringToLocalDate(stringFrom);
-        LocalDate to = stringToLocalDate(stringTo);
-        if (from == null || to == null) {
-            System.out.println("String didn't convert to Date");
-            return null;
-        }
-        return hotel.findPerfectFitRoom(from, to, guests);
-    }*/
-
-    /**
      * Through this method the manager can book a room for the time interval and size
      *
      * @param guestId  The EGN of one of the guests that want to book the same room
@@ -103,13 +93,13 @@ public class Manager {
      * @return the number of the booked room
      * @throws Exception if no room was booked
      */
-    public int createBooking(String guestId, LocalDate from, LocalDate to, int capacity) throws Exception {
+    public int createBooking(String guestId, LocalDate from, LocalDate to, int capacity) throws MyException {
         ArrayList<Room> availableRooms = new ArrayList<>();
         availableRooms = hotel.findAvailableRooms(from, to, capacity);
-        if (availableRooms.size() > 0) {
+        if (availableRooms.size() >= 1) {
             availableRooms.get(0).createBooking(guestId, from, to);
         } else {
-            throw new Exception("There are no available rooms for " + capacity + " people from: " + from.toString() + " to: " + to.toString());
+            throw new MyException("There are no available rooms for " + capacity + " people from: " + from.toString() + " to: " + to.toString());
         }
         return availableRooms.get(0).getNumber();
     }

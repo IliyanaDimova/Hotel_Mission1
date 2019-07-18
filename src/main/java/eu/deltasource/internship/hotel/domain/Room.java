@@ -10,6 +10,7 @@ import java.time.LocalDate;
  * Set of Commodities - toilets, showers, beds
  * Set of dates that the room had been prepared
  * Set of bookings (booked from guests for time intervals)
+ * A static variable - roomNumCount that remembers the last initialized room's number in order to create unique number for all rooms
  */
 public class Room {
 
@@ -17,6 +18,7 @@ public class Room {
     private HashSet<AbstractCommodity> commoditySet;
     private HashSet<LocalDate> maintenanceDates;
     private HashSet<Booking> bookings;
+    private static int roomNumCount = 0;
 
     /**
      * Room constructor
@@ -24,8 +26,9 @@ public class Room {
      * @param number       the number of the room
      * @param commoditySet toilets, showers, beds belonging to the room
      */
-    public Room(int number, ArrayList<AbstractCommodity> commoditySet) {
-        this.number = number;
+    public Room(ArrayList<AbstractCommodity> commoditySet) {
+        number = roomNumCount;
+        roomNumCount++;
         for (int i = 0; i < commoditySet.size(); i++) {
             commoditySet.get(i).setRoom(number);
         }
@@ -34,8 +37,16 @@ public class Room {
         bookings = new HashSet<>();
     }
 
+    public int getRoomNumCount(){
+        return roomNumCount;
+    }
+
     public int getNumber() {
         return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     /**

@@ -18,21 +18,22 @@ public class Main {
         // 1 toilet
         // 1 shower
         // 1 bed (for 2 people)
-        int roomNumber = 001;
+        Room r = new Room(null);
+        int roomNumber = r.getRoomNumCount();
         ArrayList<AbstractCommodity> commoditySetRoom1 = new ArrayList<>();
         Toilet toilet1 = new Toilet(1, roomNumber);
         commoditySetRoom1.add(toilet1);
         Shower shower1 = new Shower(2, roomNumber);
         commoditySetRoom1.add(shower1);
-        Bed bed1 = new Bed(3, 2, roomNumber);
+        Bed bed1 = new Bed(3, BedType.DOUBLE, roomNumber);
         commoditySetRoom1.add(bed1);
-        Room room1 = new Room(roomNumber, commoditySetRoom1);
+        Room room1 = new Room(commoditySetRoom1);
 
         //Creates room#002 with:
         // 2 toilet
         // 1 shower
         // 3 beds(2*(for 1 person) & 1*(for 2 people))
-        roomNumber = 002;
+        roomNumber = room1.getRoomNumCount();
         ArrayList<AbstractCommodity> commoditySetRoom2 = new ArrayList<>();
         Toilet toilet2 = new Toilet(4, roomNumber);
         commoditySetRoom1.add(toilet2);
@@ -40,13 +41,13 @@ public class Main {
         commoditySetRoom1.add(toilet3);
         Shower shower2 = new Shower(6, roomNumber);
         commoditySetRoom1.add(shower2);
-        Bed bed2 = new Bed(7, 2, roomNumber);
+        Bed bed2 = new Bed(7, BedType.DOUBLE, roomNumber);
         commoditySetRoom1.add(bed2);
-        Bed bed3 = new Bed(8, 1, roomNumber);
+        Bed bed3 = new Bed(8, BedType.SINGLE, roomNumber);
         commoditySetRoom1.add(bed3);
-        Bed bed4 = new Bed(9, 1, roomNumber);
+        Bed bed4 = new Bed(9, BedType.SINGLE, roomNumber);
         commoditySetRoom1.add(bed4);
-        Room room2 = new Room(roomNumber, commoditySetRoom2);
+        Room room2 = new Room(commoditySetRoom2);
 
         //Creates room#003 with:
         // 1 toilet
@@ -58,11 +59,11 @@ public class Main {
         commoditySetRoom1.add(toilet4);
         Shower shower3 = new Shower(11, roomNumber);
         commoditySetRoom1.add(shower3);
-        Bed bed5 = new Bed(12, 2, roomNumber);
+        Bed bed5 = new Bed(12, BedType.DOUBLE, roomNumber);
         commoditySetRoom1.add(bed5);
-        Bed bed6 = new Bed(13, 1, roomNumber);
+        Bed bed6 = new Bed(13, BedType.SINGLE, roomNumber);
         commoditySetRoom1.add(bed6);
-        Room room3 = new Room(roomNumber, commoditySetRoom3);
+        Room room3 = new Room(commoditySetRoom3);
 
         //Adds the rooms to the hotel
         ArrayList<Room> hotelRooms = new ArrayList<>(2);

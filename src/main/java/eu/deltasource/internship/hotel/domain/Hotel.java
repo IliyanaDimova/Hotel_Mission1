@@ -36,16 +36,14 @@ public class Hotel {
         this.name = name;
     }
 
-    /**
-     * Adds a new room to the hotel
-     * @param room the room to be added
-     */
-    public void addRoom(Room room) {
-        rooms.add(room);
-    }
-
     public String getName() {
         return name;
+    }
+
+    public void setRooms(ArrayList<Room> givenRooms) {
+        for (int i=0; i<givenRooms.size(); i++){
+            rooms.add(givenRooms.get(i));
+        }
     }
 
     public ArrayList<Room> getRooms() {
@@ -54,6 +52,14 @@ public class Hotel {
 
     public int getRoomCount() {
         return rooms.size();
+    }
+
+    /**
+     * Adds a new room to the hotel
+     * @param room the room to be added
+     */
+    public void addRoom(Room room) {
+        rooms.add(room);
     }
 
     /**

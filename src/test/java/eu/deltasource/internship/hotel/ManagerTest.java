@@ -3,6 +3,7 @@ package eu.deltasource.internship.hotel;
 import eu.deltasource.internship.hotel.domain.*;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -50,9 +51,9 @@ class ManagerTest {
     }
 
     @Test
-    public void assure() {
+    public void assureManagersHotelIsCorrect() {
         // given
-        Hotel hotel = new Hotel();
+        Hotel hotel = new Hotel("Name");
 
         //when
         manager.setHotel(hotel);
@@ -63,19 +64,26 @@ class ManagerTest {
 
     @Test
     public void assurePerfectRoomIsReturned() {
-        //Creates room1 with 1 toilet, 1 shower and 1 bed (for 2 people)
-        int roomNumber = 001;
+        //Creates room#001 with:
+        // 1 toilet
+        // 1 shower
+        // 1 bed (for 2 people)
+        Room r = new Room(null);
+        int roomNumber = r.getRoomNumCount();
         ArrayList<AbstractCommodity> commoditySetRoom1 = new ArrayList<>();
         Toilet toilet1 = new Toilet(1, roomNumber);
         commoditySetRoom1.add(toilet1);
         Shower shower1 = new Shower(2, roomNumber);
         commoditySetRoom1.add(shower1);
-        Bed bed1 = new Bed(3, 2, roomNumber);
+        Bed bed1 = new Bed(3, BedType.DOUBLE, roomNumber);
         commoditySetRoom1.add(bed1);
-        Room room1 = new Room(roomNumber, commoditySetRoom1);
+        Room room1 = new Room(commoditySetRoom1);
 
-        //Creates room1 with 2 toilet, 1 shower and 3 beds(2*(for 1 person) & 1*(for 2 people))
-        roomNumber = 002;
+        //Creates room#002 with:
+        // 2 toilet
+        // 1 shower
+        // 3 beds(2*(for 1 person) & 1*(for 2 people))
+        roomNumber = room1.getRoomNumCount();
         ArrayList<AbstractCommodity> commoditySetRoom2 = new ArrayList<>();
         Toilet toilet2 = new Toilet(4, roomNumber);
         commoditySetRoom1.add(toilet2);
@@ -83,44 +91,49 @@ class ManagerTest {
         commoditySetRoom1.add(toilet3);
         Shower shower2 = new Shower(6, roomNumber);
         commoditySetRoom1.add(shower2);
-        Bed bed2 = new Bed(7, 2, roomNumber);
+        Bed bed2 = new Bed(7, BedType.DOUBLE, roomNumber);
         commoditySetRoom1.add(bed2);
-        Bed bed3 = new Bed(8, 1, roomNumber);
+        Bed bed3 = new Bed(8, BedType.SINGLE, roomNumber);
         commoditySetRoom1.add(bed3);
-        Bed bed4 = new Bed(9, 1, roomNumber);
+        Bed bed4 = new Bed(9, BedType.SINGLE, roomNumber);
         commoditySetRoom1.add(bed4);
-        Room room2 = new Room(roomNumber, commoditySetRoom2);
+        Room room2 = new Room(commoditySetRoom2);
 
-        //Creates room1 with 1 toilet, 1 shower and 2 beds(1*(for 1 person) + 1*(for 2 people))
+        //Creates room#003 with:
+        // 1 toilet
+        // 1 shower
+        // 2 beds(1*(for 1 person) + 1*(for 2 people))
         roomNumber = 003;
         ArrayList<AbstractCommodity> commoditySetRoom3 = new ArrayList<>();
         Toilet toilet4 = new Toilet(10, roomNumber);
         commoditySetRoom1.add(toilet4);
         Shower shower3 = new Shower(11, roomNumber);
         commoditySetRoom1.add(shower3);
-        Bed bed5 = new Bed(12, 2, roomNumber);
+        Bed bed5 = new Bed(12, BedType.DOUBLE, roomNumber);
         commoditySetRoom1.add(bed5);
-        Bed bed6 = new Bed(13, 1, roomNumber);
+        Bed bed6 = new Bed(13, BedType.SINGLE, roomNumber);
         commoditySetRoom1.add(bed6);
-        Room room3 = new Room(roomNumber, commoditySetRoom3);
+        Room room3 = new Room(commoditySetRoom3);
 
-        //Adds the rooms to the hotel and then the hotel to the manager
+        //Adds the rooms to the hotel
         ArrayList<Room> hotelRooms = new ArrayList<>(2);
         hotelRooms.add(room1);
         hotelRooms.add(room2);
         hotelRooms.add(room3);
         Hotel hotel = new Hotel("Trivago", hotelRooms);
-        manager.setHotel(hotel);
+
+        //Adds the hotel to the manager
+        manager.assignHotel(hotel);
 
         assertEquals(2, room1.countSleepingPlaces());
         System.out.println("Number of sleeping places is working!");
 
-        String stringFrom1 = "2019-07-20";
-        String stringTo1 = "2019-07-25";
-        Room perfectRoomForGuest1;
-        perfectRoomForGuest1 = manager.findPerfectFitRoom(stringFrom1, stringTo1, 2);
-        assertEquals(perfectRoomForGuest1, room1);
-        System.out.println("Perfect Fit main.java.eu.deltasource.internship.hotel.domain.Room Is Working!");
+        //manager books room that meets the criteria for 2 guests 20-25Jul
+        LocalDate from = manager.stringToLocalDate("2019-07-20"); // Converts string to LocalDate
+        LocalDate to = manager.stringToLocalDate("2019-07-25");
+        int bookedRoomNum = manager.createBooking("9306236677", from, to, 2);
+        System.out.println("Room #" + bookedRoomNum + " was booked from: " + from.toString() + " to: " + to.toString());
+
     }
 
 }

@@ -14,12 +14,12 @@ public class Shower extends AbstractCommodity {
      * @param roomNumber      number of the room the bed belongs
      * @throws Exception if inventoryNumber is not unique
      */
-    public Shower(int inventoryNumber, int roomNumber) throws Exception {
+    public Shower(int inventoryNumber, int roomNumber) throws MyException {
         if (checkIfInventoryNumIsUnique(inventoryNumber)) {
             this.inventoryNumber = inventoryNumber;
             numberOfTheirRoom = roomNumber;
         } else {
-            throw new Exception("Commodity already exists!");
+            throw new MyException("Commodity already exists!");
         }
     }
 
