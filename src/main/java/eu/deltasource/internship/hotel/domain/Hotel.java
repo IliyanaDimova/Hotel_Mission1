@@ -14,7 +14,6 @@ import java.util.Set;
  */
 public class Hotel {
     private String name;
-<<<<<<< HEAD
     private Set<Room> rooms;
     private static int roomNumCount;
 
@@ -24,12 +23,8 @@ public class Hotel {
     public Hotel() {
         name = new String();
         rooms = new HashSet();
-        roomNumCount = 0;
+        roomNumCount = 1;
     }
-=======
-    private ArrayList<Room> rooms;
-    //todo roomCount
->>>>>>> 9ba9273b8c11bfe1bc86c2222b718e8ec56dd317
 
     /**
      * Hotel constructor
@@ -38,12 +33,8 @@ public class Hotel {
      */
     public Hotel(String name) {
         this.name = name;
-<<<<<<< HEAD
         rooms = new HashSet();
-        roomNumCount = 0;
-=======
-        //todo initialize roomCount
->>>>>>> 9ba9273b8c11bfe1bc86c2222b718e8ec56dd317
+        roomNumCount = 1;
     }
 
     /**
@@ -52,15 +43,11 @@ public class Hotel {
      * @param name  the name that will be assigned to the hotel
      * @param rooms set of rooms for the hotel
      */
-    public Hotel(String name, Set<Room> rooms) {
+    /*public Hotel(String name, Set<Room> rooms) {
         this(name);
         this.rooms = rooms;
         //todo roomcount = rooms.size()
-    }
-
-    public int getRoomNumCount(){
-        return roomNumCount;
-    }
+    }*/
 
     public void setName(String name) {
         this.name = name;
@@ -70,28 +57,31 @@ public class Hotel {
         return name;
     }
 
-    public void setRooms(ArrayList<Room> givenRooms) {
-        for (int i = 0; i < givenRooms.size(); i++) {
-            rooms.add(givenRooms.get(i));
-        }
+    /**
+     * Adds a new room to the hotel and increments the roomNumCount with 1
+     *
+     * @param room the room to be added
+     */
+    public void addRoom(Room room) {
+        room.setNumber(roomNumCount);
+        rooms.add(room);
+        roomNumCount++;
+    }
+
+    public void setRooms(Set<Room> givenRooms) {
+        rooms = givenRooms;
     }
 
     public Set<Room> getRooms() {
         return rooms;
     }
 
-    public int getRoomCount() {
-        return rooms.size();
+    public int getRoomNumCount(){
+        return roomNumCount;
     }
 
-    /**
-     * Adds a new room to the hotel
-     *
-     * @param room the room to be added
-     */
-    public void addRoom(Room room) {
-        rooms.add(room);
-        //todo roomCount++;
+    public int getRoomCount() {
+        return rooms.size();
     }
 
     /**

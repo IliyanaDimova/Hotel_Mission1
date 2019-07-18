@@ -5,6 +5,7 @@ import eu.deltasource.internship.hotel.domain.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * main.java.eu.deltasource.internship.hotel.Main method is here
@@ -15,20 +16,21 @@ public class Main {
         //Creats a manager
         Manager manager = new Manager("Pesho Peshov");
 
-        //Creates room#001 with:
+        //Creates new hotel named "Trivago"
+        Hotel hotel = new Hotel();
+        hotel.setName("Trivago");
+
+        //Creates room#1 with:
         // 1 toilet
         // 1 shower
-        // 1 bed (for 2 people)
-        Room r = new Room(null);
-        int roomNumber = r.getRoomNumCount();
-        HashSet<AbstractCommodity> commoditySetRoom1 = new HashSet<>();
+        // 1 DOUBLE bed
+        Room room = new Room();
         Toilet toilet1 = new Toilet(1, roomNumber);
         commoditySetRoom1.add(toilet1);
         Shower shower1 = new Shower(2, roomNumber);
         commoditySetRoom1.add(shower1);
         Bed bed1 = new Bed(3, BedType.DOUBLE, roomNumber);
         commoditySetRoom1.add(bed1);
-        Room room1 = new Room(commoditySetRoom1);
 
         //Creates room#002 with:
         // 2 toilet

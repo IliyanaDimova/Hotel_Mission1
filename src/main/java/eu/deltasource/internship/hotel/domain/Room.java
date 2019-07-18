@@ -16,17 +16,14 @@ public class Room {
 
     private int number;
     private Set<AbstractCommodity> commoditySet;
-    private Set<LocalDate> maintenanceDates; //todo add
-    private Set<Booking> bookings; //todo add
-    //todo Room count should be tracked in the hotel
-    private static int roomNumCount = 0;
-
+    private Set<LocalDate> maintenanceDates;
+    private Set<Booking> bookings;
 
     public Room(Room room) {
         number = room.number;
-       //todo commoditySet = room.getCommodities()
-        // todo bookings = room.getbookings()
-        //todo maintenancedates = room.getmaintenancedates()
+        commoditySet = room.getCommodities();
+        bookings = room.getBookings();
+        maintenanceDates = room.getMaintenanceDates();
     }
 
     public Room(int roomNumber) {
@@ -36,20 +33,36 @@ public class Room {
         bookings = new HashSet<>();
     }
 
-    public int getRoomNumCount(){
-        return roomNumCount;
-    }
-
-    public void addCommodity(AbstractCommodity commodity) {
-        commoditySet.add(commodity);
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public int getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void addMaintenanceDate(LocalDate maintenanceDate) {
+        maintenanceDates.add(maintenanceDate);
+    }
+
+    public Set getMaintenanceDates(){
+        return maintenanceDates;
+    }
+
+    public void addBooking(Booking booking) {
+        bookings.add(booking);
+    }
+
+    public Set getBookings(){
+        return bookings;
+    }
+
+    public void addCommodity(AbstractCommodity commodity) {
+        commoditySet.add(commodity);
+    }
+
+    public Set getCommodities(){
+        return commoditySet;
     }
 
     /**
