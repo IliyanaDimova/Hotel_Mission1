@@ -4,6 +4,7 @@ import eu.deltasource.internship.hotel.domain.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * main.java.eu.deltasource.internship.hotel.Main method is here
@@ -20,7 +21,7 @@ public class Main {
         // 1 bed (for 2 people)
         Room r = new Room(null);
         int roomNumber = r.getRoomNumCount();
-        ArrayList<AbstractCommodity> commoditySetRoom1 = new ArrayList<>();
+        HashSet<AbstractCommodity> commoditySetRoom1 = new HashSet<>();
         Toilet toilet1 = new Toilet(1, roomNumber);
         commoditySetRoom1.add(toilet1);
         Shower shower1 = new Shower(2, roomNumber);
@@ -34,7 +35,7 @@ public class Main {
         // 1 shower
         // 3 beds(2*(for 1 person) & 1*(for 2 people))
         roomNumber = room1.getRoomNumCount();
-        ArrayList<AbstractCommodity> commoditySetRoom2 = new ArrayList<>();
+        HashSet<AbstractCommodity> commoditySetRoom2 = new HashSet<>();
         Toilet toilet2 = new Toilet(4, roomNumber);
         commoditySetRoom1.add(toilet2);
         Toilet toilet3 = new Toilet(5, roomNumber);
@@ -54,7 +55,7 @@ public class Main {
         // 1 shower
         // 2 beds(1*(for 1 person) + 1*(for 2 people))
         roomNumber = 003;
-        ArrayList<AbstractCommodity> commoditySetRoom3 = new ArrayList<>();
+        HashSet<AbstractCommodity> commoditySetRoom3 = new HashSet<>();
         Toilet toilet4 = new Toilet(10, roomNumber);
         commoditySetRoom1.add(toilet4);
         Shower shower3 = new Shower(11, roomNumber);

@@ -1,8 +1,8 @@
 package eu.deltasource.internship.hotel.domain;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.time.LocalDate;
+import java.util.Set;
 
 /**
  * Class Room (Every Hotel has a set of rooms) with fields:
@@ -15,9 +15,9 @@ import java.time.LocalDate;
 public class Room {
 
     private int number;
-    private HashSet<AbstractCommodity> commoditySet;
-    private HashSet<LocalDate> maintenanceDates;
-    private HashSet<Booking> bookings;
+    private Set<AbstractCommodity> commoditySet;
+    private Set<LocalDate> maintenanceDates;
+    private Set<Booking> bookings;
     private static int roomNumCount = 0;
 
     /**
@@ -26,19 +26,27 @@ public class Room {
      * @param number       the number of the room
      * @param commoditySet toilets, showers, beds belonging to the room
      */
-    public Room(ArrayList<AbstractCommodity> commoditySet) {
+    public Room(Set<AbstractCommodity> commoditySet) {
         number = roomNumCount;
         roomNumCount++;
-        for (int i = 0; i < commoditySet.size(); i++) {
-            commoditySet.get(i).setRoom(number);
-        }
-        this.commoditySet = new HashSet<>(commoditySet);
+        this.commoditySet = commoditySet;
         maintenanceDates = new HashSet<>();
         bookings = new HashSet<>();
     }
 
+    public Room(int roomNumber) {
+        number = roomNumber;
+        commoditySet = new HashSet<>();
+        maintenanceDates = new HashSet<>();
+        bookings = new HashSet<>();
+
+    }
     public int getRoomNumCount(){
         return roomNumCount;
+    }
+
+    public void addCommodity(AbstractCommodity commodity) {
+        commoditySet.add(commodity);
     }
 
     public int getNumber() {
@@ -120,9 +128,10 @@ public class Room {
     public int countSleepingPlaces() {
         int sleepingPlaces = 0;
         for (AbstractCommodity commodity : this.commoditySet) {
-            if (commodity instanceof Bed && commodity.hashCode() == this.getNumber()) {
+            if (commodity instanceof Bed /* && commodity.hashCode() == this.getNumber()*/) {
                 Bed bed = (Bed) commodity;
                 sleepingPlaces += bed.getNumberOfPersona();
+                System.out.println("sleepingPlaces = " + sleepingPlaces);
             }
         }
         return sleepingPlaces;
