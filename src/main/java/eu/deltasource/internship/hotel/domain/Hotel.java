@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Hotel {
     private String name;
     private ArrayList<Room> rooms;
+    //todo roomCount
 
     /**
      * Hotel constructor
@@ -19,6 +20,7 @@ public class Hotel {
      */
     public Hotel(String name) {
         this.name = name;
+        //todo initialize roomCount
     }
 
     /**
@@ -30,6 +32,7 @@ public class Hotel {
     public Hotel(String name, ArrayList<Room> rooms) {
         this(name);
         this.rooms = rooms;
+        //todo roomcount = rooms.size()
     }
 
     public void setName(String name) {
@@ -60,6 +63,7 @@ public class Hotel {
      */
     public void addRoom(Room room) {
         rooms.add(room);
+        //todo roomCount++;
     }
 
     /**

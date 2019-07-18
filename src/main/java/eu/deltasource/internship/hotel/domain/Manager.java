@@ -2,6 +2,7 @@ package eu.deltasource.internship.hotel.domain;
 
 import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * main.java.eu.deltasource.internship.hotel.domain.Manager Class with fields:
@@ -39,6 +40,7 @@ public class Manager {
         return (manager.name == this.name);
     }
 
+    //todo do not need equals and hashcode, since this won't be used as a Set
     @Override
     public int hashCode() {
         return name.length() * 12;
@@ -56,6 +58,7 @@ public class Manager {
         this.name = name;
     }
 
+    //todo you have assignHotel()
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
@@ -64,7 +67,7 @@ public class Manager {
         return hotel.getName();
     }
 
-    public ArrayList<Room> getHotelRooms() {
+    public List<Room> getHotelRooms() {
         return hotel.getRooms();
     }
 
@@ -93,13 +96,13 @@ public class Manager {
      * @return the number of the booked room
      * @throws Exception if no room was booked
      */
-    public int createBooking(String guestId, LocalDate from, LocalDate to, int capacity) throws MyException {
+    public int createBooking(String guestId, LocalDate from, LocalDate to, int capacity) throws NoRoomsAvailableException {
         ArrayList<Room> availableRooms = new ArrayList<>();
         availableRooms = hotel.findAvailableRooms(from, to, capacity);
         if (availableRooms.size() >= 1) {
             availableRooms.get(0).createBooking(guestId, from, to);
         } else {
-            throw new MyException("There are no available rooms for " + capacity + " people from: " + from.toString() + " to: " + to.toString());
+            throw new NoRoomsAvailableException("There are no available rooms for " + capacity + " people from: " + from.toString() + " to: " + to.toString());
         }
         return availableRooms.get(0).getNumber();
     }

@@ -1,6 +1,5 @@
 package eu.deltasource.internship.hotel.domain;
 
-import java.util.HashSet;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -16,8 +15,9 @@ public class Room {
 
     private int number;
     private Set<AbstractCommodity> commoditySet;
-    private Set<LocalDate> maintenanceDates;
-    private Set<Booking> bookings;
+    private Set<LocalDate> maintenanceDates; //todo add
+    private Set<Booking> bookings; //todo add
+    //todo Room count should be tracked in the hotel
     private static int roomNumCount = 0;
 
     /**
@@ -26,6 +26,7 @@ public class Room {
      * @param number       the number of the room
      * @param commoditySet toilets, showers, beds belonging to the room
      */
+    //todo not a good constructor
     public Room(Set<AbstractCommodity> commoditySet) {
         number = roomNumCount;
         roomNumCount++;
@@ -34,13 +35,20 @@ public class Room {
         bookings = new HashSet<>();
     }
 
+    public Room(Room room) {
+        number = room.number;
+       //todo commoditySet = room.getCommodities()
+        // todo bookings = room.getbookings()
+        //todo maintenancedates = room.getmaintenancedates()
+    }
+
     public Room(int roomNumber) {
         number = roomNumber;
         commoditySet = new HashSet<>();
         maintenanceDates = new HashSet<>();
         bookings = new HashSet<>();
-
     }
+
     public int getRoomNumCount(){
         return roomNumCount;
     }
