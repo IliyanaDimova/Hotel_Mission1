@@ -17,13 +17,13 @@ public class Bed extends AbstractCommodity {
      * @param roomNumber      number of the room the bed belongs
      * @throws Exception if inventoryNumber is not unique
      */
-    public Bed(int inventoryNumber, BedType bedType, int roomNumber) throws MyException {
+    public Bed(int inventoryNumber, BedType bedType, int roomNumber) throws NoRoomsAvailableException {
         if (checkIfInventoryNumIsUnique(inventoryNumber)) {
             this.inventoryNumber = inventoryNumber;
             this.bedType = bedType;
             numberOfTheirRoom = roomNumber;
         } else {
-            throw new MyException("Commodity already exists!");
+            throw new NoRoomsAvailableException("Commodity already exists!");
         }
     }
 
