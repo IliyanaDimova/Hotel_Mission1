@@ -3,7 +3,6 @@ package eu.deltasource.internship.hotel.domain;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.List;
 
 /**
  * main.java.eu.deltasource.internship.hotel.domain.Manager Class with fields:
@@ -25,27 +24,8 @@ public class Manager {
         hotel = new Hotel();
     }
 
-    /**
-     * Assigns hotel to the manager
-     *
-     * @param hotel the hotel to be assigned
-     */
     public void assignHotel(Hotel hotel) {
         this.hotel = hotel;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Manager))
-            return false;
-        Manager manager = (Manager) obj;
-        return (manager.name == this.name);
-    }
-
-    //todo do not need equals and hashcode, since this won't be used as a Set
-    @Override
-    public int hashCode() {
-        return name.length() * 12;
     }
 
     public String getName() {
@@ -58,11 +38,6 @@ public class Manager {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    //todo you have assignHotel()
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
     }
 
     public String getHotelName() {
