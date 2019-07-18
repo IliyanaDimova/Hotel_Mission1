@@ -2,7 +2,7 @@ package eu.deltasource.internship.hotel.domain;
 
 import java.util.HashSet;
 
-/**
+/** //todo clean up
  * SubClass to main.java.eu.deltasource.internship.hotel.domain.AbstractCommodity
  */
 public class Toilet extends AbstractCommodity {

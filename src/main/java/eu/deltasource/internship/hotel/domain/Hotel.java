@@ -18,15 +18,6 @@ public class Hotel {
     private static int roomNumCount;
 
     /**
-     * Empty Hotel constructor (initializes all fields)
-     */
-    public Hotel() {
-        name = new String();
-        rooms = new HashSet();
-        roomNumCount = 1;
-    }
-
-    /**
      * Hotel constructor
      *
      * @param name the name that will be assigned to the hotel
@@ -41,7 +32,6 @@ public class Hotel {
      * Hotel constructor
      *
      * @param name  the name that will be assigned to the hotel
-     * @param rooms set of rooms for the hotel
      */
     /*public Hotel(String name, Set<Room> rooms) {
         this(name);

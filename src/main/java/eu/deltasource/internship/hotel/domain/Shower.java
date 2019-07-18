@@ -2,7 +2,7 @@ package eu.deltasource.internship.hotel.domain;
 
 import java.util.HashSet;
 
-/**
+/** //todo clean up
  * SubClass to main.java.eu.deltasource.internship.hotel.domain.AbstractCommodity
  */
 public class Shower extends AbstractCommodity {
@@ -12,7 +12,7 @@ public class Shower extends AbstractCommodity {
      *
      * @param inventoryNumber int number unique for any commodity
      * @param roomNumber      number of the room the bed belongs
-     * @throws Exception if inventoryNumber is not unique
+     * @throws Exception if inventoryNumber is not unique //todo exception type
      */
     public Shower(int inventoryNumber, int roomNumber) throws NoRoomsAvailableException {
         if (checkIfInventoryNumIsUnique(inventoryNumber)) {
@@ -23,14 +23,14 @@ public class Shower extends AbstractCommodity {
         }
     }
 
-    /**
+    /** //todo if inventory numbers are uniquely generated, this check will not be needed
      * Checks if inventory number is already token by another commodity
      *
      * @param inventoryNumber
      * @return false if taken, true if inventory number is unique
      */
     public boolean checkIfInventoryNumIsUnique(int inventoryNumber) {
-        HashSet<AbstractCommodity> allCommodities = new HashSet<>();
+        HashSet<AbstractCommodity> allCommodities = new HashSet<>(); //todo reference should be Set
         for (AbstractCommodity commodity : allCommodities) {
             if (inventoryNumber == commodity.hashCode()) {
                 return false;
