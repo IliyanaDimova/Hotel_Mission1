@@ -14,6 +14,7 @@ public class Bed extends AbstractCommodity {
      * @param bedType         enum BedType
      */
     public Bed(int inventoryNumber, BedType bedType) {
+        this.inventoryNumber = inventoryNumber;
         this.bedType = bedType;
     }
 

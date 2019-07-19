@@ -75,6 +75,7 @@ public class Manager {
      * @throws Exception if no room was booked
      */
     public int createBooking(String guestId, LocalDate from, LocalDate to, int capacity) throws NoRoomsAvailableException {
+        System.out.println("\n\n\ncreateBooking started for " + from + " - " + to + " -->");
         Set<Room> availableRooms;
         availableRooms = hotel.findAvailableRooms(from, to, capacity);
 

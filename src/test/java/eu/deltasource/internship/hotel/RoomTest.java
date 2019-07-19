@@ -61,4 +61,19 @@ public class RoomTest {
             manager.createBooking("peter-id", from, to, 2);
         });
     }
+
+    @Test
+    public void testRoomNumbers() {
+        //given
+        Hotel hotel = new Hotel("Trivago");
+        Room room1 = new Room(hotel.getRoomNumCount());
+        hotel.addRoom(room1);
+        Room room2 = new Room(hotel.getRoomNumCount());
+        hotel.addRoom(room2);
+        //when
+
+        //then
+        assertEquals(1, room1.getNumber());
+        assertEquals(2, room2.getNumber());
+    }
 }

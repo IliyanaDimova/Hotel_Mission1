@@ -65,6 +65,19 @@ public class Room {
         return commoditySet;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Room))
+            return false;
+        Room room = (Room) obj;
+        return (room.number == this.number);
+    }
+
+    @Override
+    public int hashCode() {
+        return number;
+    }
+
     /**
      * Prepares all the commodities in the room by accessing the commodities through AbstractCommodities prepare()
      *
@@ -114,13 +127,18 @@ public class Room {
      * @return true if there are rooms matching the criteria, false if not
      */
     public boolean findIfAvailable(LocalDate from, LocalDate to, int guests) {
+        System.out.println("-->Started findIfAvailable for room# " + getNumber());
         int capacity = countSleepingPlaces();
+        System.out.println("###Capacity: "  + capacity);
         //if there are no bookings for the room OR from-to doesn't overlap with any booking intervals =>
         //return true if (the capacity of the room is == guests wanting to stay)
         if (bookings.isEmpty()||(!doDateOverlap(from, to))) {
+            if(capacity != guests) System.out.println("!!!!!return false");
+            else System.out.println("!!!!!return true ");
             return (capacity == guests) ? true : false;
         } else {
             //return false if dates overlap
+            System.out.println("!!!!!returns: false");
             return false;
         }
         //todo if the capacity is bigger, can't guests stay?
@@ -131,11 +149,11 @@ public class Room {
      */
     public int countSleepingPlaces() {
         int sleepingPlaces = 0;
-        for (AbstractCommodity commodity : this.commoditySet) {
-            if (commodity instanceof Bed /* && commodity.hashCode() == this.getNumber()*/) {
+        for (AbstractCommodity commodity : commoditySet) {
+            if (commodity instanceof Bed) {
                 Bed bed = (Bed) commodity;
+                System.out.println("bed.getNumberOfPersona() = " + bed.getNumberOfPersona());
                 sleepingPlaces += bed.getNumberOfPersona();
-                System.out.println("sleepingPlaces = " + sleepingPlaces);
             }
         }
         return sleepingPlaces;

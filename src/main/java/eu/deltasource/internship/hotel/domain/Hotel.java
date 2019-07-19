@@ -79,8 +79,10 @@ public class Hotel {
      * @return List of all rooms that have the exact capacity to hold the numberOfPeople
      */
     public Set<Room> findAvailableRooms(LocalDate from, LocalDate to, int capacity) {
+        System.out.println("\n--> findAvailableRooms started");
         Set<Room> availableRooms = new HashSet<>();
         for (Room room : this.getRooms()) {
+            System.out.println("\n~~~looping room# " + room.getNumber());
             if (room.findIfAvailable(from, to, capacity)) {
                 availableRooms.add(room);
             }

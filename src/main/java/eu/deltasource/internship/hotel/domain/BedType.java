@@ -9,7 +9,7 @@ public enum BedType {
     DOUBLE(2),
     KINGSIZE(2);
 
-    private int size;
+    private final int size;
 
     /**
      * Constructor
