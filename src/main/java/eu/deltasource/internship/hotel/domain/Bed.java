@@ -8,7 +8,7 @@ public class Bed extends AbstractCommodity {
     private BedType bedType;
 
     /**
-     * Bed constructor. It checks if a bed with the same invNum already exists.
+     * Bed constructor
      *
      * @param inventoryNumber int number unique for any commodity
      * @param bedType         enum BedType

@@ -19,6 +19,11 @@ public class Room {
     private Set<LocalDate> maintenanceDates;
     private Set<Booking> bookings;
 
+    /**
+     * Room constructor
+     *
+     * @param room another room from which new room's fields are initialized
+     */
     public Room(Room room) {
         number = room.number;
         commoditySet = room.getCommodities();
@@ -26,6 +31,11 @@ public class Room {
         maintenanceDates = room.getMaintenanceDates();
     }
 
+    /**
+     * Room constructor. Initializes all fields
+     *
+     * @param roomNumber the unique number of the room
+     */
     public Room(int roomNumber) {
         number = roomNumber;
         commoditySet = new HashSet<>();
@@ -41,6 +51,11 @@ public class Room {
         return number;
     }
 
+    /**
+     * Adds a meintanance date
+     *
+     * @param maintenanceDate the date to be added
+     */
     public void addMaintenanceDate(LocalDate maintenanceDate) {
         maintenanceDates.add(maintenanceDate);
     }
@@ -49,6 +64,11 @@ public class Room {
         return maintenanceDates;
     }
 
+    /**
+     * Adds a booking to bookings of the room
+     *
+     * @param booking the booking to be added
+     */
     public void addBooking(Booking booking) {
         bookings.add(booking);
     }
@@ -57,6 +77,11 @@ public class Room {
         return bookings;
     }
 
+    /**
+     * Adds a new commodity to the room
+     *
+     * @param commodity the commodity to be added
+     */
     public void addCommodity(AbstractCommodity commodity) {
         commoditySet.add(commodity);
     }
@@ -85,9 +110,7 @@ public class Room {
      */
     public void prepareCommodities(LocalDate date) {
         for (AbstractCommodity commodity : commoditySet) {
-            if (number == commodity.hashCode()) {
                 commodity.prepare();
-            }
         }
         maintenanceDates.add(date);
     }
@@ -129,13 +152,18 @@ public class Room {
     public boolean findIfAvailable(LocalDate from, LocalDate to, int guests) {
         System.out.println("-->Started findIfAvailable for room# " + getNumber());
         int capacity = countSleepingPlaces();
-        System.out.println("###Capacity: "  + capacity);
+        System.out.println("###Capacity: " + capacity);
         //if there are no bookings for the room OR from-to doesn't overlap with any booking intervals =>
         //return true if (the capacity of the room is == guests wanting to stay)
-        if (bookings.isEmpty()||(!doDateOverlap(from, to))) {
-            if(capacity != guests) System.out.println("!!!!!return false");
-            else System.out.println("!!!!!return true ");
-            return (capacity == guests) ? true : false;
+        if (bookings.isEmpty() || (!doDateOverlap(from, to))) {
+            if (capacity == guests) {
+                System.out.println("!!!!!return true");
+                return true;
+            }
+            else {
+                System.out.println("!!!!!return false ");
+                return false;
+            }
         } else {
             //return false if dates overlap
             System.out.println("!!!!!returns: false");

@@ -6,7 +6,7 @@ package eu.deltasource.internship.hotel.domain;
 public class Shower extends AbstractCommodity {
 
     /**
-     * Shower constructor.  It checks if a shower with the same invNum already exists.
+     * Shower constructor
      *
      * @param inventoryNumber int number unique for any commodity
      */

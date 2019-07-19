@@ -6,7 +6,7 @@ package eu.deltasource.internship.hotel.domain;
 public class Toilet extends AbstractCommodity {
 
     /**
-     * Toilet constructor.  It checks if a toilet with the same invNum already exists.
+     * Toilet constructor
      *
      * @param givenInventoryNumber int number unique for any commodity
      */
