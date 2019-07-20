@@ -7,11 +7,14 @@ public class Toilet extends AbstractCommodity {
 
     /**
      * Toilet constructor
-     *
-     * @param givenInventoryNumber int number unique for any commodity
+     * sets empty number for commodity
      */
-    public Toilet(int givenInventoryNumber) {
-        this.inventoryNumber = givenInventoryNumber;
+    public Toilet() {
+        number = new InventoryNum();
+    }
+
+    public InventoryNum getInventoryNumber(){
+        return number;
     }
 
     /**
@@ -28,12 +31,12 @@ public class Toilet extends AbstractCommodity {
         if (!(obj instanceof Toilet))
             return false;
         Toilet toilet = (Toilet) obj;
-        return (toilet.inventoryNumber == this.inventoryNumber);
+        return (toilet.number == this.number);
     }
 
     @Override
     public int hashCode() {
-        return inventoryNumber;
+        return number.getCommodityNum();
     }
 
 }

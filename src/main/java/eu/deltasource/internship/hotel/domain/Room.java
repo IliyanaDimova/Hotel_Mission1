@@ -10,7 +10,7 @@ import java.util.Set;
  * Set of Commodities - toilets, showers, beds
  * Set of dates that the room had been prepared
  * Set of bookings (booked from guests for time intervals)
- * A static variable - roomNumCount that remembers the last initialized room's number in order to create unique number for all rooms
+ * A static variable - commodityNumCount that remembers the current commodity actual number (the commodityNum field in CommodityInventoryNum Class) in order to create unique number for all commodities
  */
 public class Room {
 
@@ -18,6 +18,7 @@ public class Room {
     private Set<AbstractCommodity> commoditySet;
     private Set<LocalDate> maintenanceDates;
     private Set<Booking> bookings;
+    private static int commodityNumCount;
 
     /**
      * Room constructor
@@ -29,6 +30,7 @@ public class Room {
         commoditySet = room.getCommodities();
         bookings = room.getBookings();
         maintenanceDates = room.getMaintenanceDates();
+        commodityNumCount = 1;
     }
 
     /**
@@ -41,6 +43,7 @@ public class Room {
         commoditySet = new HashSet<>();
         maintenanceDates = new HashSet<>();
         bookings = new HashSet<>();
+        commodityNumCount = 1;
     }
 
     public void setNumber(int number) {
@@ -78,12 +81,20 @@ public class Room {
     }
 
     /**
-     * Adds a new commodity to the room
+     * Adds a new commodity to the room, creating unique number for it
+     * then increases the static commodityNumCount with 1 for the unique number of the next commodity to be added to the room
+     * It checks is the commodity already belongs to another room - if it does => throws exception
      *
      * @param commodity the commodity to be added
      */
-    public void addCommodity(AbstractCommodity commodity) {
-        commoditySet.add(commodity);
+    public void addCommodity(AbstractCommodity commodity) throws CommodityAlreadyBelongsToRoomException {
+        if (commodity.getInventoryNumber().getCommodityNum() == 0) {
+            commodity.setInventoryNumber(number, commodityNumCount);
+            commoditySet.add(commodity);
+            commodityNumCount++;
+        } else {
+            throw new CommodityAlreadyBelongsToRoomException("This commodity already belongs to a room");
+        }
     }
 
     public Set getCommodities() {
@@ -110,7 +121,7 @@ public class Room {
      */
     public void prepareCommodities(LocalDate date) {
         for (AbstractCommodity commodity : commoditySet) {
-                commodity.prepare();
+            commodity.prepare();
         }
         maintenanceDates.add(date);
     }
@@ -159,8 +170,7 @@ public class Room {
             if (capacity == guests) {
                 System.out.println("!!!!!return true");
                 return true;
-            }
-            else {
+            } else {
                 System.out.println("!!!!!return false ");
                 return false;
             }

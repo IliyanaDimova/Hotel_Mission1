@@ -9,17 +9,21 @@ public class Bed extends AbstractCommodity {
 
     /**
      * Bed constructor
+     * ets empty number for commodity
      *
-     * @param inventoryNumber int number unique for any commodity
      * @param bedType         enum BedType
      */
-    public Bed(int inventoryNumber, BedType bedType) {
-        this.inventoryNumber = inventoryNumber;
+    public Bed(BedType bedType) {
         this.bedType = bedType;
+        number = new InventoryNum();
     }
 
     public int getNumberOfPersona() {
         return bedType.getSize();
+    }
+
+    public InventoryNum getInventoryNumber(){
+        return number;
     }
 
     /**
@@ -36,12 +40,12 @@ public class Bed extends AbstractCommodity {
         if (!(obj instanceof Bed))
             return false;
         Bed bed = (Bed) obj;
-        return (bed.inventoryNumber == this.inventoryNumber);
+        return (bed.number == this.number);
     }
 
     @Override
     public int hashCode() {
-        return inventoryNumber;
+        return number.getCommodityNum();
     }
 
 }

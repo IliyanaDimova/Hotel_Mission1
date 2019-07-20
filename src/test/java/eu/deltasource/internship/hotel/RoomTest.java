@@ -18,7 +18,7 @@ public class RoomTest {
         Room room = new Room(hotel.getRoomNumCount());
         hotel.addRoom(room);
         manager.assignHotel(hotel);
-        Bed bed = new Bed(1, BedType.DOUBLE);
+        Bed bed = new Bed(BedType.DOUBLE);
         room.addCommodity(bed);
         //when
         LocalDate from = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
@@ -51,7 +51,7 @@ public class RoomTest {
         Room room = new Room(hotel.getRoomNumCount());
         hotel.addRoom(room);
         manager.assignHotel(hotel);
-        Bed bed = new Bed(1, BedType.SINGLE);
+        Bed bed = new Bed(BedType.SINGLE);
         room.addCommodity(bed);
         //when
         LocalDate from = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
@@ -76,4 +76,23 @@ public class RoomTest {
         assertEquals(1, room1.getNumber());
         assertEquals(2, room2.getNumber());
     }
+
+    @Test
+    public void testCommodityInventoryNumbers() {
+        //given
+        Hotel hotel = new Hotel("Trivago");
+        Room room = new Room(hotel.getRoomNumCount());
+        hotel.addRoom(room);
+        Bed bed = new Bed(BedType.SINGLE);
+        room.addCommodity(bed);
+        Toilet toilet = new Toilet();
+        room.addCommodity(toilet);
+        //when
+        InventoryNum bedNum = new InventoryNum(1, 1);
+        InventoryNum toiletNum = new InventoryNum(1, 2);
+        //then
+        assertEquals(bedNum, bed.getInventoryNumber());
+        assertEquals(toiletNum, toilet.getInventoryNumber());
+    }
+
 }

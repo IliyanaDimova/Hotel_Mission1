@@ -7,11 +7,14 @@ public class Shower extends AbstractCommodity {
 
     /**
      * Shower constructor
-     *
-     * @param inventoryNumber int number unique for any commodity
+     * sets empty number for commodity
      */
-    public Shower(int inventoryNumber) {
-        this.inventoryNumber = inventoryNumber;
+    public Shower() {
+        number = new InventoryNum();
+    }
+
+    public InventoryNum getInventoryNumber(){
+        return number;
     }
 
     /**
@@ -28,12 +31,12 @@ public class Shower extends AbstractCommodity {
         if (!(obj instanceof Shower))
             return false;
         Shower shower = (Shower) obj;
-        return (shower.inventoryNumber == this.inventoryNumber);
+        return (shower.number == this.number);
     }
 
     @Override
     public int hashCode() {
-        return inventoryNumber;
+        return number.getCommodityNum();
     }
 
 }
