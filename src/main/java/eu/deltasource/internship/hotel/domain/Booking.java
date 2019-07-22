@@ -1,6 +1,7 @@
 package eu.deltasource.internship.hotel.domain;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * Class Booking in Room Class. it's fields are:
@@ -43,5 +44,18 @@ public class Booking {
             System.out.println("Dates overlap!");
             return true;
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Booking))
+            return false;
+        Booking booking = (Booking) obj;
+        return ((booking.from == this.from)&&(booking.to == this.to)&&(booking.guestId == this.guestId));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(guestId, from, to);
     }
 }

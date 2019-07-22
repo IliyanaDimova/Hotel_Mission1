@@ -38,6 +38,20 @@ public class Hotel {
         commodityNumCount = 1;
     }
 
+    public void addRooms(int numOfRooms) {
+        for (int i = 0; i < numOfRooms; i++) {
+            Room room = new Room(roomNumCount);
+            roomNumCount++;
+            rooms.add(room);
+        }
+    }
+
+    public void addSameCommodityToEveryRoom(AbstractCommodity commodity){
+        for (Room room : rooms) {
+            room.addCommodity(commodity, this);
+        }
+    }
+
     /**
      * returns commodityNumCount and increments it
      *

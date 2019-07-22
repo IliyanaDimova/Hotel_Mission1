@@ -10,7 +10,6 @@ import java.util.Set;
  * Set of Commodities - toilets, showers, beds
  * Set of dates that the room had been prepared
  * Set of bookings (booked from guests for time intervals)
- * A static variable - commodityNumCount that remembers the current commodity actual number (the commodityNum field in CommodityInventoryNum Class) in order to create unique number for all commodities
  */
 public class Room {
 
@@ -18,19 +17,15 @@ public class Room {
     private Set<AbstractCommodity> commoditySet;
     private Set<LocalDate> maintenanceDates;
     private Set<Booking> bookings;
-    //private static int commodityNumCount;
 
     /**
-     * Room constructor
-     *
-     * @param room another room from which new room's fields are initialized
+     * Empty Room constructor without number, not added to hotel yet
      */
-    public Room(Room room) {
-        number = room.number;
-        commoditySet = room.getCommodities();
-        bookings = room.getBookings();
-        maintenanceDates = room.getMaintenanceDates();
-        //commodityNumCount = 1;
+    public Room() {
+        number = 0;
+        commoditySet = new HashSet<>();
+        maintenanceDates = new HashSet<>();
+        bookings = new HashSet<>();
     }
 
     /**
@@ -43,7 +38,18 @@ public class Room {
         commoditySet = new HashSet<>();
         maintenanceDates = new HashSet<>();
         bookings = new HashSet<>();
-        //commodityNumCount = 1;
+    }
+
+    /**
+     * Adds a set of commodities in a room
+     *
+     * @param set   the set of commodities to be added
+     * @param hotel the hotel they will be added to (we need it to access the static field that generates unique commodity numbers)
+     */
+    public void addCommodities(Set<AbstractCommodity> set, Hotel hotel) {
+        for (AbstractCommodity commodity : commoditySet) {
+            addCommodity(commodity, hotel);
+        }
     }
 
     public void setNumber(int number) {
@@ -141,12 +147,11 @@ public class Room {
     /**
      * Removes a booking from room's bookings Set
      *
-     * @param guestName one of the guests that are booking the room's name
-     * @param guestId   the EGN of the same person
-     * @param from      LocalDate from which the room will be occupied by the quests
-     * @param to        LocalDate from which the room will be occupied by the quests
+     * @param guestId the EGN of the same person
+     * @param from    LocalDate from which the room will be occupied by the quests
+     * @param to      LocalDate from which the room will be occupied by the quests
      */
-    public void removeBooking(String guestName, String guestId, LocalDate from, LocalDate to) {
+    public void removeBooking(String guestId, LocalDate from, LocalDate to) {
         Booking booking = new Booking(guestId, from, to);
         bookings.remove(booking);
     }
