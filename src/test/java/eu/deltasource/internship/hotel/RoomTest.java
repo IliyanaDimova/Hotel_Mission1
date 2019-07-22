@@ -59,10 +59,10 @@ public class RoomTest {
         Bed bed = new Bed(BedType.DOUBLE);
         room.addCommodity(bed, hotel);
         //when
-        LocalDate from = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
-        LocalDate to = manager.stringToLocalDate("2019-01-02");
-        LocalDate from2 = manager.stringToLocalDate("2019-01-02"); // Converts string to LocalDate
-        LocalDate to2 = manager.stringToLocalDate("2019-01-02");
+        LocalDate from = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
+        LocalDate to = manager.stringToLocalDate("2020-01-02");
+        LocalDate from2 = manager.stringToLocalDate("2020-01-02"); // Converts string to LocalDate
+        LocalDate to2 = manager.stringToLocalDate("2020-01-02");
         manager.createBooking("peter-id", from, to, 2);
         //then
         assertThrows(NoRoomsAvailableException.class, () -> {
@@ -91,8 +91,8 @@ public class RoomTest {
         //given
         Room room = new Room();
         Manager manager = new Manager("Pesho");
-        LocalDate from = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
-        LocalDate to = manager.stringToLocalDate("2019-01-02");
+        LocalDate from = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
+        LocalDate to = manager.stringToLocalDate("2020-01-02");
         //when
         room.createBooking("id", from, to);
         //then
@@ -104,8 +104,8 @@ public class RoomTest {
         //given
         Room room = new Room();
         Manager manager = new Manager("Pesho");
-        LocalDate from = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
-        LocalDate to = manager.stringToLocalDate("2019-01-02");
+        LocalDate from = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
+        LocalDate to = manager.stringToLocalDate("2020-01-02");
         //when
         room.createBooking("id", from, to);
         room.removeBooking("id", from, to);
@@ -118,7 +118,7 @@ public class RoomTest {
         //given
         Room room = new Room();
         Manager manager = new Manager("Pesho");
-        LocalDate date = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
+        LocalDate date = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
         //when
         room.addMaintenanceDate(date);
         //then
@@ -126,4 +126,40 @@ public class RoomTest {
         assertEquals(date, room.getMaintenanceDates().iterator().next());
     }
 
+    @Test
+    public void testCreateBookingException() {
+        //given
+        Manager manager = new Manager("Pesho");
+        Hotel hotel = new Hotel("Trivago");
+        Room room = new Room();
+        hotel.addRoom(room);
+        manager.assignHotel(hotel);
+        //room with 1 single bed
+        Bed bed = new Bed(BedType.SINGLE);
+        room.addCommodity(bed, hotel);
+        //when
+        LocalDate from = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
+        LocalDate to = manager.stringToLocalDate("2020-01-02");
+        //then
+        assertThrows(TimeTravelException.class, () -> {
+            manager.createBooking("peter-id", from, to, 1);
+        });
+    }
+
+    @Test
+    public void addCommodityException() {
+        //given
+        Manager manager = new Manager("Pesho");
+        Hotel hotel = new Hotel("Trivago");
+        Room room = new Room();
+        hotel.addRoom(room);
+        manager.assignHotel(hotel);
+        //when
+        Toilet toilet = new Toilet();
+        room.addCommodity(toilet, hotel);
+        //then
+        assertThrows(CommodityAlreadyBelongsToRoomException.class, () -> {
+            room.addCommodity(toilet, hotel);
+        });
+    }
 }

@@ -57,8 +57,8 @@ public class HotelTest {
         Bed bed = new Bed(BedType.SINGLE);
         room.addCommodity(bed, hotel);
         //when
-        LocalDate from = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
-        LocalDate to = manager.stringToLocalDate("2019-01-02");
+        LocalDate from = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
+        LocalDate to = manager.stringToLocalDate("2020-01-02");
         //then
         assertEquals(room, hotel.findAvailableRooms(from, to, 1).iterator().next());
         assertEquals(0, hotel.findAvailableRooms(from, to, 2).size());

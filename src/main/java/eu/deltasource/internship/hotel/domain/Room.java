@@ -124,7 +124,11 @@ public class Room {
      * @param from    LocalDate from which the room will be occupied by the quests
      * @param to      LocalDate from which the room will be occupied by the quests
      */
-    public void createBooking(String guestId, LocalDate from, LocalDate to) {
+    public void createBooking(String guestId, LocalDate from, LocalDate to) throws TimeTravelException {
+        LocalDate today = LocalDate.now();
+        if(from.isBefore(today)){
+            throw new TimeTravelException("Humans can't time travel for now");
+        }
         Booking booking = new Booking(guestId, from, to);
         bookings.add(booking);
         prepareCommodities(from);
