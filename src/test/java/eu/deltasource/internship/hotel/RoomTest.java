@@ -32,12 +32,12 @@ public class RoomTest {
         Room room = new Room(hotel.getRoomNumCount());
         hotel.addRoom(room);
         Bed bed = new Bed(BedType.SINGLE);
-        room.addCommodity(bed);
+        room.addCommodity(bed, hotel);
         Toilet toilet = new Toilet();
-        room.addCommodity(toilet);
+        room.addCommodity(toilet, hotel);
         //when
-        InventoryNum bedNum = new InventoryNum(1, 1);
-        InventoryNum toiletNum = new InventoryNum(1, 2);
+        int bedNum = 1;
+        int toiletNum = 2;
         //then
         assertEquals(bedNum, bed.getInventoryNumber());
         assertEquals(toiletNum, toilet.getInventoryNumber());
@@ -52,7 +52,7 @@ public class RoomTest {
         hotel.addRoom(room);
         manager.assignHotel(hotel);
         Bed bed = new Bed(BedType.DOUBLE);
-        room.addCommodity(bed);
+        room.addCommodity(bed, hotel);
         //when
         LocalDate from = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
         LocalDate to = manager.stringToLocalDate("2019-01-02");

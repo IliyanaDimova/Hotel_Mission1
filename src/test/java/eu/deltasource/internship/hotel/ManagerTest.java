@@ -44,7 +44,7 @@ class ManagerTest {
         hotel.addRoom(room);
         manager.assignHotel(hotel);
         Bed bed = new Bed(BedType.DOUBLE);
-        room.addCommodity(bed);
+        room.addCommodity(bed, hotel);
         //when
         LocalDate from = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
         LocalDate to = manager.stringToLocalDate("2019-01-02");
@@ -77,7 +77,7 @@ class ManagerTest {
         hotel.addRoom(room);
         manager.assignHotel(hotel);
         Bed bed = new Bed(BedType.SINGLE);
-        room.addCommodity(bed);
+        room.addCommodity(bed, hotel);
         //when
         LocalDate from = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
         LocalDate to = manager.stringToLocalDate("2019-01-02");

@@ -10,10 +10,10 @@ public class Toilet extends AbstractCommodity {
      * sets empty number for commodity
      */
     public Toilet() {
-        number = new InventoryNum();
+        number = 0;
     }
 
-    public InventoryNum getInventoryNumber(){
+    public int getInventoryNumber(){
         return number;
     }
 
@@ -36,7 +36,7 @@ public class Toilet extends AbstractCommodity {
 
     @Override
     public int hashCode() {
-        return number.getCommodityNum();
+        return number;
     }
 
 }

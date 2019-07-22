@@ -15,14 +15,14 @@ public class Bed extends AbstractCommodity {
      */
     public Bed(BedType bedType) {
         this.bedType = bedType;
-        number = new InventoryNum();
+        number = 0;
     }
 
     public int getNumberOfPersona() {
         return bedType.getSize();
     }
 
-    public InventoryNum getInventoryNumber() {
+    public int getInventoryNumber() {
         return number;
     }
 
@@ -45,7 +45,7 @@ public class Bed extends AbstractCommodity {
 
     @Override
     public int hashCode() {
-        return number.getCommodityNum();
+        return number;
     }
 
 }

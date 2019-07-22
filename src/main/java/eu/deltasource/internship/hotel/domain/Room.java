@@ -18,7 +18,7 @@ public class Room {
     private Set<AbstractCommodity> commoditySet;
     private Set<LocalDate> maintenanceDates;
     private Set<Booking> bookings;
-    private static int commodityNumCount;
+    //private static int commodityNumCount;
 
     /**
      * Room constructor
@@ -30,7 +30,7 @@ public class Room {
         commoditySet = room.getCommodities();
         bookings = room.getBookings();
         maintenanceDates = room.getMaintenanceDates();
-        commodityNumCount = 1;
+        //commodityNumCount = 1;
     }
 
     /**
@@ -43,7 +43,7 @@ public class Room {
         commoditySet = new HashSet<>();
         maintenanceDates = new HashSet<>();
         bookings = new HashSet<>();
-        commodityNumCount = 1;
+        //commodityNumCount = 1;
     }
 
     public void setNumber(int number) {
@@ -87,11 +87,10 @@ public class Room {
      *
      * @param commodity the commodity to be added
      */
-    public void addCommodity(AbstractCommodity commodity) throws CommodityAlreadyBelongsToRoomException {
-        if (commodity.getInventoryNumber().getCommodityNum() == 0) {
-            commodity.setInventoryNumber(number, commodityNumCount);
+    public void addCommodity(AbstractCommodity commodity, Hotel hotel) throws CommodityAlreadyBelongsToRoomException {
+        if (commodity.getInventoryNumber() == 0) {
+            commodity.setInventoryNumber(hotel.getCommodityNumCountAndIncrementIt());
             commoditySet.add(commodity);
-            commodityNumCount++;
         } else {
             throw new CommodityAlreadyBelongsToRoomException("This commodity already belongs to a room");
         }

@@ -14,6 +14,7 @@ public class Hotel {
     private String name;
     private Set<Room> rooms;
     private static int roomNumCount;
+    private static int commodityNumCount;
 
     /**
      * Empty Hotel constructor (initializes all fields)
@@ -22,6 +23,7 @@ public class Hotel {
         name = new String();
         rooms = new HashSet();
         roomNumCount = 1;
+        commodityNumCount = 1;
     }
 
     /**
@@ -33,6 +35,17 @@ public class Hotel {
         this.name = name;
         rooms = new HashSet();
         roomNumCount = 1;
+        commodityNumCount = 1;
+    }
+
+    /**
+     * returns commodityNumCount and increments it
+     *
+     * @return the last set inventory number of a commodity in the hotel
+     */
+    public int getCommodityNumCountAndIncrementIt() {
+        commodityNumCount++;
+        return (commodityNumCount - 1);
     }
 
     public void setName(String name) {

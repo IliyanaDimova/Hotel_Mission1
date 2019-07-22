@@ -2,15 +2,16 @@ package eu.deltasource.internship.hotel.domain;
 
 /**
  * SuperClass to: Shower Class, Bed Class and Toilet Class (Commodities that are a Set field in a room)
+ * every commodity has unique inventory number generated through the static field in Hotel_Class
  */
 public abstract class AbstractCommodity {
-    protected InventoryNum number;
+    protected int number;
 
-    public void setInventoryNumber(int roomNum, int commodityNum){
-        number = new InventoryNum(roomNum, commodityNum);
+    public void setInventoryNumber(int commodityNum){
+        number = commodityNum;
     }
 
-    public InventoryNum getInventoryNumber(){
+    public int getInventoryNumber(){
         return number;
     }
 
