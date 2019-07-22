@@ -35,6 +35,13 @@ public class Booking {
      * @return true if they overlap, false if not
      */
     public boolean checkIfDatesOverlap(LocalDate from, LocalDate to) {
-        return ((this.from.isBefore(to)) && (this.to.isAfter(from)));
+        if(this.to.isBefore(from)||this.from.isAfter(to)){
+            System.out.println("Dates DON'T overlap!");
+            return false;
+        }
+        else{
+            System.out.println("Dates overlap!");
+            return true;
+        }
     }
 }

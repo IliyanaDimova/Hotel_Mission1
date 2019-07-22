@@ -179,10 +179,11 @@ public class Room {
             System.out.println("!!!!!returns: false");
             return false;
         }
-        //todo if the capacity is bigger, can't guests stay?
     }
 
     /**
+     * Finds the capacity of the room
+     *
      * @return number of sleeping places in a room
      */
     public int countSleepingPlaces() {

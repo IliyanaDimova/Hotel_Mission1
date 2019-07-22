@@ -9,9 +9,9 @@ public class Bed extends AbstractCommodity {
 
     /**
      * Bed constructor
-     * ets empty number for commodity
+     * enters empty number for commodity
      *
-     * @param bedType         enum BedType
+     * @param bedType enum BedType
      */
     public Bed(BedType bedType) {
         this.bedType = bedType;
@@ -22,7 +22,7 @@ public class Bed extends AbstractCommodity {
         return bedType.getSize();
     }
 
-    public InventoryNum getInventoryNumber(){
+    public InventoryNum getInventoryNumber() {
         return number;
     }
 
