@@ -40,13 +40,8 @@ public class Room {
         bookings = new HashSet<>();
     }
 
-    /**
-     * Adds a set of commodities in a room
-     *
-     * @param set   the set of commodities to be added
-     * @param hotel the hotel they will be added to (we need it to access the static field that generates unique commodity numbers)
-     */
-    public void addCommodities(Set<AbstractCommodity> set, Hotel hotel) {
+    //needs the hotel to access the static commodity number count
+    public void setCommodities(Set<AbstractCommodity> set, Hotel hotel) {
         for (AbstractCommodity commodity : commoditySet) {
             addCommodity(commodity, hotel);
         }
@@ -71,15 +66,6 @@ public class Room {
 
     public Set getMaintenanceDates() {
         return maintenanceDates;
-    }
-
-    /**
-     * Adds a booking to bookings of the room
-     *
-     * @param booking the booking to be added
-     */
-    public void addBooking(Booking booking) {
-        bookings.add(booking);
     }
 
     public Set getBookings() {

@@ -118,6 +118,7 @@ class ManagerTest {
         Room room = new Room(hotel.getRoomNumCount());
         hotel.addRoom(room);
         manager.assignHotel(hotel);
+        //room with 1 single bed
         Bed bed = new Bed(BedType.SINGLE);
         room.addCommodity(bed, hotel);
         //when
@@ -128,8 +129,30 @@ class ManagerTest {
         LocalDate to1 = manager.stringToLocalDate("2019-02-02");
         //then
         assertThrows(NoRoomsAvailableException.class, () -> {
-           manager.createBooking("peter-id", from1, to1, 2);
+           manager.createBooking("katya-id", from1, to1, 1);
         });
     }
 
+    @Test
+    public void testAddCommodities() {
+        //given
+        Manager manager = new Manager("Pesho");
+        Hotel hotel = new Hotel("Trivago");
+        Room room = new Room(hotel.getRoomNumCount());
+        hotel.addRoom(room);
+        manager.assignHotel(hotel);
+        //room with 1 single bed
+        Bed bed = new Bed(BedType.SINGLE);
+        room.addCommodity(bed, hotel);
+        //when
+        LocalDate from = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
+        LocalDate to = manager.stringToLocalDate("2019-01-02");
+        manager.createBooking("peter-id", from, to, 1);
+        LocalDate from1 = manager.stringToLocalDate("2019-01-02"); // Converts string to LocalDate
+        LocalDate to1 = manager.stringToLocalDate("2019-02-02");
+        //then
+        assertThrows(NoRoomsAvailableException.class, () -> {
+            manager.createBooking("katya-id", from1, to1, 1);
+        });
+    }
 }

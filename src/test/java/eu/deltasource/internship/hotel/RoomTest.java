@@ -15,11 +15,10 @@ public class RoomTest {
         //given
         Hotel hotel = new Hotel("Trivago");
         Room room1 = new Room(hotel.getRoomNumCount());
-        hotel.addRoom(room1);
         Room room2 = new Room(hotel.getRoomNumCount());
-        hotel.addRoom(room2);
         //when
-
+        hotel.addRoom(room1);
+        hotel.addRoom(room2);
         //then
         assertEquals(1, room1.getNumber());
         assertEquals(2, room2.getNumber());
@@ -112,6 +111,19 @@ public class RoomTest {
         room.removeBooking("id", from, to);
         //then
         assertEquals(0, room.getBookings().size());
+    }
+
+    @Test
+    public void testAddMaintenanceDate() {
+        //given
+        Room room = new Room();
+        Manager manager = new Manager("Pesho");
+        LocalDate date = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
+        //when
+        room.addMaintenanceDate(date);
+        //then
+        assertEquals(1, room.getMaintenanceDates().size());
+        assertEquals(date, room.getMaintenanceDates().iterator().next());
     }
 
 }
