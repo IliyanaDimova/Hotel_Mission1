@@ -10,6 +10,7 @@ import java.util.Set;
  * Set of Commodities - toilets, showers, beds
  * Set of dates that the room had been prepared
  * Set of bookings (booked from guests for time intervals)
+ * Capacity - the number of people that can sleep in the room
  */
 public class Room {
 

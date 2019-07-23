@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Class main.java.eu.deltasource.internship.hotel.domain.Hotel is assigned to a manager. It's fields are:
- * main.java.eu.deltasource.internship.hotel.domain.Hotel's name
- * List of rooms of Class main.java.eu.deltasource.internship.hotel.domain.Room
+ * Hotel_Class is assigned to a manager. It's fields are:
+ * Hotel's name
+ * List of rooms of Room_Class
  * roomNumCount is a static variable that saves the last assigned commodity number (in order to create unique room numbers)
  */
 public class Hotel {
@@ -16,19 +16,10 @@ public class Hotel {
     private static int commodityNumCount;
 
     /**
-     * Empty Hotel constructor (initializes all fields)
-     */
-    public Hotel() {
-        name = new String();
-        rooms = new HashSet();
-        commodityNumCount = 1;
-    }
-
-    /**
      * Hotel constructor
-     * commodityNumCount starts from 1 cuz you can't have 0 for inventory number
+     * commodityNumCount starts from 1 because you can't have 0 or "-" values for commodity's inventory number
      *
-     * @param name the name that will be assigned to the hotel
+     * @param name the name that will be assigned to the hotel (You can't create a hotel without a name)
      */
     public Hotel(String name) {
         this.name = name;
@@ -36,6 +27,11 @@ public class Hotel {
         commodityNumCount = 1;
     }
 
+    /**
+     * Add numOfRooms rooms to a hotel. It gives the rooms their unique number using the size of room's Set + 1 (because you can't have 0 for a room number)
+     *
+     * @param numOfRooms the number of the rooms you want to add
+     */
     public void addRooms(int numOfRooms) {
         for (int i = 0; i < numOfRooms; i++) {
             Room room = new Room(rooms.size() + 1);
@@ -43,6 +39,12 @@ public class Hotel {
         }
     }
 
+    /**
+     * Adds one commodity in every room in the hotel assigning unique inventory number to every single one
+     * It will be handy to add a shower to every room in one move instead of adding the same shower to every single room
+     *
+     * @param commodity the commodity to be added to every room
+     */
     public void addSameCommodityToEveryRoom(AbstractCommodity commodity) {
         for (Room room : rooms) {
             room.addCommodity(commodity, this);
@@ -68,7 +70,7 @@ public class Hotel {
     }
 
     /**
-     * Adds a new room to the hotel and increments the roomNumCount with 1
+     * Adds a new room to the hotel, giving it it's unique number using the size of the Set of rooms in the hotel + 1
      *
      * @param room the room to be added
      */

@@ -1,7 +1,6 @@
 package eu.deltasource.internship.hotel;
 
 import eu.deltasource.internship.hotel.domain.*;
-
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
