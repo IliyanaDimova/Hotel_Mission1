@@ -100,13 +100,13 @@ class ManagerTest {
         LocalDate from = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
         LocalDate to = manager.stringToLocalDate("2020-01-02");
         manager.createBooking("peter-id", from, to, 1);
-        from = manager.stringToLocalDate("2020-02-01"); // Converts string to LocalDate
-        to = manager.stringToLocalDate("2020-02-02");
+        LocalDate from1 = manager.stringToLocalDate("2020-02-01"); // Converts string to LocalDate
+        LocalDate to1 = manager.stringToLocalDate("2020-02-02");
         //then
         assertEquals(1, manager.createBooking("peter-id", from, to, 1));
-        //assertThrows(NoRoomsAvailableException.class, () -> {
-         //   manager.createBooking("peter-id", from, to, 2);
-        //});
+        assertThrows(NoRoomsAvailableException.class, () -> {
+            manager.createBooking("peter-id", from1, to1, 2);
+        });
     }
 
     @Test

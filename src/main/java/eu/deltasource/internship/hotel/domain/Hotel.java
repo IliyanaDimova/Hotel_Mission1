@@ -13,7 +13,6 @@ import java.util.Set;
 public class Hotel {
     private String name;
     private Set<Room> rooms;
-    private static int roomNumCount;
     private static int commodityNumCount;
 
     /**
@@ -22,7 +21,6 @@ public class Hotel {
     public Hotel() {
         name = new String();
         rooms = new HashSet();
-        roomNumCount = 1;
         commodityNumCount = 1;
     }
 
@@ -34,19 +32,17 @@ public class Hotel {
     public Hotel(String name) {
         this.name = name;
         rooms = new HashSet();
-        roomNumCount = 1;
         commodityNumCount = 1;
     }
 
     public void addRooms(int numOfRooms) {
         for (int i = 0; i < numOfRooms; i++) {
-            Room room = new Room(roomNumCount);
-            roomNumCount++;
+            Room room = new Room(rooms.size() + 1);
             rooms.add(room);
         }
     }
 
-    public void addSameCommodityToEveryRoom(AbstractCommodity commodity){
+    public void addSameCommodityToEveryRoom(AbstractCommodity commodity) {
         for (Room room : rooms) {
             room.addCommodity(commodity, this);
         }
@@ -76,9 +72,8 @@ public class Hotel {
      * @param room the room to be added
      */
     public void addRoom(Room room) {
-        room.setNumber(roomNumCount);
+        room.setNumber(rooms.size() + 1);
         rooms.add(room);
-        roomNumCount++;
     }
 
     public void setRooms(Set<Room> givenRooms) {
@@ -90,7 +85,7 @@ public class Hotel {
     }
 
     public int getRoomNumCount() {
-        return roomNumCount;
+        return (rooms.size() + 1);
     }
 
     public int getRoomCount() {

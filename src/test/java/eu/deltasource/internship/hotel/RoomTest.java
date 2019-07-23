@@ -14,14 +14,14 @@ public class RoomTest {
     public void testRoomNumbers() {
         //given
         Hotel hotel = new Hotel("Trivago");
-        Room room1 = new Room(hotel.getRoomNumCount());
-        Room room2 = new Room(hotel.getRoomNumCount());
         //when
-        hotel.addRoom(room1);
-        hotel.addRoom(room2);
+        hotel.addRooms(121);
+        int i = 1;
         //then
-        assertEquals(1, room1.getNumber());
-        assertEquals(2, room2.getNumber());
+        for (Room room : hotel.getRooms()) {
+            assertEquals(i, room.getNumber());
+            i++;
+        }
     }
 
     @Test
