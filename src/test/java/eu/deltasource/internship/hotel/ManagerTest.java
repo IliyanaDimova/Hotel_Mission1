@@ -15,16 +15,6 @@ class ManagerTest {
     private static Manager manager = new Manager("Pesho Peshov");
 
     @Test
-    public void assureStringToLocalDateWorks() {
-        // given
-        String stringDate = "2020-07-20";
-        //when
-        assertEquals(stringDate, manager.stringToLocalDate("2020-07-20").toString());
-        //then
-        System.out.println("LocalDate to String is working!");
-    }
-
-    @Test
     public void assureManagerNameIsCorrect() {
         // given
         String name = "Pesho Peshov";
@@ -46,8 +36,8 @@ class ManagerTest {
         Bed bed = new Bed(BedType.DOUBLE);
         room.addCommodity(bed, hotel);
         //when
-        LocalDate from = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
-        LocalDate to = manager.stringToLocalDate("2020-01-02");
+        LocalDate from = LocalDate.parse("2020-01-01"); // Converts string to LocalDate
+        LocalDate to = LocalDate.parse("2020-01-02");
         int bookedRoomNum = manager.createBooking("peter-id", from, to, 2);
         //then
         assertEquals(bookedRoomNum, 1);
@@ -60,8 +50,8 @@ class ManagerTest {
         Hotel hotel = new Hotel("Trivago");
         manager.assignHotel(hotel);
         //when
-        LocalDate from = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
-        LocalDate to = manager.stringToLocalDate("2020-01-02");
+        LocalDate from = LocalDate.parse("2020-01-01"); // Converts string to LocalDate
+        LocalDate to = LocalDate.parse("2020-01-02");
         //then
         assertThrows(NoRoomsAvailableException.class, () -> {
             manager.createBooking("peter-id", from, to, 2);
@@ -79,8 +69,8 @@ class ManagerTest {
         Bed bed = new Bed(BedType.SINGLE);
         room.addCommodity(bed, hotel);
         //when
-        LocalDate from = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
-        LocalDate to = manager.stringToLocalDate("2020-01-02");
+        LocalDate from = LocalDate.parse("2020-01-01"); // Converts string to LocalDate
+        LocalDate to = LocalDate.parse("2020-01-02");
         //then
         assertThrows(NoRoomsAvailableException.class, () -> {
             manager.createBooking("peter-id", from, to, 2);
@@ -98,11 +88,11 @@ class ManagerTest {
         Bed bed = new Bed(BedType.SINGLE);
         room.addCommodity(bed, hotel);
         //when
-        LocalDate from = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
-        LocalDate to = manager.stringToLocalDate("2020-01-02");
+        LocalDate from = LocalDate.parse("2020-01-01"); // Converts string to LocalDate
+        LocalDate to = LocalDate.parse("2020-01-02");
         int i = manager.createBooking("peter-id", from, to, 1);
-        LocalDate from1 = manager.stringToLocalDate("2020-02-01"); // Converts string to LocalDate
-        LocalDate to1 = manager.stringToLocalDate("2020-02-02");
+        LocalDate from1 = LocalDate.parse("2020-02-01"); // Converts string to LocalDate
+        LocalDate to1 = LocalDate.parse("2020-02-02");
         //then
         assertEquals(1, i); // The number of the booked toom is 1
         assertThrows(NoRoomsAvailableException.class, () -> {
@@ -122,11 +112,11 @@ class ManagerTest {
         Bed bed = new Bed(BedType.SINGLE);
         room.addCommodity(bed, hotel);
         //when
-        LocalDate from = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
-        LocalDate to = manager.stringToLocalDate("2020-01-02");
+        LocalDate from = LocalDate.parse("2020-01-01"); // Converts string to LocalDate
+        LocalDate to = LocalDate.parse("2020-01-02");
         manager.createBooking("peter-id", from, to, 1);
-        LocalDate from1 = manager.stringToLocalDate("2020-01-02"); // Converts string to LocalDate
-        LocalDate to1 = manager.stringToLocalDate("2020-02-02");
+        LocalDate from1 = LocalDate.parse("2020-01-02"); // Converts string to LocalDate
+        LocalDate to1 = LocalDate.parse("2020-02-02");
         //then
         assertThrows(NoRoomsAvailableException.class, () -> {
            manager.createBooking("katya-id", from1, to1, 1);
@@ -145,11 +135,11 @@ class ManagerTest {
         Bed bed = new Bed(BedType.SINGLE);
         room.addCommodity(bed, hotel);
         //when
-        LocalDate from = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
-        LocalDate to = manager.stringToLocalDate("2020-01-02");
+        LocalDate from = LocalDate.parse("2020-01-01"); // Converts string to LocalDate
+        LocalDate to = LocalDate.parse("2020-01-02");
         manager.createBooking("peter-id", from, to, 1);
-        LocalDate from1 = manager.stringToLocalDate("2020-01-02"); // Converts string to LocalDate
-        LocalDate to1 = manager.stringToLocalDate("2020-02-02");
+        LocalDate from1 = LocalDate.parse("2020-01-02"); // Converts string to LocalDate
+        LocalDate to1 = LocalDate.parse("2020-02-02");
         //then
         assertThrows(NoRoomsAvailableException.class, () -> {
             manager.createBooking("katya-id", from1, to1, 1);

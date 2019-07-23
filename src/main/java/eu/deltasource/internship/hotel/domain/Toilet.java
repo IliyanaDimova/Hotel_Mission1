@@ -7,13 +7,13 @@ public class Toilet extends AbstractCommodity {
 
     /**
      * Toilet constructor
-     * sets empty number for commodity
+     * sets empty number for commodity, not yet added to a Room
      */
     public Toilet() {
         number = 0;
     }
 
-    public int getInventoryNumber(){
+    public int getInventoryNumber() {
         return number;
     }
 

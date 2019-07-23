@@ -4,9 +4,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * Class Booking in Room Class. it's fields are:
- * guestName booker's name
- * guestId booker's ID
+ * Booking is a Set in Room. it's fields are:
+ * guestId booker's ID (EGN)
  * LocalDate from which booking starts
  * LocalDate to which booking ends
  */
@@ -28,23 +27,22 @@ public class Booking {
         this.to = to;
     }
 
-    public String getGuestId(){
+    public String getGuestId() {
         return guestId;
     }
 
     /**
-     * Checks if time intervals overlap
+     * Checks if time interval from-to overlaps with Booking's from-to
      *
      * @param from interval's start
      * @param to   interval's end
      * @return true if they overlap, false if not
      */
     public boolean checkIfDatesOverlap(LocalDate from, LocalDate to) {
-        if(this.to.isBefore(from)||this.from.isAfter(to)){
+        if (this.to.isBefore(from) || this.from.isAfter(to)) {
             System.out.println("Dates DON'T overlap!");
             return false;
-        }
-        else{
+        } else {
             System.out.println("Dates overlap!");
             return true;
         }
@@ -55,7 +53,7 @@ public class Booking {
         if (!(obj instanceof Booking))
             return false;
         Booking booking = (Booking) obj;
-        return ((booking.from == this.from)&&(booking.to == this.to)&&(booking.guestId == this.guestId));
+        return ((booking.from == this.from) && (booking.to == this.to) && (booking.guestId == this.guestId));
     }
 
     @Override

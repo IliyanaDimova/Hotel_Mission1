@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.Set;
 
 /**
- * Manager Class with fields:
+ * Manager with fields:
  * name of the manager
- * hotel of Hotel assigned to the manager
+ * Hotel assigned to the manager
  */
 public class Manager {
 
@@ -16,7 +16,7 @@ public class Manager {
     /**
      * Manager constructor
      *
-     * @param name the name of the manager (String)
+     * @param name the name of the manager
      */
     public Manager(String name) {
         this.name = name;
@@ -49,21 +49,6 @@ public class Manager {
     }
 
     /**
-     * Takes a String and turns it into LocalDate
-     *
-     * @param stringDate string to turn into LocalDate
-     * @return the converted from String LocalDate
-     */
-    public LocalDate stringToLocalDate(String stringDate) {
-        LocalDate date = LocalDate.parse(stringDate);
-        if (date == null) {
-            System.out.println("Date failed to parse!");
-            return null;
-        }
-        return date;
-    }
-
-    /**
      * Through this method the manager can book a room for the time interval and size
      *
      * @param guestId  The EGN of one of the guests that want to book the same room
@@ -71,7 +56,7 @@ public class Manager {
      * @param to       date to which the guests want to book the room
      * @param capacity how many guests want to book the room
      * @return the number of the booked room
-     * @throws Exception if no room was booked
+     * @throws Exception if room wasn't booked
      */
     public int createBooking(String guestId, LocalDate from, LocalDate to, int capacity) throws NoRoomsAvailableException {
         System.out.println("\n\n\ncreateBooking started for " + from + " - " + to + " -->");

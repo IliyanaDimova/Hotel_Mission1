@@ -9,7 +9,7 @@ public class Bed extends AbstractCommodity {
 
     /**
      * Bed constructor
-     * enters empty number for commodity
+     * enters empty number for commodity (it will be entered when the room is added to a room in a hotel)
      *
      * @param bedType enum BedType
      */

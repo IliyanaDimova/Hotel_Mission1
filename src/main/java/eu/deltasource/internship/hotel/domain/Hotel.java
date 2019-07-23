@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Hotel_Class is assigned to a manager. It's fields are:
+ * Hotel is assigned to a manager. It's fields are:
  * Hotel's name
- * List of rooms of Room_Class
+ * List of rooms of Room
  * roomNumCount is a static variable that saves the last assigned commodity number (in order to create unique room numbers)
  */
 public class Hotel {
@@ -51,16 +51,6 @@ public class Hotel {
         }
     }
 
-    /**
-     * returns commodityNumCount and increments it
-     *
-     * @return the last set inventory number of a commodity in the hotel
-     */
-    public int getCommodityNumCountAndIncrementIt() {
-        commodityNumCount++;
-        return (commodityNumCount - 1);
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -98,8 +88,8 @@ public class Hotel {
     /**
      * Loops through all rooms in the hotel and adds the ones meeting the criteria to a List
      *
-     * @param from     LocalDate from which the guests want to book a room in the hotel
-     * @param to       LocalDate to which the guests want to book a room in the hotel
+     * @param from     The date from which the guests want to book a room in the hotel
+     * @param to       The date to which the guests want to book a room in the hotel
      * @param capacity number of people that want to book a room together
      * @return List of all rooms that have the exact capacity to hold the numberOfPeople
      */
@@ -113,6 +103,16 @@ public class Hotel {
             }
         }
         return availableRooms;
+    }
+
+    /**
+     * returns commodityNumCount and increments it
+     *
+     * @return the last set inventory number of a commodity in the hotel
+     */
+    public int getCommodityNumCountAndIncrementIt() {
+        commodityNumCount++;
+        return (commodityNumCount - 1);
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Class Room (Every Hotel has a set of rooms) with fields:
+ * Room (Every Hotel has a set of rooms) with fields:
  * room number
  * Set of Commodities - toilets, showers, beds
  * Set of dates that the room had been prepared
@@ -31,7 +31,7 @@ public class Room {
         capacity = 0;
     }
 
-    public int getCapacity(){
+    public int getCapacity() {
         return capacity;
     }
 
@@ -52,7 +52,7 @@ public class Room {
     public void setCommodities(Set<AbstractCommodity> set, Hotel hotel) {
         for (AbstractCommodity commodity : commoditySet) {
             addCommodity(commodity, hotel);
-            if(commodity instanceof Bed){
+            if (commodity instanceof Bed) {
                 Bed bed = (Bed) commodity;
                 capacity += bed.getNumberOfPersona();
             }
@@ -67,11 +67,6 @@ public class Room {
         return number;
     }
 
-    /**
-     * Adds a meintanance date
-     *
-     * @param maintenanceDate the date to be added
-     */
     public void addMaintenanceDate(LocalDate maintenanceDate) {
         maintenanceDates.add(maintenanceDate);
     }
@@ -90,12 +85,13 @@ public class Room {
      * It checks is the commodity already belongs to another room - if it does => throws exception
      *
      * @param commodity the commodity to be added
+     * @throws CommodityAlreadyBelongsToRoomException RuntimeException extender
      */
     public void addCommodity(AbstractCommodity commodity, Hotel hotel) throws CommodityAlreadyBelongsToRoomException {
         if (commodity.getInventoryNumber() == 0) {
             commodity.setInventoryNumber(hotel.getCommodityNumCountAndIncrementIt());
             commoditySet.add(commodity);
-            if(commodity instanceof Bed){
+            if (commodity instanceof Bed) {
                 Bed bed = (Bed) commodity;
                 capacity += bed.getNumberOfPersona();
             }
@@ -139,6 +135,7 @@ public class Room {
      * @param guestId the EGN of the same person
      * @param from    LocalDate from which the room will be occupied by the quests
      * @param to      LocalDate from which the room will be occupied by the quests
+     * @throws TimeTravelException (RuntimeException Extender) if from starts before today's date
      */
     public void createBooking(String guestId, LocalDate from, LocalDate to) throws TimeTravelException {
         LocalDate today = LocalDate.now();
@@ -209,5 +206,4 @@ public class Room {
             return true;
         }
     }
-
 }

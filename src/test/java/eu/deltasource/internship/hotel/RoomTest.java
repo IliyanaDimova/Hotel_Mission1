@@ -88,8 +88,8 @@ public class RoomTest {
         //given
         Room room = new Room();
         Manager manager = new Manager("Pesho");
-        LocalDate from = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
-        LocalDate to = manager.stringToLocalDate("2020-01-02");
+        LocalDate from = LocalDate.parse("2020-01-01"); // Converts string to LocalDate
+        LocalDate to = LocalDate.parse("2020-01-02");
         //when
         room.createBooking("id", from, to);
         room.removeBooking("id", from, to);
@@ -102,7 +102,7 @@ public class RoomTest {
         //given
         Room room = new Room();
         Manager manager = new Manager("Pesho");
-        LocalDate date = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
+        LocalDate date = LocalDate.parse("2020-01-01"); // Converts string to LocalDate
         //when
         room.addMaintenanceDate(date);
         //then
@@ -137,8 +137,8 @@ public class RoomTest {
         Bed bed = new Bed(BedType.SINGLE);
         room.addCommodity(bed, hotel);
         //when
-        LocalDate from = manager.stringToLocalDate("2019-01-01"); // Converts string to LocalDate
-        LocalDate to = manager.stringToLocalDate("2020-01-02");
+        LocalDate from = LocalDate.parse("2019-01-01"); // Converts string to LocalDate
+        LocalDate to = LocalDate.parse("2020-01-02");
         //then
         assertThrows(TimeTravelException.class, () -> {
             manager.createBooking("peter-id", from, to, 1);

@@ -7,13 +7,13 @@ public class Shower extends AbstractCommodity {
 
     /**
      * Shower constructor
-     * sets empty number for commodity
+     * sets empty number for commodity, not yet added to any Room
      */
     public Shower() {
         number = 0;
     }
 
-    public int getInventoryNumber(){
+    public int getInventoryNumber() {
         return number;
     }
 
