@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.Assert.*;
 
 public class RoomTest {
 
@@ -51,23 +52,21 @@ public class RoomTest {
     @Test
     public void testDoDateOverlap() {
         //given
-        Manager manager = new Manager("Pesho");
-        Hotel hotel = new Hotel("Trivago");
-        Room room = new Room(hotel.getRoomNumCount());
-        hotel.addRoom(room);
-        manager.assignHotel(hotel);
-        Bed bed = new Bed(BedType.DOUBLE);
-        room.addCommodity(bed, hotel);
+        Room room = new Room();
+        LocalDate from = LocalDate.parse("2020-01-01");
+        LocalDate to = LocalDate.parse("2020-01-02");
+        LocalDate from1 = LocalDate.parse("2020-01-05");
+        LocalDate to1 = LocalDate.parse("2020-01-06");
+        room.createBooking("id", from, to);
+        room.createBooking("id", from1, to1);
         //when
-        LocalDate from = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
-        LocalDate to = manager.stringToLocalDate("2020-01-02");
-        LocalDate from2 = manager.stringToLocalDate("2020-01-02"); // Converts string to LocalDate
-        LocalDate to2 = manager.stringToLocalDate("2020-01-02");
-        manager.createBooking("peter-id", from, to, 2);
+        LocalDate from2 = LocalDate.parse("2020-01-01");
+        LocalDate to2 = LocalDate.parse("2020-01-02");
+        LocalDate from3 = LocalDate.parse("2020-01-03");
+        LocalDate to3 = LocalDate.parse("2020-01-03");
         //then
-        assertThrows(NoRoomsAvailableException.class, () -> {
-            manager.createBooking("katya-id", from2, to2, 2);
-        });
+        assertTrue(room.doDateOverlap(from2, to2));
+        assertFalse(room.doDateOverlap(from3, to3));
     }
 
     @Test
@@ -84,19 +83,6 @@ public class RoomTest {
         //then
         assertEquals(2, room.countSleepingPlaces());
         assertEquals(0, room1.countSleepingPlaces());
-    }
-
-    @Test
-    public void testCreateBooking() {
-        //given
-        Room room = new Room();
-        Manager manager = new Manager("Pesho");
-        LocalDate from = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
-        LocalDate to = manager.stringToLocalDate("2020-01-02");
-        //when
-        room.createBooking("id", from, to);
-        //then
-        assertEquals(1, room.getBookings().size());
     }
 
     @Test
@@ -124,6 +110,21 @@ public class RoomTest {
         //then
         assertEquals(1, room.getMaintenanceDates().size());
         assertEquals(date, room.getMaintenanceDates().iterator().next());
+    }
+
+    @Test
+    public void testCreateBooking() {
+        //given
+        Room room = new Room();
+        LocalDate from = LocalDate.parse("2020-01-01");
+        LocalDate to = LocalDate.parse("2020-01-02");
+        //when
+        room.createBooking("id", from, to);
+        room.createBooking("id2", from, to);
+        Booking booking = new Booking("id2", from, to);
+        //then
+        assertEquals(booking, room.getBookings().iterator().next());
+        assertEquals(2, room.getBookings().size());
     }
 
     @Test
@@ -161,5 +162,29 @@ public class RoomTest {
         assertThrows(CommodityAlreadyBelongsToRoomException.class, () -> {
             room.addCommodity(toilet, hotel);
         });
+    }
+
+    @Test
+    public void testFindIfAvailable() {
+        //given
+        Room room = new Room();
+
+        LocalDate from = LocalDate.parse("2020-01-01");
+        LocalDate to = LocalDate.parse("2020-01-02");
+
+        LocalDate from1 = LocalDate.parse("2020-01-05");
+        LocalDate to1 = LocalDate.parse("2020-01-07");
+
+        room.createBooking("id", from, to);
+        room.createBooking("id2", from1, to1);
+        //when
+        LocalDate from2 = LocalDate.parse("2020-01-04");
+        LocalDate to2 = LocalDate.parse("2020-01-06");
+
+        LocalDate from3 = LocalDate.parse("2020-01-03");
+        LocalDate to3 = LocalDate.parse("2020-01-04");
+        //then
+        assertFalse(room.findIfAvailable(from2, to2, 0));
+        assertTrue(room.findIfAvailable(from3, to3, 0));
     }
 }

@@ -8,7 +8,7 @@ import java.util.Set;
  * Class main.java.eu.deltasource.internship.hotel.domain.Hotel is assigned to a manager. It's fields are:
  * main.java.eu.deltasource.internship.hotel.domain.Hotel's name
  * List of rooms of Class main.java.eu.deltasource.internship.hotel.domain.Room
- * roomNumCount is a static variable that saves the last assigned room number (in order to create unique room numbers)
+ * roomNumCount is a static variable that saves the last assigned commodity number (in order to create unique room numbers)
  */
 public class Hotel {
     private String name;
@@ -26,6 +26,7 @@ public class Hotel {
 
     /**
      * Hotel constructor
+     * commodityNumCount starts from 1 cuz you can't have 0 for inventory number
      *
      * @param name the name that will be assigned to the hotel
      */

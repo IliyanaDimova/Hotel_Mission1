@@ -99,11 +99,11 @@ class ManagerTest {
         //when
         LocalDate from = manager.stringToLocalDate("2020-01-01"); // Converts string to LocalDate
         LocalDate to = manager.stringToLocalDate("2020-01-02");
-        manager.createBooking("peter-id", from, to, 1);
+        int i = manager.createBooking("peter-id", from, to, 1);
         LocalDate from1 = manager.stringToLocalDate("2020-02-01"); // Converts string to LocalDate
         LocalDate to1 = manager.stringToLocalDate("2020-02-02");
         //then
-        assertEquals(1, manager.createBooking("peter-id", from, to, 1));
+        assertEquals(1, i); // The number of the booked toom is 1
         assertThrows(NoRoomsAvailableException.class, () -> {
             manager.createBooking("peter-id", from1, to1, 2);
         });

@@ -22,10 +22,14 @@ public class Booking {
      * @param from    date from which the guest want to book
      * @param to      date to which the guest want to book
      */
-    Booking(String guestId, LocalDate from, LocalDate to) {
+    public Booking(String guestId, LocalDate from, LocalDate to) {
         this.guestId = guestId;
         this.from = from;
         this.to = to;
+    }
+
+    public String getGuestId(){
+        return guestId;
     }
 
     /**

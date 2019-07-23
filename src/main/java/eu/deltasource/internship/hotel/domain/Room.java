@@ -126,7 +126,7 @@ public class Room {
      */
     public void createBooking(String guestId, LocalDate from, LocalDate to) throws TimeTravelException {
         LocalDate today = LocalDate.now();
-        if(from.isBefore(today)){
+        if (from.isBefore(today)) {
             throw new TimeTravelException("Humans can't time travel for now");
         }
         Booking booking = new Booking(guestId, from, to);
@@ -157,10 +157,9 @@ public class Room {
     public boolean findIfAvailable(LocalDate from, LocalDate to, int guests) {
         System.out.println("-->Started findIfAvailable for room# " + getNumber());
         int capacity = countSleepingPlaces();
-        System.out.println("###Capacity: " + capacity);
-        //if there are no bookings for the room OR from-to doesn't overlap with any booking intervals =>
-        //return true if (the capacity of the room is == guests wanting to stay)
-        if (bookings.isEmpty() || (!doDateOverlap(from, to))) {
+        System.out.println("Capacity =  " + capacity);
+        System.out.println("doDateOverlap =  " + !doDateOverlap(from, to));
+        if (!doDateOverlap(from, to)) {
             if (capacity == guests) {
                 System.out.println("!!!!!return true");
                 return true;
@@ -200,13 +199,13 @@ public class Room {
      * @return false if there are no overlaps, true if there are
      */
     public boolean doDateOverlap(LocalDate from, LocalDate to) {
-        int ovelapCount = 0;
+        int overlapCount = 0;
         for (Booking booking : bookings) {
             if (booking.checkIfDatesOverlap(from, to)) {
-                ovelapCount++;
+                overlapCount++;
             }
         }
-        if (ovelapCount == 0) {
+        if (overlapCount == 0) {
             return false;
         } else {
             return true;
