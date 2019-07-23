@@ -81,8 +81,8 @@ public class RoomTest {
         Bed bed = new Bed(BedType.DOUBLE);
         room.addCommodity(bed, hotel);
         //then
-        assertEquals(2, room.countSleepingPlaces());
-        assertEquals(0, room1.countSleepingPlaces());
+        assertEquals(2, room.getCapacity());
+        assertEquals(0, room1.getCapacity());
     }
 
     @Test
@@ -186,5 +186,18 @@ public class RoomTest {
         //then
         assertFalse(room.findIfAvailable(from2, to2, 0));
         assertTrue(room.findIfAvailable(from3, to3, 0));
+    }
+
+    @Test
+    public void testCapacity() {
+        //given
+        Hotel hotel = new Hotel();
+        hotel.addRoom(new Room());
+        //when
+        hotel.getRooms().iterator().next().addCommodity(new Bed(BedType.KINGSIZE), hotel);
+        hotel.getRooms().iterator().next().addCommodity(new Bed(BedType.SINGLE), hotel);
+        hotel.getRooms().iterator().next().addCommodity(new Bed(BedType.DOUBLE), hotel);
+        //then
+        assertEquals(5, hotel.getRooms().iterator().next().getCapacity());
     }
 }

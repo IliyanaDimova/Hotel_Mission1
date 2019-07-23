@@ -17,6 +17,7 @@ public class Room {
     private Set<AbstractCommodity> commoditySet;
     private Set<LocalDate> maintenanceDates;
     private Set<Booking> bookings;
+    private int capacity;
 
     /**
      * Empty Room constructor without number, not added to hotel yet
@@ -26,6 +27,11 @@ public class Room {
         commoditySet = new HashSet<>();
         maintenanceDates = new HashSet<>();
         bookings = new HashSet<>();
+        capacity = 0;
+    }
+
+    public int getCapacity(){
+        return capacity;
     }
 
     /**
@@ -38,12 +44,17 @@ public class Room {
         commoditySet = new HashSet<>();
         maintenanceDates = new HashSet<>();
         bookings = new HashSet<>();
+        capacity = 0;
     }
 
     //needs the hotel to access the static commodity number count
     public void setCommodities(Set<AbstractCommodity> set, Hotel hotel) {
         for (AbstractCommodity commodity : commoditySet) {
             addCommodity(commodity, hotel);
+            if(commodity instanceof Bed){
+                Bed bed = (Bed) commodity;
+                capacity += bed.getNumberOfPersona();
+            }
         }
     }
 
@@ -83,6 +94,10 @@ public class Room {
         if (commodity.getInventoryNumber() == 0) {
             commodity.setInventoryNumber(hotel.getCommodityNumCountAndIncrementIt());
             commoditySet.add(commodity);
+            if(commodity instanceof Bed){
+                Bed bed = (Bed) commodity;
+                capacity += bed.getNumberOfPersona();
+            }
         } else {
             throw new CommodityAlreadyBelongsToRoomException("This commodity already belongs to a room");
         }
@@ -156,7 +171,6 @@ public class Room {
      */
     public boolean findIfAvailable(LocalDate from, LocalDate to, int guests) {
         System.out.println("-->Started findIfAvailable for room# " + getNumber());
-        int capacity = countSleepingPlaces();
         System.out.println("Capacity =  " + capacity);
         System.out.println("doDateOverlap =  " + !doDateOverlap(from, to));
         if (!doDateOverlap(from, to)) {
@@ -172,23 +186,6 @@ public class Room {
             System.out.println("!!!!!returns: false");
             return false;
         }
-    }
-
-    /**
-     * Finds the capacity of the room
-     *
-     * @return number of sleeping places in a room
-     */
-    public int countSleepingPlaces() {
-        int sleepingPlaces = 0;
-        for (AbstractCommodity commodity : commoditySet) {
-            if (commodity instanceof Bed) {
-                Bed bed = (Bed) commodity;
-                System.out.println("bed.getNumberOfPersona() = " + bed.getNumberOfPersona());
-                sleepingPlaces += bed.getNumberOfPersona();
-            }
-        }
-        return sleepingPlaces;
     }
 
     /**
