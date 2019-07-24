@@ -21,37 +21,38 @@ public class Room {
     private int capacity;
 
     /**
-     * Empty Room constructor without number, not added to hotel yet
+     * Room constructor
+     *
+     * @param number           the room's unique number
+     * @param commodities      the set of commodities in the room
+     * @param maintenanceDates the set of dates the room has been prepared
+     * @param bookings         the set of Bookings for the room
+     * @param capacity         the capacity of the room
      */
-    public Room() {
-        number = 0;
-        commoditySet = new HashSet<>();
-        maintenanceDates = new HashSet<>();
-        bookings = new HashSet<>();
-        capacity = 0;
+    public Room(int number, Set<AbstractCommodity> commodities, Set<LocalDate> maintenanceDates, Set<Booking> bookings, int capacity) {
+        this.number = number;
+        this.commoditySet = commodities;
+        this.maintenanceDates = maintenanceDates;
+        this.bookings = bookings;
+        this.capacity = capacity;
+    }
+
+    /**
+     * Room constructor. Initializes all fields to null/0, but gives unique number to the room
+     *
+     * @param number the unique number of the room
+     */
+    public Room(int number) {
+        this(number, new HashSet<>(), new HashSet<>(), new HashSet<>(), 0);
     }
 
     public int getCapacity() {
         return capacity;
     }
 
-    /**
-     * Room constructor. Initializes all fields
-     *
-     * @param roomNumber the unique number of the room
-     */
-    public Room(int roomNumber) {
-        number = roomNumber;
-        commoditySet = new HashSet<>();
-        maintenanceDates = new HashSet<>();
-        bookings = new HashSet<>();
-        capacity = 0;
-    }
-
-    //needs the hotel to access the static commodity number count
-    public void setCommodities(Set<AbstractCommodity> set, Hotel hotel) {
-        for (AbstractCommodity commodity : commoditySet) {
-            addCommodity(commodity, hotel);
+    public void setCommodities(Set<AbstractCommodity> set) {
+        for (AbstractCommodity commodity : set) {
+            addCommodity(commodity);
             if (commodity instanceof Bed) {
                 Bed bed = (Bed) commodity;
                 capacity += bed.getNumberOfPersona();
@@ -81,22 +82,14 @@ public class Room {
 
     /**
      * Adds a new commodity to the room, creating unique number for it
-     * then increases the static commodityNumCount with 1 for the unique number of the next commodity to be added to the room
-     * It checks is the commodity already belongs to another room - if it does => throws exception
      *
      * @param commodity the commodity to be added
-     * @throws CommodityAlreadyBelongsToRoomException RuntimeException extender
      */
-    public void addCommodity(AbstractCommodity commodity, Hotel hotel) throws CommodityAlreadyBelongsToRoomException {
-        if (commodity.getInventoryNumber() == 0) {
-            commodity.setInventoryNumber(hotel.getCommodityNumCountAndIncrementIt());
-            commoditySet.add(commodity);
-            if (commodity instanceof Bed) {
-                Bed bed = (Bed) commodity;
-                capacity += bed.getNumberOfPersona();
-            }
-        } else {
-            throw new CommodityAlreadyBelongsToRoomException("This commodity already belongs to a room");
+    public void addCommodity(AbstractCommodity commodity) {
+        commoditySet.add(commodity);
+        if (commodity instanceof Bed) {
+            Bed bed = (Bed) commodity;
+            capacity += bed.getNumberOfPersona();
         }
     }
 
@@ -170,7 +163,6 @@ public class Room {
     public boolean findIfAvailable(LocalDate from, LocalDate to, int guests) {
         System.out.println("-->Started findIfAvailable for room# " + getNumber());
         System.out.println("Capacity =  " + capacity);
-        System.out.println("doDateOverlap =  " + !doDateOverlap(from, to));
         if (!doDateOverlap(from, to)) {
             if (capacity == guests) {
                 System.out.println("!!!!!return true");

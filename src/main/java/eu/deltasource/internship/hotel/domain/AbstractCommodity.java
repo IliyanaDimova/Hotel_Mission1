@@ -7,8 +7,8 @@ package eu.deltasource.internship.hotel.domain;
 public abstract class AbstractCommodity {
     protected int number;
 
-    public void setInventoryNumber(int commodityNum) {
-        number = commodityNum;
+    public void setInventoryNumber(int number) {
+        this.number = number;
     }
 
     public int getInventoryNumber() {

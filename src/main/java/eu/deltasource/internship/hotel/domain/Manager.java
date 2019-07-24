@@ -16,10 +16,21 @@ public class Manager {
     /**
      * Manager constructor
      *
-     * @param name the name of the manager
+     * @param name Manager's name
+     * @param hotel Manager's Hotel
+     */
+    public Manager(String name, Hotel hotel) {
+        this.name = name;
+        this.hotel = hotel;
+    }
+
+    /**
+     * Manager constructor. Calls the other Manager Constructor
+     *
+     * @param name Manager's name
      */
     public Manager(String name) {
-        this.name = name;
+        this(name, new Hotel(""));
     }
 
     public void assignHotel(Hotel hotel) {
@@ -32,20 +43,6 @@ public class Manager {
 
     public Hotel getHotel() {
         return hotel;
-    }
-
-    /**
-     * @return the assigned hotel's name
-     */
-    public String getHotelName() {
-        return hotel.getName();
-    }
-
-    /**
-     * @return the rooms that belong to manager's hotel
-     */
-    public Set<Room> getHotelRooms() {
-        return hotel.getRooms();
     }
 
     /**

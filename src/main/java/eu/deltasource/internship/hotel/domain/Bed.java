@@ -9,13 +9,13 @@ public class Bed extends AbstractCommodity {
 
     /**
      * Bed constructor
-     * enters empty number for commodity (it will be entered when the room is added to a room in a hotel)
      *
-     * @param bedType enum BedType
+     * @param number  inventory number
+     * @param bedType bed's type
      */
-    public Bed(BedType bedType) {
+    public Bed(int number, BedType bedType) {
         this.bedType = bedType;
-        number = 0;
+        this.number = number;
     }
 
     public int getNumberOfPersona() {

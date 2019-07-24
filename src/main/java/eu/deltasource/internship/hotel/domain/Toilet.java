@@ -7,10 +7,11 @@ public class Toilet extends AbstractCommodity {
 
     /**
      * Toilet constructor
-     * sets empty number for commodity, not yet added to a Room
+     *
+     * @param number inventory number
      */
-    public Toilet() {
-        number = 0;
+    public Toilet(int number) {
+        this.number = number;
     }
 
     public int getInventoryNumber() {

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RoomTest {
-
+/*
     @Test
     public void testRoomNumbers() {
         //given
@@ -197,5 +197,5 @@ public class RoomTest {
         hotel.getRooms().iterator().next().addCommodity(new Bed(BedType.DOUBLE), hotel);
         //then
         assertEquals(5, hotel.getRooms().iterator().next().getCapacity());
-    }
+    }*/
 }

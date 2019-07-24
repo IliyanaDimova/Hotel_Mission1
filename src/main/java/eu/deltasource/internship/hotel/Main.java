@@ -10,67 +10,64 @@ import java.time.LocalDate;
 public class Main {
 
     public static void main(String args[]) {
-        //Creats a manager
-        Manager manager = new Manager("Pesho Peshov");
-        //Creates new hotel named "Trivago"
-        Hotel hotel = new Hotel("Trivago");
+        UniqueRoomNumber rememberLastRoomNum = new UniqueRoomNumber();
+        UniqueCommodityNumber rememberLastCommodityNum = new UniqueCommodityNumber();
+        //Creats a manager "Pesho Peshov" managing Hotel "Trivago"
+        Manager manager = new Manager("Pesho Peshov", new Hotel("Trivago"));
 
         //Creates room#1 with:
-        Room room1 = new Room(hotel.getRoomNumCount());
-        //adds the room to the hotel
-        hotel.addRoom(room1);
+        Room room1 = new Room(rememberLastRoomNum.getRoomNumAndIncrement());
         // 1 toilet
-        Toilet toilet1 = new Toilet();
-        room1.addCommodity(toilet1, hotel);
+        Toilet toilet1 = new Toilet(rememberLastCommodityNum.getCommodityNumAndIncrement());
+        room1.addCommodity(toilet1);
         // 1 shower
-        Shower shower1 = new Shower();
-        room1.addCommodity(shower1, hotel);
+        Shower shower1 = new Shower(rememberLastCommodityNum.getCommodityNumAndIncrement());
+        room1.addCommodity(shower1);
         // 1 DOUBLE bed
-        Bed bed1 = new Bed(BedType.DOUBLE);
-        room1.addCommodity(bed1, hotel);
+        Bed bed1 = new Bed(rememberLastCommodityNum.getCommodityNumAndIncrement(), BedType.DOUBLE);
+        room1.addCommodity(bed1);
+        //adds the room to the hotel
+        manager.getHotel().addRoom(room1);
 
         //Creates room#2 with:
-        Room room2 = new Room(hotel.getRoomNumCount());
-        //adds the room to the hotel
-        hotel.addRoom(room2);
+        Room room2 = new Room(rememberLastRoomNum.getRoomNumAndIncrement());
         // 2 toilets
-        Toilet toilet2 = new Toilet();
-        room2.addCommodity(toilet2, hotel);
-        Toilet toilet3 = new Toilet();
-        room2.addCommodity(toilet3, hotel);
+        Toilet toilet2 = new Toilet(rememberLastCommodityNum.getCommodityNumAndIncrement());
+        room2.addCommodity(toilet2);
+        Toilet toilet3 = new Toilet(rememberLastCommodityNum.getCommodityNumAndIncrement());
+        room2.addCommodity(toilet3);
         // 1 shower
-        Shower shower2 = new Shower();
-        room2.addCommodity(shower2, hotel);
+        Shower shower2 = new Shower(rememberLastCommodityNum.getCommodityNumAndIncrement());
+        room2.addCommodity(shower2);
         // 2 SINGLE beds & 1 DOUBLE
-        Bed bed2 = new Bed(BedType.SINGLE);
-        room2.addCommodity(bed2, hotel);
-        Bed bed3 = new Bed(BedType.SINGLE);
-        room2.addCommodity(bed3, hotel);
-        Bed bed4 = new Bed(BedType.DOUBLE);
-        room2.addCommodity(bed4, hotel);
+        Bed bed2 = new Bed(rememberLastCommodityNum.getCommodityNumAndIncrement(), BedType.SINGLE);
+        room2.addCommodity(bed2);
+        Bed bed3 = new Bed(rememberLastCommodityNum.getCommodityNumAndIncrement(), BedType.SINGLE);
+        room2.addCommodity(bed3);
+        Bed bed4 = new Bed(rememberLastCommodityNum.getCommodityNumAndIncrement(), BedType.DOUBLE);
+        room2.addCommodity(bed4);
+        //adds the room to the hotel
+        manager.getHotel().addRoom(room2);
 
 
         //Creates room#3 with:
-        Room room3 = new Room(hotel.getRoomNumCount());
-        //adds the room to the hotel
-        hotel.addRoom(room3);
+        Room room3 = new Room(rememberLastRoomNum.getRoomNumAndIncrement());
         // 1 toilet
-        Toilet toilet4 = new Toilet();
-        room3.addCommodity(toilet4, hotel);
+        Toilet toilet4 = new Toilet(rememberLastCommodityNum.getCommodityNumAndIncrement());
+        room3.addCommodity(toilet4);
         // 1 shower
-        Shower shower3 = new Shower();
-        room3.addCommodity(shower3, hotel);
+        Shower shower3 = new Shower(rememberLastCommodityNum.getCommodityNumAndIncrement());
+        room3.addCommodity(shower3);
         // 1 SINGLE bed & 1 DOUBLE
-        Bed bed5 = new Bed(BedType.SINGLE);
-        room3.addCommodity(bed5, hotel);
-        Bed bed6 = new Bed(BedType.DOUBLE);
-        room3.addCommodity(bed6, hotel);
-
-        //Adds the hotel to the manager
-        manager.assignHotel(hotel);
+        Bed bed5 = new Bed(rememberLastCommodityNum.getCommodityNumAndIncrement(), BedType.SINGLE);
+        room3.addCommodity(bed5);
+        Bed bed6 = new Bed(rememberLastCommodityNum.getCommodityNumAndIncrement(), BedType.DOUBLE);
+        room3.addCommodity(bed6);
+        //adds the room to the hotel
+        manager.getHotel().addRoom(room3);
 
         //manager books room that meets the criteria for 2 guests 20-25Jul
-        LocalDate from = LocalDate.parse("2019-07-20"); // Converts string to LocalDate
+        LocalDate from = LocalDate.parse("2019-07-20");
         LocalDate to = LocalDate.parse("2019-07-25");
         int bookedRoomNum = manager.createBooking("9306236677", from, to, 2);
         System.out.println("Room #" + bookedRoomNum + " was booked from: " + from.toString() + " to: " + to.toString());

@@ -8,23 +8,29 @@ import java.util.Set;
  * Hotel is assigned to a manager. It's fields are:
  * Hotel's name
  * List of rooms of Room
- * roomNumCount is a static variable that saves the last assigned commodity number (in order to create unique room numbers)
  */
 public class Hotel {
     private String name;
     private Set<Room> rooms;
-    private static int commodityNumCount;
 
     /**
      * Hotel constructor
-     * commodityNumCount starts from 1 because you can't have 0 or "-" values for commodity's inventory number
      *
-     * @param name the name that will be assigned to the hotel (You can't create a hotel without a name)
+     * @param name  the name that will be assigned to the hotel (You can't create a hotel without a name)
+     * @param rooms the set of rooms to be added to the hotel
+     */
+    public Hotel(String name, Set<Room> rooms) {
+        this.name = name;
+        this.rooms = rooms;
+    }
+
+    /**
+     * Hotel constructor. Calls the other Hotel constructor
+     *
+     * @param name the name of the Hotel
      */
     public Hotel(String name) {
-        this.name = name;
-        rooms = new HashSet();
-        commodityNumCount = 1;
+        this(name, new HashSet<>());
     }
 
     /**
@@ -32,9 +38,9 @@ public class Hotel {
      *
      * @param numOfRooms the number of the rooms you want to add
      */
-    public void addRooms(int numOfRooms) {
+    public void addRooms(int numOfRooms, UniqueRoomNumber rememberLastRoomNum) {
         for (int i = 0; i < numOfRooms; i++) {
-            Room room = new Room(rooms.size() + 1);
+            Room room = new Room(rememberLastRoomNum.getRoomNumAndIncrement());
             rooms.add(room);
         }
     }
@@ -47,7 +53,7 @@ public class Hotel {
      */
     public void addSameCommodityToEveryRoom(AbstractCommodity commodity) {
         for (Room room : rooms) {
-            room.addCommodity(commodity, this);
+            room.addCommodity(commodity);
         }
     }
 
@@ -81,7 +87,7 @@ public class Hotel {
         return (rooms.size() + 1);
     }
 
-    public int getRoomCount() {
+    public int getRoomsSize() {
         return rooms.size();
     }
 
@@ -103,16 +109,6 @@ public class Hotel {
             }
         }
         return availableRooms;
-    }
-
-    /**
-     * returns commodityNumCount and increments it
-     *
-     * @return the last set inventory number of a commodity in the hotel
-     */
-    public int getCommodityNumCountAndIncrementIt() {
-        commodityNumCount++;
-        return (commodityNumCount - 1);
     }
 
 }
