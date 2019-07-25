@@ -39,9 +39,9 @@ public class RoomTest {
     public void testCreateBooking() {
         //given
         //when
-        room.createBooking("id", from1, to1);
-        room.createBooking("id2", from2, to2);
-        Booking booking = new Booking("id2", from2, to2);
+        room.createBooking("0123456789", from1, to1);
+        room.createBooking("0123456789", from2, to2);
+        Booking booking = new Booking("0123456789", from2, to2);
         //then
         assertEquals(booking, room.getBookings().iterator().next());
         assertEquals(2, room.getBookings().size());
@@ -51,8 +51,8 @@ public class RoomTest {
     public void testRemoveBooking() {
         //given
         //when
-        room.createBooking("id", from1, to1);
-        room.removeBooking("id", from1, to1);
+        room.createBooking("0123456789", from1, to1);
+        room.removeBooking("0123456789", from1, to1);
         //then
         assertEquals(0, room.getBookings().size());
     }
@@ -60,8 +60,8 @@ public class RoomTest {
     @Test
     public void testOverlapping() {
         //given
-        room.createBooking("id", from1, to1);
-        room.createBooking("id", from2, to2);
+        room.createBooking("0123456789", from1, to1);
+        room.createBooking("0123456789", from2, to2);
         //when
         LocalDate from3 = LocalDate.of(2020, 1, 6);
         LocalDate to3 = LocalDate.of(2020, 1, 6);
@@ -97,8 +97,8 @@ public class RoomTest {
     @Test
     public void testFindIfAvailableOverlapping() {
         //given
-        room.createBooking("id", from1, to1);
-        room.createBooking("id2", from2, to2);
+        room.createBooking("0123456789", from1, to1);
+        room.createBooking("0123456789", from2, to2);
         //when
         LocalDate from3 = LocalDate.of(2020, 1, 4);
         LocalDate to3 = LocalDate.of(2020, 1, 6);
@@ -113,8 +113,8 @@ public class RoomTest {
     @Test
     public void testFindIfAvailableCapacity() {
         //given
-        room.createBooking("id", from1, to1);
-        room.createBooking("id2", from2, to2);
+        room.createBooking("0123456789", from1, to1);
+        room.createBooking("0123456789", from2, to2);
         //when
         LocalDate from3 = LocalDate.of(2021, 1, 4);
         LocalDate to3 = LocalDate.of(2021, 1, 6);
@@ -137,7 +137,7 @@ public class RoomTest {
         //when
         //then
         assertThrows(TimeTravelException.class, () -> {
-            room.createBooking("peter-id", from, to);
+            room.createBooking("0123456789", from, to);
         });
     }
 

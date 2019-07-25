@@ -35,7 +35,7 @@ public class BookingTest {
     @Test
     public void testNonOverlappingDatesDoNotOverlap() {
         //given
-        Booking booking = new Booking("pesho-id", from, to);
+        Booking booking = new Booking("0123456789", from, to);
         //when
         LocalDate from = LocalDate.of(2020, 2, 1);
         LocalDate to = LocalDate.of(2020, 2, 1);

@@ -46,7 +46,7 @@ class ManagerTest {
     public void testBookedRoomNum() {
         //given
         //when
-        int bookedRoomNum = manager.createBooking("peter-id", from, to, 1);
+        int bookedRoomNum = manager.createBooking("0123456789", from, to, 1);
         //then
         assertEquals(1, bookedRoomNum);
     }
@@ -55,11 +55,11 @@ class ManagerTest {
     public void testThrowsNoRoomsAvailableExceptionOverlappingDate() {
         //given
         //when
-        int i = manager.createBooking("peter-id", from, to, 1);
+        int i = manager.createBooking("0123456789", from, to, 1);
         //then
         assertEquals(1, i); // The number of the booked toom is 1
         assertThrows(NoRoomsAvailableException.class, () -> {
-            manager.createBooking("peter-id", from, to, 1);
+            manager.createBooking("0123456789", from, to, 1);
         });
     }
 
@@ -69,10 +69,10 @@ class ManagerTest {
         LocalDate from1 = LocalDate.of(2020, 2, 5);
         LocalDate to1 = LocalDate.of(2020, 2, 7);
         //when
-        manager.createBooking("peter-id", from, to, 1);
+        manager.createBooking("0123456789", from, to, 1);
         //then
         assertThrows(NoRoomsAvailableException.class, () -> {
-            manager.createBooking("katya-id", from1, to1, 2);
+            manager.createBooking("0123456789", from1, to1, 2);
         });
     }
 

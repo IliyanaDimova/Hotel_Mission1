@@ -69,19 +69,19 @@ public class Main {
         //manager books room that meets the criteria for 2 guests 20-25Jul
         LocalDate from = LocalDate.of(2020, 7, 20);
         LocalDate to = LocalDate.of(2020, 7, 25);
-        int bookedRoomNum = manager.createBooking("9306236677", from, to, 2);
+        int bookedRoomNum = manager.createBooking("0123456789", from, to, 2);
         System.out.println("Room #" + bookedRoomNum + " was booked from: " + from.toString() + " to: " + to.toString());
 
         //manager books room that meets the criteria for 1 guest 22Jul
         from = LocalDate.of(2020, 7, 22);
         to = LocalDate.of(2020, 7, 22);
-        bookedRoomNum = manager.createBooking("8901305687", from, to, 3);
+        bookedRoomNum = manager.createBooking("0123456789", from, to, 3);
         System.out.println("Room #" + bookedRoomNum + " was booked from: " + from.toString() + " to: " + to.toString());
 
         //manager books room that meets the criteria for 2 guests 19-21Jul
         from = LocalDate.of(2020, 7, 19);
         to = LocalDate.of(2020, 7, 21);
-        bookedRoomNum = manager.createBooking("9803225785", from, to, 4);
+        bookedRoomNum = manager.createBooking("0123456789", from, to, 4);
         System.out.println("Room #" + bookedRoomNum + " was booked from: " + from.toString() + " to: " + to.toString());
     }
 }
