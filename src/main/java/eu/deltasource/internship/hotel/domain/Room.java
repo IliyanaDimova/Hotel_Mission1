@@ -46,6 +46,10 @@ public class Room {
         this(number, new HashSet<>(), new HashSet<>(), new HashSet<>(), 0);
     }
 
+    public void setCapacity(int capacity){
+        this.capacity = capacity;
+    }
+
     public int getCapacity() {
         return capacity;
     }

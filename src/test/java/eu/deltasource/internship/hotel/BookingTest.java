@@ -37,8 +37,8 @@ public class BookingTest {
         //given
         Booking booking = new Booking("pesho-id", from, to);
         //when
-        LocalDate from = LocalDate.of(2020, 2, 16);
-        LocalDate to = LocalDate.of(2020, 2, 17);
+        LocalDate from = LocalDate.of(2020, 2, 1);
+        LocalDate to = LocalDate.of(2020, 2, 1);
         //then
         assertFalse(booking.checkIfDatesOverlap(from, to));
     }

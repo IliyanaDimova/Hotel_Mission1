@@ -28,21 +28,6 @@ public class HotelTest {
         assertFalse(hotel.getRooms().containsKey(102));
     }
 
-    //Incorrect
-    @Test
-    public void testAddSameCommodityForAllRooms() {
-        //given
-        UniqueRoomNumber roomNum = new UniqueRoomNumber();
-        hotel.addRooms(5, roomNum);
-        //when
-        Shower shower = new Shower(1);
-        hotel.addSameCommodityToEveryRoom(shower);
-        //then
-        System.out.println(hotel.getRooms().get(3).getCommodities().iterator().next());
-        Shower s = new Shower(3);
-        assertEquals(s, hotel.getRooms().get(3).getCommodities().iterator().next());
-    }
-
     @Test
     public void testFindAvailableRooms() {
         //given

@@ -1,6 +1,7 @@
 package eu.deltasource.internship.hotel;
 
 import eu.deltasource.internship.hotel.domain.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -8,6 +9,19 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RoomTest {
+    private Room room = new Room(1);
+    private LocalDate from1 = LocalDate.of(2020, 1, 1);
+    private LocalDate to1 = LocalDate.of(2020, 1, 2);
+    private LocalDate from2 = LocalDate.of(2020, 1, 5);
+    private LocalDate to2 = LocalDate.of(2020, 1, 7);
+
+    @BeforeEach
+    public void beforeEach(){
+        room.getBookings().clear();
+        room.setCapacity(0);
+        room.getMaintenanceDates().clear();
+        room.getCommodities().clear();
+    }
 
     @Test
     public void testRoomNumbers() {
@@ -24,11 +38,6 @@ public class RoomTest {
     @Test
     public void testCreateBooking() {
         //given
-        Room room = new Room(1);
-        LocalDate from1 = LocalDate.of(2020, 1, 1);
-        LocalDate to1 = LocalDate.of(2020, 1, 2);
-        LocalDate from2 = LocalDate.of(2020, 1, 5);
-        LocalDate to2 = LocalDate.of(2020, 1, 7);
         //when
         room.createBooking("id", from1, to1);
         room.createBooking("id2", from2, to2);
@@ -41,9 +50,6 @@ public class RoomTest {
     @Test
     public void testRemoveBooking() {
         //given
-        Room room = new Room(1);
-        LocalDate from1 = LocalDate.of(2020, 1, 1);
-        LocalDate to1 = LocalDate.of(2020, 1, 2);
         //when
         room.createBooking("id", from1, to1);
         room.removeBooking("id", from1, to1);
@@ -54,11 +60,6 @@ public class RoomTest {
     @Test
     public void testOverlapping() {
         //given
-        Room room = new Room(1);
-        LocalDate from1 = LocalDate.of(2020, 1, 1);
-        LocalDate to1 = LocalDate.of(2020, 1, 2);
-        LocalDate from2 = LocalDate.of(2020, 1, 5);
-        LocalDate to2 = LocalDate.of(2020, 1, 7);
         room.createBooking("id", from1, to1);
         room.createBooking("id", from2, to2);
         //when
@@ -74,21 +75,18 @@ public class RoomTest {
     @Test
     public void testCapacity() {
         //given
-        Room room1 = new Room(1);
         Room room2 = new Room(2);
         //when
         Bed bed = new Bed(1, BedType.DOUBLE);
-        room1.addCommodity(bed);
+        room.addCommodity(bed);
         //then
-        assertEquals(2, room1.getCapacity());
+        assertEquals(2, room.getCapacity());
         assertEquals(0, room2.getCapacity());
     }
 
     @Test
     public void testAddMaintenanceDate() {
         //given
-        Room room = new Room(1);
-        LocalDate from1 = LocalDate.of(2020, 1, 1);
         //when
         room.addMaintenanceDate(from1);
         //then
@@ -97,16 +95,8 @@ public class RoomTest {
     }
 
     @Test
-    public void testFindIfAvailable() {
+    public void testFindIfAvailableOverlapping() {
         //given
-        Room room = new Room(1);
-
-        LocalDate from1 = LocalDate.of(2020, 1, 1);
-        LocalDate to1 = LocalDate.of(2020, 1, 2);
-
-        LocalDate from2 = LocalDate.of(2020, 1, 5);
-        LocalDate to2 = LocalDate.of(2020, 1, 7);
-
         room.createBooking("id", from1, to1);
         room.createBooking("id2", from2, to2);
         //when
@@ -121,11 +111,26 @@ public class RoomTest {
     }
 
     @Test
+    public void testFindIfAvailableCapacity() {
+        //given
+        room.createBooking("id", from1, to1);
+        room.createBooking("id2", from2, to2);
+        //when
+        LocalDate from3 = LocalDate.of(2021, 1, 4);
+        LocalDate to3 = LocalDate.of(2021, 1, 6);
+
+        LocalDate from4 = LocalDate.of(2021, 1, 3);
+        LocalDate to4 = LocalDate.of(2021, 1, 4);
+        //then
+        assertFalse(room.findIfAvailable(from3, to3, 3));
+        assertTrue(room.findIfAvailable(from4, to4, 0));
+    }
+
+    @Test
     public void testTimeTravelException() {
         LocalDate from = LocalDate.of(789, 1, 1);
         LocalDate to = LocalDate.of(789, 1, 2);
         //given
-        Room room = new Room(1);
         //room with 1 single bed
         Bed bed = new Bed(1, BedType.SINGLE);
         room.addCommodity(bed);

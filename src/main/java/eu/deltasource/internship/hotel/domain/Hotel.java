@@ -45,23 +45,6 @@ public class Hotel {
         }
     }
 
-    /**
-     * Adds one commodity in every room in the hotel assigning unique inventory number to every single one
-     * It will be handy to add a shower to every room in one move instead of adding the same shower to every single room
-     *
-     * @param commodity the commodity to be added to every room
-     */
-    public void addSameCommodityToEveryRoom(AbstractCommodity commodity) {
-        UniqueCommodityNumber comNum = new UniqueCommodityNumber();
-        Iterator entries = rooms.entrySet().iterator();
-        while (entries.hasNext()) {
-            Map.Entry entry = (Map.Entry) entries.next();
-            Room value = (Room) entry.getValue();
-            commodity.setInventoryNumber(comNum.getCommodityNumAndIncrement());
-            value.addCommodity(commodity);
-        }
-    }
-
     public void setName(String name) {
         this.name = name;
     }
