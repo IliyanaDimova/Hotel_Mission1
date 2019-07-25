@@ -45,6 +45,21 @@ public class Hotel {
         }
     }
 
+    /**
+     * Gets s room by given number
+     *
+     * @param number the given number
+     * @return the room with the given number
+     * @throws RoomDoesNotExistException if room with the given number doesn't exist
+     */
+    public Room getRoomByNum(int number) throws RoomDoesNotExistException {
+        if (!rooms.containsKey(number)) {
+
+            throw new RoomDoesNotExistException("Room with this number doesn't exist!");
+        }
+        return rooms.get(number);
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -69,10 +84,6 @@ public class Hotel {
 
     public Map<Integer, Room> getRooms() {
         return rooms;
-    }
-
-    public int getRoomNumCount() {
-        return (rooms.size() + 1);
     }
 
     public int getRoomsSize() {

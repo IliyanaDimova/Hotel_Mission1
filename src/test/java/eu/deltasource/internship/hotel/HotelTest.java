@@ -31,7 +31,7 @@ public class HotelTest {
     @Test
     public void testFindAvailableRooms() {
         //given
-        Room room = new Room(hotel.getRoomNumCount());
+        Room room = new Room(1);
         Bed bed = new Bed(1, BedType.SINGLE);
         room.addCommodity(bed);
         hotel.addRoom(room);
@@ -42,4 +42,16 @@ public class HotelTest {
         assertEquals(room, hotel.findAvailableRooms(from, to, 1).iterator().next());
         assertEquals(0, hotel.findAvailableRooms(from, to, 2).size());
     }
+
+    @Test
+    public void testGetRoomByNumException(){
+        //given
+        UniqueRoomNumber roomNum = new UniqueRoomNumber();
+        //when
+        hotel.addRooms(5, roomNum);
+        //then
+        assertEquals(5, hotel.getRoomByNum(5).getNumber());
+        assertThrows(RoomDoesNotExistException.class, () -> {
+            hotel.getRoomByNum(6);
+        });    }
 }
