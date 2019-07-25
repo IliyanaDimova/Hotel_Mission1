@@ -16,7 +16,7 @@ public class Manager {
     /**
      * Manager constructor
      *
-     * @param name Manager's name
+     * @param name  Manager's name
      * @param hotel Manager's Hotel
      */
     public Manager(String name, Hotel hotel) {
@@ -56,6 +56,7 @@ public class Manager {
      * @throws Exception if room wasn't booked
      */
     public int createBooking(String guestId, LocalDate from, LocalDate to, int capacity) throws NoRoomsAvailableException {
+        checkIntervalCCorrectness(from, to);
         System.out.println("\n\n\ncreateBooking started for " + from + " - " + to + " -->");
         Set<Room> availableRooms;
         availableRooms = hotel.findAvailableRooms(from, to, capacity);
@@ -66,6 +67,19 @@ public class Manager {
             throw new NoRoomsAvailableException("There are no available rooms for " + capacity + " people from: " + from.toString() + " to: " + to.toString());
         }
         return availableRooms.iterator().next().getNumber();
+    }
+
+    /**
+     * Checks if from<=to
+     *
+     * @param from start date
+     * @param to   end date
+     * @throws IncorrectIntervalException if from starts after to
+     */
+    private void checkIntervalCCorrectness(LocalDate from, LocalDate to) throws IncorrectIntervalException {
+        if (from.isAfter(to)) {
+            throw new IncorrectIntervalException("Date interval is not correct");
+        }
     }
 
 }

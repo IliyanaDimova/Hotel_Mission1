@@ -8,12 +8,12 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BookingTest {
+    private LocalDate from = LocalDate.of(2020, 1, 15);
+    private LocalDate to = LocalDate.of(2020, 1, 16);
 
     @Test
     public void testGuestId() {
         //given
-        LocalDate from = LocalDate.parse("2020-01-01");
-        LocalDate to = LocalDate.parse("2020-01-03");
         Booking booking = new Booking("pesho-id", from, to);
         //when
         String id = "pesho-id";
@@ -22,27 +22,23 @@ public class BookingTest {
     }
 
     @Test
-    public void testAssertDatesOverlap() {
+    public void testOverlappingDatesOverlap() {
         //given
-        LocalDate from = LocalDate.parse("2020-01-15");
-        LocalDate to = LocalDate.parse("2020-01-16");
         Booking booking = new Booking("pesho-id", from, to);
         //when
-        from = LocalDate.parse("2020-01-16");
-        to = LocalDate.parse("2020-01-17");
+        LocalDate from1 = LocalDate.of(2020, 1, 16);
+        LocalDate to1 = LocalDate.of(2020, 1, 17);
         //then
-        assertTrue(booking.checkIfDatesOverlap(from, to));
+        assertTrue(booking.checkIfDatesOverlap(from1, to1));
     }
 
     @Test
-    public void testAssertDatesDoNotOverlap() {
+    public void testNonOverlappingDatesDoNotOverlap() {
         //given
-        LocalDate from = LocalDate.parse("2020-01-11");
-        LocalDate to = LocalDate.parse("2020-01-21");
         Booking booking = new Booking("pesho-id", from, to);
         //when
-        from = LocalDate.parse("2020-01-22");
-        to = LocalDate.parse("2020-01-23");
+        LocalDate from = LocalDate.of(2020, 2, 16);
+        LocalDate to = LocalDate.of(2020, 2, 17);
         //then
         assertFalse(booking.checkIfDatesOverlap(from, to));
     }

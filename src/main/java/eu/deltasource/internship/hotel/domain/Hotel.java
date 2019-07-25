@@ -1,8 +1,7 @@
 package eu.deltasource.internship.hotel.domain;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Hotel is assigned to a manager. It's fields are:
@@ -11,7 +10,7 @@ import java.util.Set;
  */
 public class Hotel {
     private String name;
-    private Set<Room> rooms;
+    private Map rooms;
 
     /**
      * Hotel constructor
@@ -19,7 +18,7 @@ public class Hotel {
      * @param name  the name that will be assigned to the hotel (You can't create a hotel without a name)
      * @param rooms the set of rooms to be added to the hotel
      */
-    public Hotel(String name, Set<Room> rooms) {
+    public Hotel(String name, Map rooms) {
         this.name = name;
         this.rooms = rooms;
     }
@@ -30,7 +29,7 @@ public class Hotel {
      * @param name the name of the Hotel
      */
     public Hotel(String name) {
-        this(name, new HashSet<>());
+        this(name, new HashMap<Integer, Room>());
     }
 
     /**
@@ -41,7 +40,7 @@ public class Hotel {
     public void addRooms(int numOfRooms, UniqueRoomNumber rememberLastRoomNum) {
         for (int i = 0; i < numOfRooms; i++) {
             Room room = new Room(rememberLastRoomNum.getRoomNumAndIncrement());
-            rooms.add(room);
+            rooms.put(room.getNumber(), room);
         }
     }
 
@@ -52,8 +51,11 @@ public class Hotel {
      * @param commodity the commodity to be added to every room
      */
     public void addSameCommodityToEveryRoom(AbstractCommodity commodity) {
-        for (Room room : rooms) {
-            room.addCommodity(commodity);
+        Iterator entries = rooms.entrySet().iterator();
+        while (entries.hasNext()) {
+            Map.Entry entry = (Map.Entry) entries.next();
+            Room value = (Room)entry.getValue();
+            value.addCommodity(commodity);
         }
     }
 
@@ -72,14 +74,14 @@ public class Hotel {
      */
     public void addRoom(Room room) {
         room.setNumber(rooms.size() + 1);
-        rooms.add(room);
+        rooms.put(room.getNumber(), room);
     }
 
-    public void setRooms(Set<Room> givenRooms) {
+    public void setRooms(Map<Integer, Room> givenRooms) {
         rooms = givenRooms;
     }
 
-    public Set<Room> getRooms() {
+    public Map<Integer, Room> getRooms() {
         return rooms;
     }
 
@@ -102,10 +104,12 @@ public class Hotel {
     public Set<Room> findAvailableRooms(LocalDate from, LocalDate to, int capacity) {
         System.out.println("\n--> findAvailableRooms started");
         Set<Room> availableRooms = new HashSet<>();
-        for (Room room : this.getRooms()) {
-            System.out.println("\n~~~looping room# " + room.getNumber());
-            if (room.findIfAvailable(from, to, capacity)) {
-                availableRooms.add(room);
+        Iterator entries = rooms.entrySet().iterator();
+        while (entries.hasNext()) {
+            Map.Entry entry = (Map.Entry) entries.next();
+            Room value = (Room)entry.getValue();
+            if (value.findIfAvailable(from, to, capacity)) {
+                availableRooms.add(value);
             }
         }
         return availableRooms;
