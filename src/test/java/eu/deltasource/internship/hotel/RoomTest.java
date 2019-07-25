@@ -128,9 +128,9 @@ public class RoomTest {
 
     @Test
     public void testTimeTravelException() {
+        //given
         LocalDate from = LocalDate.of(789, 1, 1);
         LocalDate to = LocalDate.of(789, 1, 2);
-        //given
         //room with 1 single bed
         Bed bed = new Bed(1, BedType.SINGLE);
         room.addCommodity(bed);
@@ -138,6 +138,25 @@ public class RoomTest {
         //then
         assertThrows(TimeTravelException.class, () -> {
             room.createBooking("peter-id", from, to);
+        });
+    }
+
+    @Test
+    public void testCheckGuestIdThrowsException(){
+        //given
+        String correct = "0123456789";
+        String incorrect1 = "12345678989777";
+        String incorrect2 = "0123456c89";
+        //when
+        //then
+        assertDoesNotThrow( () -> {
+            room.checkGuestId(correct);
+        });
+        assertThrows(IncorrectGuestIdException.class, () -> {
+            room.checkGuestId(incorrect1);
+        });
+        assertThrows(IncorrectGuestIdException.class, () -> {
+            room.checkGuestId(incorrect2);
         });
     }
 }

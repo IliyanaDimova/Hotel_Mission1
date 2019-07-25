@@ -46,7 +46,7 @@ public class Room {
         this(number, new HashSet<>(), new HashSet<>(), new HashSet<>(), 0);
     }
 
-    public void setCapacity(int capacity){
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
@@ -135,6 +135,7 @@ public class Room {
      * @throws TimeTravelException (RuntimeException Extender) if from starts before today's date
      */
     public void createBooking(String guestId, LocalDate from, LocalDate to) throws TimeTravelException {
+        checkGuestId(guestId);
         LocalDate today = LocalDate.now();
         if (from.isBefore(today)) {
             throw new TimeTravelException("Humans can't time travel for now");
@@ -142,6 +143,31 @@ public class Room {
         Booking booking = new Booking(guestId, from, to);
         bookings.add(booking);
         prepareCommodities(from);
+    }
+
+    /**
+     * Checks if guests ID is correct (10 numeric characters)
+     *
+     * @param guestId the String to be checked
+     * @throws IncorrectGuestIdException if the ID is incorrect
+     */
+    public void checkGuestId(String guestId) throws IncorrectGuestIdException {
+        if ((guestId.length() != 10) || !(stringIsNumeric(guestId))) {
+            throw new IncorrectGuestIdException("Guest ID is incorrectly entered!");
+        }
+    }
+
+    /**
+     * Checks is a string is numeric
+     *
+     * @param string the String to be checked
+     * @return true if it's numeric, else if it contains other characters
+     */
+    private boolean stringIsNumeric(String string) {
+        for (char c : string.toCharArray()) {
+            if (!Character.isDigit(c)) return false;
+        }
+        return true;
     }
 
     /**
