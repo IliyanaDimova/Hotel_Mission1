@@ -30,10 +30,10 @@ public class Manager {
      * @param name Manager's name
      */
     public Manager(String name) {
-        this(name, new Hotel(""));
+        this(name, new Hotel(new String()));
     }
 
-    public void assignHotel(Hotel hotel) {
+    public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
 

@@ -6,17 +6,17 @@ import java.util.*;
 /**
  * Hotel is assigned to a manager. It's fields are:
  * Hotel's name
- * List of rooms of Room
+ * Map of Room with key room's number
  */
 public class Hotel {
     private String name;
-    private Map rooms;
+    private Map<Integer, Room> rooms;
 
     /**
      * Hotel constructor
      *
      * @param name  the name that will be assigned to the hotel (You can't create a hotel without a name)
-     * @param rooms the set of rooms to be added to the hotel
+     * @param rooms the Map of rooms to be added to the hotel
      */
     public Hotel(String name, Map rooms) {
         this.name = name;
@@ -24,7 +24,7 @@ public class Hotel {
     }
 
     /**
-     * Hotel constructor. Calls the other Hotel constructor
+     * Hotel constructor. Calls the other Hotel constructor, initializing empty rooms
      *
      * @param name the name of the Hotel
      */
@@ -35,7 +35,8 @@ public class Hotel {
     /**
      * Add numOfRooms rooms to a hotel. It gives the rooms their unique number using the size of room's Set + 1 (because you can't have 0 for a room number)
      *
-     * @param numOfRooms the number of the rooms you want to add
+     * @param numOfRooms          the number of the rooms you want to add
+     * @param rememberLastRoomNum generates unique room numbers (remembers the last given room number)
      */
     public void addRooms(int numOfRooms, UniqueRoomNumber rememberLastRoomNum) {
         for (int i = 0; i < numOfRooms; i++) {
@@ -51,10 +52,12 @@ public class Hotel {
      * @param commodity the commodity to be added to every room
      */
     public void addSameCommodityToEveryRoom(AbstractCommodity commodity) {
+        UniqueCommodityNumber comNum = new UniqueCommodityNumber();
         Iterator entries = rooms.entrySet().iterator();
         while (entries.hasNext()) {
             Map.Entry entry = (Map.Entry) entries.next();
-            Room value = (Room)entry.getValue();
+            Room value = (Room) entry.getValue();
+            commodity.setInventoryNumber(comNum.getCommodityNumAndIncrement());
             value.addCommodity(commodity);
         }
     }
@@ -107,7 +110,7 @@ public class Hotel {
         Iterator entries = rooms.entrySet().iterator();
         while (entries.hasNext()) {
             Map.Entry entry = (Map.Entry) entries.next();
-            Room value = (Room)entry.getValue();
+            Room value = (Room) entry.getValue();
             if (value.findIfAvailable(from, to, capacity)) {
                 availableRooms.add(value);
             }
