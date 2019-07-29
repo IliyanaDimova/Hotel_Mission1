@@ -1,4 +1,9 @@
+//IntelliJ generated:
 /out/
 /.idea/
-Hotel_Mission1.iml
+
+//Maven generated:
 target/
+
+Hotel_Mission1.iml
+*.iml
